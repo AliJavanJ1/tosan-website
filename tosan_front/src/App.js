@@ -1,17 +1,13 @@
 import {
-    BrowserRouter,
-    Switch,
-    Route,
+    BrowserRouter, Route, Routes
 } from "react-router-dom";
 
 function App() {
   return (
       <BrowserRouter>
-          <Switch>
-              {/*<Route exact path="/">*/}
-              {/*    <Home />*/}
-              {/*</Route>*/}
-          </Switch>
+          <Routes>
+              <Route path={'/'} element={<>hi</>}/>
+          </Routes>
       </BrowserRouter>
   );
 }
