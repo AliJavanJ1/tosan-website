@@ -11,3 +11,40 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'IRANSansXBlack';
+  src: url('./fonts/IRANSansXBlack.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'IRANSansXBold';
+  src: url('./fonts/IRANSansXBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'IRANSansXDemiBold';
+  src: url('./fonts/IRANSansXDemiBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'IRANSansXExtraBold';
+  src: url('./fonts/IRANSansXExtraBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'IRANSansXLight';
+  src: url('./fonts/IRANSansXLight.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'IRANSansXMedium';
+  src: url('./fonts/IRANSansXMedium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'IRANSansXRegular';
+  src: url('./fonts/IRANSansXRegular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'IRANSansXThin';
+  src: url('./fonts/IRANSansXThin.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'IRANSansXUltraLight';
+  src: url('./fonts/IRANSansXUltraLight.ttf') format('truetype');
+}
