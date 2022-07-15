@@ -3,13 +3,13 @@ import {
 } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import {red} from "@mui/material/colors";
 import {Typography} from "@mui/material";
 import {Header} from "./components/header";
 import {CacheProvider} from "@emotion/react";
 import {prefixer} from "stylis";
 import rtlPlugin from 'stylis-plugin-rtl';
 import createCache from '@emotion/cache';
+import Footer from "./components/Footer";
 import {useEffect} from "react";
 import {fetchAppData} from "./redux/appSlice";
 
@@ -70,11 +70,6 @@ const theme = createTheme({
             fontFamily: 'IRANSansXUltraLight',
         },
     },
-    components: {
-        MuiCssBaseline: {
-
-        },
-    },
 });
 
 function App() {
@@ -91,6 +86,7 @@ function App() {
                   <Routes>
                       <Route path={'/'} element={<Typography></Typography>}/>
                   </Routes>
+                  <Footer />
               </BrowserRouter>
           </ThemeProvider>
       </CacheProvider>
