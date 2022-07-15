@@ -1,7 +1,7 @@
 import {
     BrowserRouter, Route, Routes
 } from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {red} from "@mui/material/colors";
 import {Typography} from "@mui/material";
@@ -10,6 +10,8 @@ import {CacheProvider} from "@emotion/react";
 import {prefixer} from "stylis";
 import rtlPlugin from 'stylis-plugin-rtl';
 import createCache from '@emotion/cache';
+import {useEffect} from "react";
+import {fetchAppData} from "./redux/appSlice";
 
 
 const cacheRtl = createCache({
@@ -21,8 +23,22 @@ const theme = createTheme({
     direction: 'rtl',
     palette: {
         primary: {
-            main: red[500],
+            main: `#7f8d9e`,
+            shade1: `#7f8d9e`,
+            // shade2: ,
+            // shade3: ,
+            shade4: `#001b3e`,
         },
+        grey: {
+            shade1: `#c2c7ce`,
+            shade3: `#888888`,
+            shade4: `#383838`,
+        },
+        white: {
+            shade1: `#f2f2f2`,
+            shade2: `#f7f7f7`,
+            shade3: `#ffffff`,
+        }
     },
     typography: {
         fontFamily: 'IRANSansXRegular',
@@ -62,8 +78,10 @@ const theme = createTheme({
 });
 
 function App() {
-    const temp = useSelector((state)=> state.app)
-    // console.log(temp)
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(fetchAppData())
+    }, [dispatch])
 
   return (
       <CacheProvider value={cacheRtl}>
