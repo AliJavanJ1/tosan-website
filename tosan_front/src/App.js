@@ -49,7 +49,7 @@ const theme = createTheme({
     },
     typography: {
         fontFamily: 'IRANSansXRegular',
-        fontSize: "14px",
+        fontSize: 14,
         extraBold: {
             fontFamily: 'IRANSansXExtraBold',
             fontSize: 28,
