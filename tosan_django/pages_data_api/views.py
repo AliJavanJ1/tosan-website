@@ -1,0 +1,42 @@
+from rest_framework import status
+from rest_framework.decorators import api_view, parser_classes
+from rest_framework.response import Response
+from .models import *
+from company_data.models import *
+from company_data.serializers import *
+from .serializers import *
+from django.urls import reverse
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from django.http import JsonResponse
+from dataresolve.serializers import *
+from dataresolve.models import MainPageProductData
+
+
+# Create your views here.
+@api_view(['GET'])
+@parser_classes([JSONParser])
+def get_main_page_data(request):
+    general_data = GeneralPagesData.objects.all()
+    general_data_srl = PageSerializer(general_data, many=True)
+
+    all_main_products = ProductCategories.objects.filter(category_type='main')
+    all_main_products_srl = MainCategorySerializer(all_main_products, many=True)
+
+    product_images = MainPageProductData.objects.all()
+    product_images_srl = MainPageProductDataImageSerializer(product_images, many=True)
+
+    all_products = ProductNames.objects.all()
+    all_products_srl = AllProductsSerializer(all_products, many=True)
+
+    employees = Employee.objects.all()
+    all_employees_srl = EmployeeSerializer(employees, many=True)
+
+    subsidiaries = Subsidiary.objects.all()
+    subsidiaries_srl = SubsidiaryMainPageSerializer(subsidiaries, many=True)
+    return JsonResponse({"general_data": general_data_srl.data,
+                         "main_product": product_images_srl.data,
+                         "all_products": all_products_srl.data,
+                         "employees": all_employees_srl.data,
+                         "subsidiaries": subsidiaries_srl.data
+                         }, safe=False, json_dumps_params={'ensure_ascii': False})
