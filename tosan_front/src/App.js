@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import {useEffect} from "react";
 import {fetchAppData} from "./redux/appSlice";
 import {LinkBehavior} from "./components/linkBehavior"
+import PhoneCall from "./components/PhoneCall";
 
 
 const cacheRtl = createCache({
@@ -113,7 +114,8 @@ function App() {
               <BrowserRouter>
                   <Header/>
                   <Routes>
-                      <Route path={'/'} element={<Typography></Typography>}/>
+                      <Route exact path={'/'} element={<Typography></Typography>}/>
+                      <Route path='/call/:number' element={<PhoneCall />}/>
                   </Routes>
                   <Footer />
               </BrowserRouter>

@@ -5,7 +5,7 @@ function Phone({number, color}) {
     const pre_number = number.slice(0, 3)
     const main_number = number.slice(3)
     return (
-        <Link href={"tel:" + number} underline="none">
+        <Link href={"call/" + number} underline="none">
             <Grid
                 container
                 direction="row"
