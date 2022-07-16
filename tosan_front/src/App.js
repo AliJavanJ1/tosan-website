@@ -29,8 +29,14 @@ const theme = createTheme({
             // shade3: ,
             shade4: `#001b3e`,
         },
+        secondary: {
+            main: `#D8CE9D`,
+            shade1: `#D3C68B`,
+            shade2: `#CDBE78`
+        },
         grey: {
             shade1: `#c2c7ce`,
+            shade2: `#c4c4c4`,
             shade3: `#888888`,
             shade4: `#383838`,
         },
@@ -42,32 +48,42 @@ const theme = createTheme({
     },
     typography: {
         fontFamily: 'IRANSansXRegular',
-        black: {
-            fontFamily: 'IRANSansXBlack',
+        fontSize: "14px",
+        extraBold: {
+            fontFamily: 'IRANSansXExtraBold',
+            fontSize: 28,
+            lineHeight: "42px",
         },
         bold: {
             fontFamily: 'IRANSansXBold',
+            fontSize: 24,
+            lineHeight: "36px",
+        },
+        demiBold1X: {
+            fontFamily: 'IRANSansXDemiBold',
+            fontSize: 18,
+            lineHeight: "27px",
+
         },
         demiBold: {
             fontFamily: 'IRANSansXDemiBold',
+            fontSize: 16,
+            lineHeight: "24px",
         },
-        extraBold: {
-            fontFamily: 'IRANSansXExtraBold',
-        },
-        light: {
-            fontFamily: 'IRANSansXLight',
+        demiBoldS: {
+            fontFamily: 'IRANSansXDemiBold',
+            fontSize: 14,
+            lineHeight: "21px",
         },
         medium: {
             fontFamily: 'IRANSansXMedium',
+            fontSize: 16,
+            lineHeight: "24px",
         },
         regular: {
             fontFamily: 'IRANSansXRegular',
-        },
-        thin:{
-            fontFamily: 'IRANSansXThin',
-        },
-        ultraLight: {
-            fontFamily: 'IRANSansXUltraLight',
+            fontSize: 14,
+            lineHeight: "21px",
         },
     },
 });
