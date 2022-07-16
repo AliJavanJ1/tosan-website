@@ -12,6 +12,7 @@ import createCache from '@emotion/cache';
 import Footer from "./components/Footer";
 import {useEffect} from "react";
 import {fetchAppData} from "./redux/appSlice";
+import {LinkBehavior} from "./components/linkBehavior"
 
 
 const cacheRtl = createCache({
@@ -84,6 +85,18 @@ const theme = createTheme({
             fontFamily: 'IRANSansXRegular',
             fontSize: 14,
             lineHeight: "21px",
+        },
+    },
+    components: {
+        MuiLink: {
+            defaultProps: {
+                component: LinkBehavior,
+            },
+        },
+        MuiButtonBase: {
+            defaultProps: {
+                LinkComponent: LinkBehavior,
+            },
         },
     },
 });
