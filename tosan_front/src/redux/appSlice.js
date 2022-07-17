@@ -1,17 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-const dummy_data = {
-    'a':'a'
-}
-
 const fetchAppData = createAsyncThunk(
     'app/fetchAppData',
     async (arg=undefined, thunkAPI) => {
-        return dummy_data
+        return fetch('http://localhost:8000/page_data/main_page/')
+            .then(res => res.json())
     }
 )
 
-const initialState = {}
+const initialState = null
 
 const appSlice = createSlice({
     name: 'app',
