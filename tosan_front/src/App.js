@@ -82,6 +82,11 @@ const theme = createTheme({
             fontSize: 16,
             lineHeight: "24px",
         },
+        regularX: {
+            fontFamily: 'IRANSansXRegular',
+            fontSize: 16,
+            lineHeight: "24px",
+        },
         regular: {
             fontFamily: 'IRANSansXRegular',
             fontSize: 14,
