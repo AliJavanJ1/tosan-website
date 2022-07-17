@@ -11,6 +11,7 @@ from rest_framework.parsers import JSONParser
 from django.http import JsonResponse
 from dataresolve.serializers import *
 from dataresolve.models import MainPageProductData
+from rest_framework.serializers import ListSerializer
 
 
 # Create your views here.
@@ -19,9 +20,11 @@ from dataresolve.models import MainPageProductData
 def get_main_page_data(request):
     general_data = GeneralPagesData.objects.all()
     general_data_srl = PageSerializer(general_data, many=True)
+    general_data_srl_dict = general_data_srl.rearrange_key_values()
 
-    all_main_products = ProductCategories.objects.filter(category_type='main')
-    all_main_products_srl = MainCategorySerializer(all_main_products, many=True)
+    main_page_data = MainPageData.objects.all()
+    main_page_data_srl = PageSerializer(main_page_data, many=True)
+    main_page_data_srl_dict = main_page_data_srl.rearrange_key_values()
 
     product_images = MainPageProductData.objects.all()
     product_images_srl = MainPageProductDataImageSerializer(product_images, many=True)
@@ -34,9 +37,17 @@ def get_main_page_data(request):
 
     subsidiaries = Subsidiary.objects.all()
     subsidiaries_srl = SubsidiaryMainPageSerializer(subsidiaries, many=True)
-    return JsonResponse({"general_data": general_data_srl.data,
-                         "main_product": product_images_srl.data,
-                         "all_products": all_products_srl.data,
-                         "employees": all_employees_srl.data,
-                         "subsidiaries": subsidiaries_srl.data
-                         }, safe=False, json_dumps_params={'ensure_ascii': False})
+    # return JsonResponse({"general_data": general_data_srl.data,
+    #                      "main_product": product_images_srl.data,
+    #                      "all_products": all_products_srl.data,
+    #                      "employees": all_employees_srl.data,
+    #                      "subsidiaries": subsidiaries_srl.data
+    #                      }, safe=False, json_dumps_params={'ensure_ascii': False})
+
+    return Response({"general_data": general_data_srl_dict,
+                     "main_page_data": main_page_data_srl_dict,
+                     "main_product": product_images_srl.data,
+                     "all_products": all_products_srl.data,
+                     "employees": all_employees_srl.data,
+                     "subsidiaries": subsidiaries_srl.data
+                     })
