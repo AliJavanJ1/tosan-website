@@ -1,7 +1,7 @@
 import {
     BrowserRouter, Route, Routes
 } from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {Typography} from "@mui/material";
 import {Header} from "./components/header";
@@ -28,7 +28,7 @@ const theme = createTheme({
             main: `#7f8d9e`,
             shade1: `#7f8d9e`,
             // shade2: ,
-            // shade3: ,
+            shade3: `#334964`,
             shade4: `#001b3e`,
         },
         secondary: {
@@ -92,6 +92,11 @@ const theme = createTheme({
             fontSize: 14,
             lineHeight: "21px",
         },
+        regularS: {
+            fontFamily: 'IRANSansXRegular',
+            fontSize: 12,
+            lineHeight: "18px",
+        }
     },
     components: {
         MuiLink: {
@@ -113,7 +118,7 @@ function App() {
         dispatch(fetchAppData())
     }, [dispatch])
 
-  return (
+    return (
       <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>
               <BrowserRouter>
@@ -122,11 +127,11 @@ function App() {
                       <Route exact path={'/'} element={<Typography></Typography>}/>
                       <Route path='/call/:number' element={<PhoneCall />}/>
                   </Routes>
-                  <Footer />
+                  {/*<Footer />*/}
               </BrowserRouter>
           </ThemeProvider>
       </CacheProvider>
-  );
+    );
 }
 
 export default App;
