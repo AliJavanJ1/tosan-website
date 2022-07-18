@@ -33,16 +33,19 @@ const theme = createTheme({
         },
         secondary: {
             main: `#D8CE9D`,
-            shade1: `#D3C68B`,
-            shade2: `#CDBE78`
+            shade1: `#D8CE9D`,
+            shade2: `#D3C68B`,
+            shade3: `#CDBE78`,
         },
         grey: {
+            main: `#383838`,
             shade1: `#c2c7ce`,
             shade2: `#c4c4c4`,
             shade3: `#888888`,
             shade4: `#383838`,
         },
         white: {
+            main: `#f2f2f2`,
             shade1: `#f2f2f2`,
             shade2: `#f7f7f7`,
             shade3: `#ffffff`,
@@ -61,7 +64,7 @@ const theme = createTheme({
             fontSize: 24,
             lineHeight: "36px",
         },
-        demiBold1X: {
+        demiBoldX: {
             fontFamily: 'IRANSansXDemiBold',
             fontSize: 18,
             lineHeight: "27px",
