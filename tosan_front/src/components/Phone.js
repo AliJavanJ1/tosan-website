@@ -21,7 +21,7 @@ function Phone({color}) {
                     color: color
                 }}
             >
-                <Typography variant="demiBold1X" sx={{
+                <Typography variant="demiBoldX" sx={{
                     marginBottom: 0.7,
                 }}>
                     {toFarsiNumber(pre_number) + "-"}

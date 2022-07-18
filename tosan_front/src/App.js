@@ -130,7 +130,7 @@ function App() {
                       <Route exact path={'/'} element={<Typography></Typography>}/>
                       <Route path='/call/:number' element={<PhoneCall />}/>
                   </Routes>
-                  {/*<Footer />*/}
+                  <Footer />
               </BrowserRouter>
           </ThemeProvider>
       </CacheProvider>
