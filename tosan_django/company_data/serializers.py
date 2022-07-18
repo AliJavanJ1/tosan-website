@@ -25,5 +25,7 @@ class EmployeeSerializer(serializers.Serializer):
 
 class SubsidiaryMainPageSerializer(serializers.Serializer):
     name = serializers.CharField(allow_blank=False, max_length=200)
+    icon = serializers.FileField(allow_null=False, allow_empty_file=True)
+    icon_gold = serializers.FileField(allow_null=False, allow_empty_file=True)
     main_page_image = serializers.ImageField(allow_null=True, allow_empty_file=True)
     main_page_description = serializers.CharField(allow_blank=True, max_length=10000)
