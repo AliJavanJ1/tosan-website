@@ -14,6 +14,7 @@ import {useEffect} from "react";
 import {fetchAppData} from "./redux/appSlice";
 import {LinkBehavior} from "./components/linkBehavior"
 import PhoneCall from "./components/PhoneCall";
+import Redirect from "./components/Redirect";
 
 
 const cacheRtl = createCache({
@@ -128,7 +129,8 @@ function App() {
                   <Header/>
                   <Routes>
                       <Route exact path={'/'} element={<Typography></Typography>}/>
-                      <Route path='/call/:number' element={<PhoneCall />}/>
+                      <Route exact path='/call/:number' element={<PhoneCall />}/>
+                      <Route exact path='/redirect/' element={<Redirect />}/>
                   </Routes>
                   <Footer />
               </BrowserRouter>
