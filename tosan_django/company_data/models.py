@@ -43,6 +43,7 @@ class Employee(models.Model):
 class Subsidiary(models.Model):
     name = models.CharField(blank=False, max_length=200, verbose_name="نام شرکت زیر مجموعه")
     icon = models.FileField(blank=True, upload_to="subsidiary_icon", verbose_name="آیکون")
+    icon_gold = models.FileField(blank=True, upload_to="subsidiary_icon", verbose_name="آیکون طلایی")
     main_page_image = models.ImageField(blank=True, upload_to="subsidiary_main_image",
                                         verbose_name="عکس زیر‌مجموعه در صفحه‌ی اصلی")
     main_page_description = models.TextField(blank=True, verbose_name="متن زیر مجموعه در صفحه‌ی اصلی")

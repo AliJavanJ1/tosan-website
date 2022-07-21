@@ -1,85 +1,35 @@
-import {Box, Container, Divider, Grid, Link, TextField, Typography, Button} from "@mui/material";
+import {Box, Container, Divider, Grid, Link, TextField, Typography, Button, Icon} from "@mui/material";
 import {Instagram, WhatsApp, Telegram} from '@mui/icons-material';
 import SvgIcon from '@mui/material/SvgIcon';
 import { ReactComponent as Logo } from "../assets/logos/tosan-logo-2.svg";
 import { ReactComponent as Contact } from "../assets/icons/contact.svg";
-import { ReactComponent as Tejarat } from "../assets/logos/tejarat.svg";
-import { ReactComponent as Radin } from "../assets/logos/radin.svg";
-import { ReactComponent as TFTS } from "../assets/logos/tfts.svg";
-import { ReactComponent as Farabin } from "../assets/logos/farabin.svg";
-import { ReactComponent as HPTS } from "../assets/logos/hpts.svg";
-import { ReactComponent as Zob } from "../assets/logos/zob.svg";
-import { ReactComponent as GoldenMoshaveran } from "../assets/logos/golden_moshaveran.svg";
-import { ReactComponent as Chaharmahal } from "../assets/logos/chaharmahal.svg";
 import { ReactComponent as ENemad} from "../assets/icons/enamad.svg";
 import Phone from "./Phone";
 import ReadMore from "./ReadMore";
 import {useSelector} from "react-redux";
-import store from "../redux/store";
-import {height} from "@mui/system";
 
 const Footer = () => {
-    // useSelector(store => (store.app && store.app.general_data.find(element => (element.id === "phone_number"))))
 
     const socialMediaItems = [
         {
             id: 0,
             icon: <Telegram sx={{ fontSize: 35}}  color="secondary"/>,
-            link: '/',
+            link: useSelector(store => (store.app ? store.app.general_data.tosan_telegram_link.value : '')),
         },
         {
             id: 1,
             icon: <WhatsApp sx={{ fontSize: 35 }} color="secondary"/>,
-            link: '/',
+            link: useSelector(store => (store.app ? store.app.general_data.tosan_whatsapp_link.value : '')),
         },
         {
             id: 2,
             icon: <Instagram sx={{ fontSize: 35 }} color="secondary"/>,
-            link: '/',
+            link: useSelector(store => (store.app ? store.app.general_data.tosan_instagram_link.value : '')),
         },
     ]
-    const subsidiaries = [
-        {
-            id: 0,
-            icon: GoldenMoshaveran,
-            name: "مشاوران توسن اسپادانا",
-        },
-        {
-            id: 1,
-            icon: HPTS,
-            name: "حدید پویا توسن سمنگان",
-        },
-        {
-            id: 2,
-            icon: Farabin,
-            name: "تامین و تدارک توسن فرابین",
-        },
-        {
-            id: 3,
-            icon: Chaharmahal,
-            name: "توسن چهارمحال",
-        },
-        {
-            id: 4,
-            icon: Zob,
-            name: "ذوب و ریخته‌گری توسن اسپادانا",
-        },
-        {
-            id: 5,
-            icon: Tejarat,
-            name: "توسن اینسات تجارت",
-        },
-        {
-            id: 6,
-            icon: TFTS,
-            name: "توسعه فولاد توسن سپاهان",
-        },
-        {
-            id: 7,
-            icon: Radin,
-            name: "رادین پولاد توسن اسپادانا",
-        },
-    ]
+
+    const subsidiaries = useSelector(store => (store.app && store.app.subsidiaries))
+    const serverURL = "http://localhost:8000"
 
     const pages = [
         {
@@ -112,8 +62,10 @@ const Footer = () => {
     const products = useSelector(store => (store.app && store.app.main_product))
     const description_bottom_footer = useSelector(store => (store.app && store.app.general_data.header_below_full_text.value))
     let header_below_footer, content_below_footer
-    if(description_bottom_footer)
-        [header_below_footer, content_below_footer] = description_bottom_footer.split("\r\n")
+    if(description_bottom_footer) {
+        header_below_footer = description_bottom_footer.split("\r\n")[0]
+        content_below_footer = description_bottom_footer.split("\r\n").slice(1).join("\r\n")
+    }
 
     return (
         <Container component="footer" maxWidth={false} disableGutters sx={{
@@ -147,7 +99,7 @@ const Footer = () => {
                         xs="auto"
                     >
                         {socialMediaItems.map(item => (
-                            <Link href={item.link} key={item.id} sx={{
+                            <Link href={item.link ? "/redirect/?url=" + item.link : item.link} key={item.id} sx={{
                                 paddingRight: 3
                             }}>
                                 {item.icon}
@@ -207,27 +159,40 @@ const Footer = () => {
                     flexWrap="nowrap"
                     sx={{ marginTop: 15 }}
                 >
-                    {subsidiaries.map(subsidiary => (
-                        <Grid
-                            container
-                            item
-                            direction="column"
-                            justifyContent="flex-start"
-                            alignItems="center"
-                            key={subsidiary.id}
-                            sx={theme => ({ width: theme.spacing(14) })}
-                        >
-                            <SvgIcon component={subsidiary.icon} inheritViewBox sx={{
-                                fontSize: 81,
-                            }}/>
-                            <Typography variant="regularX" color="secondary" paragraph={true} sx={{
-                                textAlign: "center",
-                                marginTop: 2,
-                                marginBottom: 0,
-                            }}>
-                                {subsidiary.name}
-                            </Typography>
-                        </Grid>
+                    {
+                        subsidiaries && subsidiaries.map(subsidiary => (
+                            <Grid
+                                container
+                                item
+                                direction="column"
+                                justifyContent="flex-start"
+                                alignItems="center"
+                                key={subsidiary.name}
+                                sx={theme => ({
+                                    width: theme.spacing(14),
+                                    "& svg.MuiSvgIcon-root:hover": {
+                                        filter: "drop-shadow(3px 5px 3px black)",
+                                        boxShadow: 4,
+                                        borderRadius: "100%",
+                                        fontSize: 81,
+                                    },
+                                })}
+                            >
+
+
+                                <SvgIcon inheritViewBox sx={{
+                                    fontSize: 81,
+                                }}>
+                                    <image href={serverURL + subsidiary.icon_gold} width={81} />
+                                </SvgIcon>
+                                <Typography variant="regularX" color="secondary" paragraph={true} sx={{
+                                    textAlign: "center",
+                                    marginTop: 2,
+                                    marginBottom: 0,
+                                }}>
+                                    {subsidiary.name}
+                                </Typography>
+                            </Grid>
                     ))}
                 </Grid>
                 <Divider flexItem variant="middle" sx={{ bgcolor: "grey.shade3", marginTop: 7, marginBottom: 9 }}/>
@@ -390,7 +355,7 @@ const Footer = () => {
                         {
                             content_below_footer && <ReadMore
                                 content={content_below_footer}
-                                maxsize={191}
+                                maxwords={58}
                                 mainfontfamily="regularX"
                                 color="white.shade2"
                                 readmorefontfamily="regular"
