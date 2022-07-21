@@ -14,6 +14,7 @@ import {useEffect} from "react";
 import {fetchAppData} from "./redux/appSlice";
 import {LinkBehavior} from "./components/linkBehavior"
 import PhoneCall from "./components/PhoneCall";
+import SalesPeople from "./components/SalesPeople";
 
 
 const cacheRtl = createCache({
@@ -43,6 +44,7 @@ const theme = createTheme({
             shade2: `#c4c4c4`,
             shade3: `#888888`,
             shade4: `#383838`,
+            shade5: `#000000`,
         },
         white: {
             main: `#f2f2f2`,
@@ -63,6 +65,11 @@ const theme = createTheme({
             fontFamily: 'IRANSansXBold',
             fontSize: 24,
             lineHeight: "36px",
+        },
+        boldS: {
+            fontFamily: 'IRANSansXBold',
+            fontSize: 18,
+            lineHeight: "27px",
         },
         demiBoldX: {
             fontFamily: 'IRANSansXDemiBold',
@@ -125,12 +132,13 @@ function App() {
       <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>
               <BrowserRouter>
-                  <Header/>
+                  {/*<Header/>*/}
+                  {<SalesPeople/>}
                   <Routes>
                       <Route exact path={'/'} element={<Typography></Typography>}/>
                       <Route path='/call/:number' element={<PhoneCall />}/>
                   </Routes>
-                  <Footer />
+                  {/*<Footer />*/}
               </BrowserRouter>
           </ThemeProvider>
       </CacheProvider>
