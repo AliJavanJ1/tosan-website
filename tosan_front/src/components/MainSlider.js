@@ -186,7 +186,7 @@ function MainSlider() {
                                 gridColumn: "1/-1",
                                 // transitionDelay: `${(index === slideInd.current) * transitionSpeed / 2}ms`
                             }}>
-                            <Typography variant="bold" color="primary.shade4">
+                            <Typography variant="bold" color="primary.shade4" noWrap={true}>
                                 {slide.title}
                             </Typography>
                         </Fade>
@@ -299,7 +299,7 @@ function MainSlider() {
                                 // transitionDelay: `${(index === slideInd.current) * transitionSpeed / 2}ms`
 
                             }}>
-                            <Typography variant="demiBoldX" color="white.main">
+                            <Typography variant="demiBoldX" color="white.main" noWrap={true}>
                                 {slide.content}
                             </Typography>
                         </Fade>

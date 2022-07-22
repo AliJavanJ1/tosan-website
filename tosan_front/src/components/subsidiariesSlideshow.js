@@ -9,7 +9,7 @@ import _ from 'lodash'
 import {ChevronLeft, ChevronRight} from "@mui/icons-material";
 import {EffectFade} from "swiper";
 
-function SubsidiariesSlideshow(props) {
+function SubsidiariesSlideshow() {
     const subsidiaries = useSelector(store => store.app ? store.app.subsidiaries : [])
     const textSwipeRef = useRef()
     const imgSwipeRef = useRef()
@@ -39,6 +39,7 @@ function SubsidiariesSlideshow(props) {
             width: '100%',
             // paddingX: 5,
             boxSizing: 'border-box',
+            marginBottom: 10,
         }}>
             <Box sx={{
                 bgcolor: 'secondary.shade3',
@@ -136,7 +137,7 @@ function SubsidiariesSlideshow(props) {
                                                 borderRadius: '4px',
                                                 filter: 'drop-shadow(1px 3px 12px rgba(56, 56, 56, 0.2))',
                                             }}>
-                                                <img src={subsidiary.main_page_image} style={{
+                                                <img src={subsidiary.main_page_image} alt={subsidiary.name} style={{
                                                     height: '372px',
                                                     width: 'auto',
                                                 }}/>

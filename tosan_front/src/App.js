@@ -3,7 +3,6 @@ import {
 } from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {ThemeProvider, createTheme} from '@mui/material/styles';
-import {Typography} from "@mui/material";
 import {CacheProvider} from "@emotion/react";
 import {prefixer} from "stylis";
 import rtlPlugin from 'stylis-plugin-rtl';
@@ -13,11 +12,8 @@ import {fetchAppData} from "./redux/appSlice";
 import {LinkBehavior} from "./components/linkBehavior"
 import PhoneCall from "./components/PhoneCall";
 import Redirect from "./components/Redirect";
-import SubsidiariesSlideshow from "./components/subsidiariesSlideshow";
-import CircleImageSlide from "./components/CircleImageSlide";
-import SalesPeople from "./components/SalesPeople";
-import Header from "./components/header";
 import Footer from "./components/Footer";
+import MainPage from "./pages/MainPage";
 
 
 const cacheRtl = createCache({
@@ -150,13 +146,8 @@ function App() {
       <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>
               <BrowserRouter>
-                  <Header/>
-                  <SalesPeople/>
-                  <CircleImageSlide/>
-                  <SubsidiariesSlideshow/>
-
                   <Routes>
-                      <Route exact path={'/'} element={<Typography></Typography>}/>
+                      <Route exact path={'/'} element={<MainPage />}/>
                       <Route exact path='/call/:number' element={<PhoneCall />}/>
                       <Route exact path='/redirect/' element={<Redirect />}/>
                   </Routes>
