@@ -1,5 +1,6 @@
 import {useNavigate, useSearchParams} from 'react-router-dom'
 
+// todo remove this page from history
 
 function Redirect() {
     const [searchParams, setSearchParams] = useSearchParams();

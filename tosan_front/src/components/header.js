@@ -13,6 +13,8 @@ import Phone from "./Phone";
 import {ReactComponent as headsetIcon} from "../assets/icons/contact.svg";
 import ProductsDropdown from "./productsDropdown";
 
+// todo font of search input
+
 const StyledToolbar = styled(Toolbar)(
     esx({
         justifyContent: 'space-between',
