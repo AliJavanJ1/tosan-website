@@ -6,7 +6,6 @@ import {
     Link,
     Paper,
     Stack,
-    styled,
     Tab,
     Tabs,
     Typography,
@@ -40,7 +39,7 @@ const SalesPerson = (props) => {
                         {salesPerson.job_category + " " + _.join(salesPerson.fields_name, ' و ')}
                     </Typography>
                 </Stack>
-                <Avatar src={'http://localhost:8000' + salesPerson.image} sx={{
+                <Avatar src={'http://localhost:8000' + salesPerson.image + '?h=300'} sx={{
                     height: salesPerson.image ? '120px' : '100px',
                     width: salesPerson.image ? '120px' : '100px',
                 }}/>

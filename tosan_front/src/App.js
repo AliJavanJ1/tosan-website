@@ -18,6 +18,8 @@ import CircleImageSlide from "./components/CircleImageSlide";
 import SalesPeople from "./components/SalesPeople";
 import Header from "./components/header";
 import Footer from "./components/Footer";
+import MainSlider from "./components/MainSlider";
+import ProductsSlideshow from "./components/productsSlideshow";
 
 
 const cacheRtl = createCache({
@@ -150,17 +152,19 @@ function App() {
       <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>
               <BrowserRouter>
-                  <Header/>
-                  <SalesPeople/>
-                  <CircleImageSlide/>
-                  <SubsidiariesSlideshow/>
+                  <ProductsSlideshow/>
+                  {/*<Header/>*/}
+                  {/*<MainSlider/>*/}
+                  {/*<CircleImageSlide/>*/}
+                  {/*<SubsidiariesSlideshow/>*/}
+                  {/*<SalesPeople/>*/}
 
                   <Routes>
                       <Route exact path={'/'} element={<Typography></Typography>}/>
                       <Route exact path='/call/:number' element={<PhoneCall />}/>
                       <Route exact path='/redirect/' element={<Redirect />}/>
                   </Routes>
-                  <Footer />
+                  {/*<Footer />*/}
               </BrowserRouter>
           </ThemeProvider>
       </CacheProvider>
