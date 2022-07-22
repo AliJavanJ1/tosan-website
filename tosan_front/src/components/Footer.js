@@ -60,11 +60,11 @@ const Footer = () => {
     ]
 
     const products = useSelector(store => (store.app && store.app.main_product))
-    const description_bottom_footer = useSelector(store => (store.app && store.app.general_data.header_below_full_text.value))
-    let header_below_footer, content_below_footer
-    if(description_bottom_footer) {
-        header_below_footer = description_bottom_footer.split("\r\n")[0]
-        content_below_footer = description_bottom_footer.split("\r\n").slice(1).join("\r\n")
+    const footer_company_description = useSelector(store => (store.app && store.app.general_data.footer_company_description.value))
+    let footer_company_description_title, footer_company_description_content
+    if(footer_company_description) {
+        footer_company_description_title = footer_company_description.split("\r\n")[0]
+        footer_company_description_content = footer_company_description.split("\r\n").slice(1).join("\r\n")
     }
 
     return (
@@ -346,15 +346,15 @@ const Footer = () => {
                         sx={{ marginTop: 0 }}
                     >
                         {
-                            header_below_footer && <Typography variant="demiBoldX" color="white.main" sx={{
+                            footer_company_description_title && <Typography variant="demiBoldX" color="white.main" sx={{
                                 marginBottom: 1.5,
                             }}>
-                                {header_below_footer}
+                                {footer_company_description_title}
                             </Typography>
                         }
                         {
-                            content_below_footer && <ReadMore
-                                content={content_below_footer}
+                            footer_company_description_content && <ReadMore
+                                content={footer_company_description_content}
                                 maxwords={58}
                                 mainfontfamily="regularX"
                                 color="white.shade2"
