@@ -2,7 +2,7 @@ import {
     BrowserRouter, Route, Routes
 } from "react-router-dom";
 import {useDispatch} from "react-redux";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import {ThemeProvider, createTheme} from '@mui/material/styles';
 import {Typography} from "@mui/material";
 import {Header} from "./components/header";
 import {CacheProvider} from "@emotion/react";
@@ -14,9 +14,10 @@ import {useEffect} from "react";
 import {fetchAppData} from "./redux/appSlice";
 import {LinkBehavior} from "./components/linkBehavior"
 import PhoneCall from "./components/PhoneCall";
-import SalesPeople from "./components/SalesPeople";
 import Redirect from "./components/Redirect";
 import SubsidiariesSlideshow from "./components/subsidiariesSlideshow";
+import CircleImageSlide from "./components/CircleImageSlide";
+import SalesPeople from "./components/SalesPeople";
 
 
 const cacheRtl = createCache({
@@ -58,6 +59,11 @@ const theme = createTheme({
     typography: {
         fontFamily: 'IRANSansXRegular',
         fontSize: 14,
+        extraBoldX:{
+            fontFamily: 'IRANSansXExtraBold',
+            fontSize: 36,
+            lineHeight: "54px",
+        },
         extraBold: {
             fontFamily: 'IRANSansXExtraBold',
             fontSize: 28,
@@ -136,7 +142,7 @@ const theme = createTheme({
 
 function App() {
     const dispatch = useDispatch()
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(fetchAppData())
     }, [dispatch])
 
@@ -144,15 +150,16 @@ function App() {
       <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>
               <BrowserRouter>
-                  {/*<Header/>*/}
-                  {/*<SalesPeople/>*/}
+                  <Header/>
+                  <SalesPeople/>
+                  <CircleImageSlide/>
                   <SubsidiariesSlideshow/>
                   <Routes>
                       <Route exact path={'/'} element={<Typography></Typography>}/>
                       <Route exact path='/call/:number' element={<PhoneCall />}/>
                       <Route exact path='/redirect/' element={<Redirect />}/>
                   </Routes>
-                  {/*<Footer />*/}
+                  <Footer />
               </BrowserRouter>
           </ThemeProvider>
       </CacheProvider>
