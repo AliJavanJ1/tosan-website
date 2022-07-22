@@ -33,7 +33,7 @@ const StyledButton = styled(Button)(
     })
 )
 
-export function Header() {
+export default function Header() {
     return (
         <AppBar position="sticky" sx={{
             bgcolor: 'white.shade3',
