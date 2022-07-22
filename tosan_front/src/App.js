@@ -143,7 +143,7 @@ function App() {
       <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>
               <BrowserRouter>
-                  {/*<Header/>*/}
+                  <Header/>
                   {<SalesPeople/>}
                   <Routes>
                       <Route exact path={'/'} element={<Typography></Typography>}/>

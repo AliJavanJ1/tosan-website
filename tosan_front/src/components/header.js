@@ -39,7 +39,7 @@ export function Header() {
             bgcolor: 'white.shade3',
             color: 'grey.shade3',
             boxShadow: `0px 2px 8px rgba(0, 0, 0, .15)`,
-            zIndex: 1,
+            zIndex: 2,
         }}>
             <StyledToolbar sx={{
                 height: (theme) => theme.spacing(11),

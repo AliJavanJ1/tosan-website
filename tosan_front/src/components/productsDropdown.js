@@ -94,7 +94,7 @@ export default function ProductsDropdown() {
                     horizontal: 'right',
                 }}
                 sx={{
-                    zIndex: 0,
+                    zIndex: 1,
                     '& .MuiMenu-paper': {
                         boxShadow: 0,
                         bgcolor: 'white.shade3',
@@ -155,7 +155,7 @@ export default function ProductsDropdown() {
                         horizontal: 'right',
                     }}
                     sx={{
-                        zIndex: 0,
+                        zIndex: 1,
                         '& .MuiPopover-paper': {
                             height: menuPaper
                                 ? menuPaper.clientHeight
