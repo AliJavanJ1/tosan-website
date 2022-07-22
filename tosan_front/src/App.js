@@ -16,6 +16,7 @@ import {LinkBehavior} from "./components/linkBehavior"
 import PhoneCall from "./components/PhoneCall";
 import SalesPeople from "./components/SalesPeople";
 import Redirect from "./components/Redirect";
+import SubsidiariesSlideshow from "./components/subsidiariesSlideshow";
 
 
 const cacheRtl = createCache({
@@ -143,8 +144,9 @@ function App() {
       <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>
               <BrowserRouter>
-                  <Header/>
-                  {<SalesPeople/>}
+                  {/*<Header/>*/}
+                  {/*<SalesPeople/>*/}
+                  <SubsidiariesSlideshow/>
                   <Routes>
                       <Route exact path={'/'} element={<Typography></Typography>}/>
                       <Route exact path='/call/:number' element={<PhoneCall />}/>

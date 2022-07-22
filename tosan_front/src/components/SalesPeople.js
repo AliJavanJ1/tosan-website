@@ -2,7 +2,6 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
     Avatar,
     Button,
-    css,
     IconButton,
     Link,
     Paper,
@@ -11,29 +10,16 @@ import {
     Tab,
     Tabs,
     Typography,
-    useTheme
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import {useSelector} from "react-redux";
 import _ from "lodash"
 import {WhatsApp, ChevronLeft, ChevronRight} from '@mui/icons-material';
 import PhoneEnabledOutlinedIcon from '@mui/icons-material/PhoneEnabledOutlined';
-// import { useTheme } from '@mui/material/styles';
-
-import {Swiper, SwiperSlide, useSwiper} from "swiper/react";
+import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import {Navigation} from "swiper";
 import {toFarsiNumber} from "../utils";
-
-const StyledSwiperSlide = styled(SwiperSlide)(({theme}) => ({
-    textAlign: 'center',
-    fontSize: '18px',
-    background: '#fff',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}))
 
 const SalesPerson = (props) => {
     const {salesPerson} = props
