@@ -88,10 +88,20 @@ const theme = createTheme({
             fontSize: 14,
             lineHeight: "21px",
         },
+        mediumS: {
+            fontFamily: 'IRANSansXMedium',
+            fontSize: 14,
+            lineHeight: "21px",
+        },
         medium: {
             fontFamily: 'IRANSansXMedium',
             fontSize: 16,
             lineHeight: "24px",
+        },
+        mediumX: {
+            fontFamily: 'IRANSansXMedium',
+            fontSize: 16,
+            lineHeight: "28px",
         },
         regularX: {
             fontFamily: 'IRANSansXRegular',
