@@ -1,14 +1,12 @@
-import {Box, duration, Fade, Grid, Typography} from "@mui/material";
+import {Box, Fade, Grid, Typography} from "@mui/material";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Autoplay, EffectFade} from 'swiper';
 
 import 'swiper/css';
 import "swiper/css/effect-fade";
 import "swiper/css/autoplay";
-import {Pagination} from "swiper";
 import {useSelector} from "react-redux";
 import {objectToList} from "../utils";
-import {height} from "@mui/system";
 import {useEffect, useRef, useState} from "react";
 import {useSpring, animated} from '@react-spring/web';
 
@@ -110,7 +108,7 @@ function MainSlider() {
                 }}
                 onBeforeTransitionStart={() => setDuringTransition(true)}
                 onSlideChangeTransitionEnd={() => setDuringTransition(false)}
-                onSlideChangeTransitionStart={(swiper) => {
+                onSlideChangeTransitionStart={() => {
                     if (transitionType === 0) {
                         setSlideInd({
                             'prev': slideInd.current,
@@ -138,6 +136,7 @@ function MainSlider() {
                     >
                         <img
                             src={serverURL + slide.file + "?h=500"}
+                            alt={slide.title}
                             style={{
                                 minHeight: "100%",
                                 minWidth: "100%",
@@ -298,6 +297,7 @@ function MainSlider() {
                                 gridRow: "1/-1",
                                 gridColumn: "1/-1",
                                 // transitionDelay: `${(index === slideInd.current) * transitionSpeed / 2}ms`
+
                             }}>
                             <Typography variant="demiBoldX" color="white.main">
                                 {slide.content}
