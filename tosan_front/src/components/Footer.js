@@ -1,4 +1,4 @@
-import {Box, Container, Divider, Grid, Link, TextField, Typography, Button, Icon} from "@mui/material";
+import {Box, Container, Divider, Grid, Link, TextField, Typography, Button} from "@mui/material";
 import {Instagram, WhatsApp, Telegram} from '@mui/icons-material';
 import SvgIcon from '@mui/material/SvgIcon';
 import { ReactComponent as Logo } from "../assets/logos/tosan-logo-2.svg";
@@ -355,7 +355,7 @@ const Footer = () => {
                         {
                             footer_company_description_content && <ReadMore
                                 content={footer_company_description_content}
-                                maxwords={58}
+                                maxlines={2}
                                 mainfontfamily="regularX"
                                 color="white.shade2"
                                 readmorefontfamily="regular"
