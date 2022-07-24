@@ -16,6 +16,7 @@ import Footer from "./components/Footer";
 import MainPage from "./pages/MainPage";
 import MainSlider from "./components/MainSlider";
 import ProductsSlideshow from "./components/productsSlideshow";
+import Header from "./components/header";
 
 
 const cacheRtl = createCache({
@@ -148,12 +149,13 @@ function App() {
       <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>
               <BrowserRouter>
+                  <Header/>
                   <Routes>
                       <Route exact path={'/'} element={<MainPage />}/>
                       <Route exact path='/call/:number' element={<PhoneCall />}/>
                       <Route exact path='/redirect/' element={<Redirect />}/>
                   </Routes>
-                  {/*<Footer />*/}
+                  <Footer />
               </BrowserRouter>
           </ThemeProvider>
       </CacheProvider>
