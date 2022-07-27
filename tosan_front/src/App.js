@@ -14,8 +14,6 @@ import PhoneCall from "./components/PhoneCall";
 import Redirect from "./components/Redirect";
 import Footer from "./components/Footer";
 import MainPage from "./pages/MainPage";
-import MainSlider from "./components/MainSlider";
-import ProductsSlideshow from "./components/productsSlideshow";
 import Header from "./components/header";
 
 
