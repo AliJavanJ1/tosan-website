@@ -8,7 +8,6 @@ function StrengthPoints() {
     let strengthPoints = useSelector(store => (store.app && store.app.main_page_data.strength_points))
     if(strengthPoints)
         strengthPoints = objectToList(strengthPoints)
-    console.log(strengthPoints)
 
     return (
         <Paper
