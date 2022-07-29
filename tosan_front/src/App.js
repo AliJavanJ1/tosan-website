@@ -16,6 +16,7 @@ import Footer from "./components/Footer";
 import MainPage from "./pages/MainPage";
 import Header from "./components/header";
 import {LicenseInfo} from '@mui/x-license-pro';
+import ProductsPage from "./pages/ProductsPage";
 
 LicenseInfo.setLicenseKey('x0jTPl0USVkVZV0SsMjM1kDNyADM5cjM2ETPZJVSQhVRsIDN0YTM6IVREJ1T0b9586ef25c9853decfa7709eee27a1e');
 
@@ -30,7 +31,7 @@ const theme = createTheme({
             primary: {
                 main: `#7f8d9e`,
                 shade1: `#7f8d9e`,
-                // shade2: ,
+                shade2: `#495C74`,
                 shade3: `#334964`,
                 shade4: `#001b3e`,
             },
@@ -82,7 +83,6 @@ const theme = createTheme({
                 fontFamily: 'IRANSansXDemiBold',
                 fontSize: 18,
                 lineHeight: "27px",
-
             },
             demiBold: {
                 fontFamily: 'IRANSansXDemiBold',
@@ -155,6 +155,7 @@ function App() {
                         <Route exact path={'/'} element={<MainPage/>}/>
                         <Route exact path='/call/:number' element={<PhoneCall/>}/>
                         <Route exact path='/redirect/' element={<Redirect/>}/>
+                        <Route exact path='/products/' element={<ProductsPage />} />
                     </Routes>
                     {/*<Footer />*/}
                 </BrowserRouter>
