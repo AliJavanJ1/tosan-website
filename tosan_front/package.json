@@ -10,6 +10,8 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.0",
     "@mui/system": "^5.9.0",
+    "@mui/x-data-grid-pro": "^5.14.0",
+    "@mui/x-license-pro": "^5.14.0",
     "@react-spring/web": "^9.5.1",
     "@reduxjs/toolkit": "^1.8.3",
     "@testing-library/jest-dom": "^5.16.4",
@@ -32,7 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "npx patch-package"
   },
   "eslintConfig": {
     "extends": [
@@ -52,5 +55,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8000"
+  "proxy": "http://localhost:8000",
+  "devDependencies": {
+    "@mui/x-data-grid-generator": "^5.14.0"
+  }
 }
