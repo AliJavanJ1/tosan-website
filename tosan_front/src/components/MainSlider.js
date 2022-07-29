@@ -197,11 +197,12 @@ function MainSlider() {
                     container
                     direction="column"
                     alignItems="center"
-                    rowGap="12px"
+                    rowGap={duringTransition ? "12px" : "0"}
                     justifyContent="center"
                     flexWrap="nowrap"
                     overflow="hidden"
                     height={49}
+                    sx={{ cursor: duringTransition ? "wait" : "default" }}
                 >
                     {duringTransition && <>
                         <AnimatedBox
@@ -257,25 +258,43 @@ function MainSlider() {
                         <Box
                             onClick={() => setTransitionType(1)}
                             sx={{
-                            width: 18,
-                            height: 5,
-                            backgroundColor: "grey.shade2",
-                            borderRadius: 8,
-                        }}/>
+                                width: 18,
+                                height: 5,
+                                cursor: "pointer",
+                                paddingTop: "5px",
+                                paddingBottom: "12px",
+                            }}
+                        >
+                            <Box sx={{
+                                width: 18,
+                                height: 5,
+                                backgroundColor: "grey.shade2",
+                                borderRadius: 8,
+                            }}/>
+                        </Box>
                         <Box sx={{
-                            width: 20,
-                            height: 5,
-                            backgroundColor: "white.main",
-                            borderRadius: 8,
+                                width: 20,
+                                height: 5,
+                                backgroundColor: "white.main",
+                                borderRadius: 8,
                         }}/>
                         <Box
                             onClick={() => setTransitionType(-1)}
                             sx={{
-                            width: 18,
-                            height: 5,
-                            backgroundColor: "grey.shade2",
-                            borderRadius: 8,
-                        }}/>
+                                width: 18,
+                                height: 5,
+                                cursor: "pointer",
+                                paddingTop: "12px",
+                                paddingBottom: "5px",
+                            }}
+                        >
+                            <Box sx={{
+                                width: 18,
+                                height: 5,
+                                backgroundColor: "grey.shade2",
+                                borderRadius: 8,
+                            }}/>
+                        </Box>
                     </>}
                 </Grid>
                 <Grid
