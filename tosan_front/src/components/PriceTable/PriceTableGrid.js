@@ -1,11 +1,18 @@
 import * as React from 'react';
 import {useDemoData} from '@mui/x-data-grid-generator';
-import {DataGridPro, useGridApiRef, SortGridMenuItems} from '@mui/x-data-grid-pro';
-import {Stack, styled} from "@mui/material";
+import {
+    DataGridPro,
+    useGridApiRef,
+    SortGridMenuItems,
+    getGridStringOperators,
+    getGridNumericOperators, getGridSingleSelectOperators
+} from '@mui/x-data-grid-pro';
+import {Button, Stack, styled} from "@mui/material";
 import {forwardRef, useCallback, useEffect, useMemo, useState} from "react";
 import {faIR as gridLocale, GridColumnMenuContainer, GridFilterMenuItem} from '@mui/x-data-grid-pro';
 import {toFarsiNumber} from "../../utils";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {setSplitFilterItemState} from "../../redux/filterSlice";
 
 const GridColumnMenu = forwardRef((props, ref) => {
     const {hideMenu, currentColumn} = props;
@@ -28,21 +35,21 @@ export default function PriceTableGrid({raw_data}) {
     const rowHeight = 46
     const {data} = useDemoData({
         dataSet: 'Commodity',
-        rowLength: 200,
-        // maxColumns: 6,
+        rowLength: 1000,
+        maxColumns: 6,
     });
 
     const quickFilterInput = useSelector(store => store.filter.quickFilterInput)
-    console.log(quickFilterInput)
     const apiRef = useGridApiRef();
     const [pageSize, setPageSize] = useState(pageSizes[0]);
     const columns = useMemo(() => {
         return (
-            data.columns.map((column) => (
+            data.columns.map(({width, ...column}) => (
                 {
                     ...column,
                     align: 'center',
                     headerAlign: 'center',
+                    flex: 1,
                 }
             ))
         )
@@ -52,17 +59,20 @@ export default function PriceTableGrid({raw_data}) {
         if (apiRef.current) {
             let values = quickFilterInput.split(' ').filter((word) => word !== '');
             apiRef.current.setQuickFilterValues(values)
-        }
-    }, [quickFilterInput, apiRef])
 
-    console.log(columns)
+            // apiRef.current.scrollToIndexes({
+            //     rowIndex: 0,
+            //     colIndex: columns.length-2,
+            // })
+        }
+    }, [quickFilterInput, apiRef, apiRef.current])
+
+    // console.log(columns)
+
     return (
         <Stack sx={{
-            // height: '381px',
-            width: '1000px',
         }}>
             <DataGridPro
-                dir={'ltr'}
                 sx={{
                     '& .even': {
                         bgcolor: 'white.shade1',
@@ -82,16 +92,13 @@ export default function PriceTableGrid({raw_data}) {
                     '& .MuiDataGrid-columnHeaderDraggableContainer': {
                         justifyContent: 'center'
                     },
-                    //ltr
-                    '& .MuiDataGrid-columnsContainer': {
-                        direction: 'ltr'
-                    },
-                    '& .MuiDataGrid-virtualScroller': {
-                        direction: 'ltr',
-                    }
+                    // '& 	.MuiDataGrid-main': {
+                    //     direction: 'rtl',
+                    // }
                 }}
-                {...data}
+                rows={data.rows}
                 columns={columns}
+                initialState={data.initialState}
                 loading={data.rows.length === 0}
                 rowHeight={rowHeight}
                 disableSelectionOnClick
