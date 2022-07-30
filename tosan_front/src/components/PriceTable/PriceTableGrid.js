@@ -5,11 +5,13 @@ import {
     useGridApiRef,
     SortGridMenuItems,
 } from '@mui/x-data-grid-pro';
-import {Stack} from "@mui/material";
+import {Stack, TablePagination, Typography} from "@mui/material";
 import {forwardRef, useEffect, useImperativeHandle, useMemo, useState} from "react";
 import {faIR as gridLocale, GridColumnMenuContainer, GridFilterMenuItem} from '@mui/x-data-grid-pro';
 import {toFarsiNumber} from "../../utils";
 import {useSelector} from "react-redux";
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const GridColumnMenu = forwardRef((props, ref) => {
     const {hideMenu, currentColumn} = props;
@@ -21,6 +23,59 @@ const GridColumnMenu = forwardRef((props, ref) => {
     );
 });
 
+const PriceCell = (props) => {
+    const condition = Math.floor(props.value) % 2 === 1
+    return (
+        <Stack direction={"row"} sx={{
+            width: '100%',
+            justifyContent: 'space-between'
+        }}>
+            <Typography
+                variant={'regularX'}
+                color={condition ? '#007231' : '#9C0000'}
+                marginRight={1}
+                sx={{
+                    flexGrow: 1,
+                    textAlign: 'center'
+                }}
+            >
+                {props.value}
+            </Typography>
+            {
+                condition
+                    ?
+                    <ExpandMoreIcon sx={{
+                        color: '#007231',
+                        width: '30px',
+                        marginRight: 1,
+                    }}/>
+                    :
+                    <ExpandLessIcon sx={{
+                        color: '#9C0000',
+                        width: '30px',
+                        marginRight: 1,
+                    }}/>
+            }
+        </Stack>
+    )
+}
+
+// const CustomPagination = (props) => {
+//     console.log(props)
+//     return(
+//         <TablePagination
+//             labelRowsPerPage="Rows per page" // <-- change here for anything you like
+//             rowsPerPageOptions={[5, 10, 25, 50, 100]}
+//             component="div"
+//             // count={count}
+//             // rowsPerPage={rowsPerPage}
+//             // page={page}
+//             // onChangePage={handleChangePage}
+//             // onChangeRowsPerPage={handleChangeRowsPerPage}
+//         />
+//     )
+// }
+
 // const HeaderSeparator = () => {
 //     return (
 //         <></>
@@ -28,29 +83,73 @@ const GridColumnMenu = forwardRef((props, ref) => {
 // }
 
 export default forwardRef(function PriceTableGrid({raw_data}, ref) {
-    const pageSizes = [7]
     const rowHeight = 46
     const {data} = useDemoData({
         dataSet: 'Commodity',
         rowLength: 60,
-        maxColumns: 6,
+        maxColumns: 10,
     });
+    const pageSizes = [7, 14]
+    let columns = data.columns
+    columns = useMemo(() => (
+        columns.map(column => ({
+                ...column,
+                renderHeader: (props) => (
+                    <Typography variant={'medium'} color={'grey.shade4'}>
+                        {props.field}
+                    </Typography>
+                ),
+                ...(column.field === 'unitPrice' ? {
+                        renderCell: PriceCell,
+                    } : {
+                        renderCell: (props) => (
+                            <Typography variant={'regularX'} color={'grey.shade4'}>
+                                {props.value}
+                            </Typography>
+                        )
+                    }
+                ),
+            }))
+    ), [columns.length]);
 
+    const [page, setPage] = useState(0);
     const quickFilterInput = useSelector(store => store.filter.quickFilterInput)
     const apiRef = useGridApiRef();
     const [pageSize, setPageSize] = useState(pageSizes[0]);
-    const columns = useMemo(() => {
+    columns = useMemo(() => {
         return (
-            data.columns.map(({width, ...column}) => (
-                {
+            columns.map(({width, ...column}) => {
+                return ({
                     ...column,
                     align: 'center',
                     headerAlign: 'center',
                     flex: 1,
-                }
-            ))
+                })
+            })
         )
-    }, [data.columns])
+    }, [columns.length])
+    const rows = data.rows
+    const onPageSizeChange = (newPageSize) => {
+        setPageSize(newPageSize)
+        setPage(0)
+    }
+    const onPageChange = (newPage) => {
+        setPage(newPage)
+    }
+
+    // const onPageSizeChangeCustom = (e) => {
+    //     console.log(e.target.value.newPageSize)
+    //     setPageSize(e.target.value.newPageSize)
+    //     setPage(0)
+    //     // if(isNaN(newPageSize)){
+    //     //     setPageSize(rows.length)
+    //     // }else{
+    //     //     setPageSize(newPageSize)
+    //     // }
+    // }
+    // const onPageChangeCustom = (newPage) => {
+    //     setPage(newPage)
+    // }
 
     useEffect(() => {
         if (apiRef.current) {
@@ -87,11 +186,10 @@ export default forwardRef(function PriceTableGrid({raw_data}, ref) {
     );
 
     // console.log(columns)
-    // console.log(data.initialState)
+    // console.log(rows)
 
     return (
-        <Stack sx={{
-        }}>
+        <Stack sx={{}}>
             <DataGridPro
                 apiRef={apiRef}
                 sx={{
@@ -119,9 +217,8 @@ export default forwardRef(function PriceTableGrid({raw_data}, ref) {
                     //     direction: 'rtl',
                     // }
                 }}
-                rows={data.rows}
+                rows={rows}
                 columns={columns}
-                // initialState={data.initialState} // hide is true in column itself
                 loading={data.rows.length === 0}
 
                 disableSelectionOnClick
@@ -137,7 +234,9 @@ export default forwardRef(function PriceTableGrid({raw_data}, ref) {
                 rowsPerPageOptions={pageSizes}
                 pagination
                 pageSize={pageSize}
-                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                page={page}
+                onPageChange={onPageChange}
+                onPageSizeChange={onPageSizeChange}
 
                 localeText={{
                     ...gridLocale.components.MuiDataGrid.defaultProps.localeText,
@@ -153,7 +252,15 @@ export default forwardRef(function PriceTableGrid({raw_data}, ref) {
                 components={{
                     // ColumnResizeIcon: HeaderSeparator,
                     ColumnMenu: GridColumnMenu,
-                    // Toolbar: GridToolbar,
+                    // Pagination: CustomPagination
+                }}
+                componentsProps={{
+                    // pagination: {
+                    //     rowsPerPageOptions: pageSizes,
+                    //     page: page,
+                    //     onPageSizeChange: onPageSizeChangeCustom,
+                    //     onPageChange: onPageChangeCustom,
+                    // }
                 }}
             />
         </Stack>
