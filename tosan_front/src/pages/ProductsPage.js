@@ -4,6 +4,7 @@ import PriceTableQuickFilter from "../components/PriceTable/PriceTableQuickFilte
 import TableWrapper from "../components/PriceTable/TableWrapper";
 import OrderRegistrationProcedure from "../components/OrderRegistrationProcedure";
 import OrderRegistrationDescriptions from "../components/OrderRegistrationDescriptions";
+import CheckBoxFilter from "../components/CheckBoxFilter";
 
 function ProductsPage() {
     const productsMainCategory = "جدول قیمت میلگرد آجدار"
@@ -45,7 +46,7 @@ function ProductsPage() {
                     sx={{ backgroundColor: "white" }}
                 >
                     <PriceTableQuickFilter/>
-                    {/*<CheckBoxFilter />*/}
+                    <CheckBoxFilter />
                 </Stack>
                 <Stack // Main Body Part
                     width="calc(100vw - 354px - 48px)"

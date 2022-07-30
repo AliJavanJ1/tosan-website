@@ -35,8 +35,8 @@ const PriceTableQuickFilter = () => {
         }}>
             <SearchIcon sx={{
                 fontSize: '30px',
-                marginLeft: '6px',
-                marginRight: '6px',
+                marginLeft: '16px',
+                marginRight: '10px',
                 color: 'grey.shade4'
             }}/>
             <InputBase
