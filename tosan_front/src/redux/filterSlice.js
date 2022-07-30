@@ -14,7 +14,7 @@ const filterSlice = createSlice({
         setQuickFilterInput(state, action) {
             state.quickFilterInput = action.payload
         },
-        setSplitFilterItemState: {
+        setCheckBoxFilter: {
             reducer: (state, action) => {
                 if (action.payload.add) {
                     state.checkBoxFilter[action.payload.name].push(action.payload.value)
@@ -36,5 +36,5 @@ const filterSlice = createSlice({
     },
 })
 
-export const {setQuickFilterInput, setSplitFilterItemState} = filterSlice.actions
+export const {setQuickFilterInput, setCheckBoxFilter} = filterSlice.actions
 export default filterSlice.reducer

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, IconButton, InputBase, Stack} from "@mui/material";
+import {IconButton, InputBase, Stack} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import {setQuickFilterInput} from "../../redux/filterSlice";
@@ -28,16 +28,15 @@ const PriceTableQuickFilter = () => {
     }
     return (
         <Stack direction={'row'} sx={{
-            width: '259px',
-            height: '42px',
+            height: '40px',
             border: '1px solid #C4C4C4',
             borderRadius: '4px',
             alignItems: 'center',
         }}>
             <SearchIcon sx={{
                 fontSize: '30px',
-                marginLeft: '6px',
-                marginRight: '6px',
+                marginLeft: '16px',
+                marginRight: '10px',
                 color: 'grey.shade4'
             }}/>
             <InputBase
