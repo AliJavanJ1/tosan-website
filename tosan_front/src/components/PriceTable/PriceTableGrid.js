@@ -4,15 +4,12 @@ import {
     DataGridPro,
     useGridApiRef,
     SortGridMenuItems,
-    getGridStringOperators,
-    getGridNumericOperators, getGridSingleSelectOperators
 } from '@mui/x-data-grid-pro';
-import {Button, Stack, styled} from "@mui/material";
-import {forwardRef, useCallback, useEffect, useMemo, useState} from "react";
+import {Stack} from "@mui/material";
+import {forwardRef, useEffect, useImperativeHandle, useMemo, useState} from "react";
 import {faIR as gridLocale, GridColumnMenuContainer, GridFilterMenuItem} from '@mui/x-data-grid-pro';
 import {toFarsiNumber} from "../../utils";
-import {useDispatch, useSelector} from "react-redux";
-import {setSplitFilterItemState} from "../../redux/filterSlice";
+import {useSelector} from "react-redux";
 
 const GridColumnMenu = forwardRef((props, ref) => {
     const {hideMenu, currentColumn} = props;
@@ -30,12 +27,12 @@ const GridColumnMenu = forwardRef((props, ref) => {
 //     )
 // }
 
-export default function PriceTableGrid({raw_data}) {
+export default forwardRef(function PriceTableGrid({raw_data}, ref) {
     const pageSizes = [7]
     const rowHeight = 46
     const {data} = useDemoData({
         dataSet: 'Commodity',
-        rowLength: 1000,
+        rowLength: 60,
         maxColumns: 6,
     });
 
@@ -66,14 +63,39 @@ export default function PriceTableGrid({raw_data}) {
             // })
         }
     }, [quickFilterInput, apiRef, apiRef.current])
+    useImperativeHandle(
+        ref,
+        () => ({
+            print(fileName,) {
+                apiRef.current.exportDataAsPrint({
+                    fileName: fileName,
+                    hideFooter: true,
+                    pageStyle: `
+                        .MuiDataGrid-root {
+                            border: 0 !important;
+                        }
+                    `
+                })
+            },
+            csv(fileName) {
+                apiRef.current.exportDataAsCsv({
+                    fileName: fileName,
+                })
+            }
+        }),
+        [apiRef],
+    );
 
     // console.log(columns)
+    // console.log(data.initialState)
 
     return (
         <Stack sx={{
         }}>
             <DataGridPro
+                apiRef={apiRef}
                 sx={{
+                    borderRadius: '0px 0px 4px 4px',
                     '& .even': {
                         bgcolor: 'white.shade1',
                     },
@@ -92,23 +114,31 @@ export default function PriceTableGrid({raw_data}) {
                     '& .MuiDataGrid-columnHeaderDraggableContainer': {
                         justifyContent: 'center'
                     },
+
                     // '& 	.MuiDataGrid-main': {
                     //     direction: 'rtl',
                     // }
                 }}
                 rows={data.rows}
                 columns={columns}
-                initialState={data.initialState}
+                // initialState={data.initialState} // hide is true in column itself
                 loading={data.rows.length === 0}
-                rowHeight={rowHeight}
+
                 disableSelectionOnClick
+                disableColumnResize
+                disableColumnPinning
+                disableColumnSelector
+                disableColumnReorder
+
+                rowHeight={rowHeight}
+                headerHeight={rowHeight}
                 autoHeight
+
                 rowsPerPageOptions={pageSizes}
-                disableColumnReorder={true}
-                apiRef={apiRef}
                 pagination
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+
                 localeText={{
                     ...gridLocale.components.MuiDataGrid.defaultProps.localeText,
                     MuiTablePagination: {
@@ -120,15 +150,12 @@ export default function PriceTableGrid({raw_data}) {
                 getRowClassName={(params) =>
                     params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
                 }
-                headerHeight={rowHeight}
-                disableColumnResize={true}
                 components={{
                     // ColumnResizeIcon: HeaderSeparator,
                     ColumnMenu: GridColumnMenu,
+                    // Toolbar: GridToolbar,
                 }}
-                disableColumnPinning
-                disableColumnSelector
             />
         </Stack>
     );
-}
+})

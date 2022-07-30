@@ -1,0 +1,44 @@
+diff --git a/node_modules/@mui/x-data-grid/hooks/features/export/useGridPrintExport.js b/node_modules/@mui/x-data-grid/hooks/features/export/useGridPrintExport.js
+index 1ce96ac..df90d76 100644
+--- a/node_modules/@mui/x-data-grid/hooks/features/export/useGridPrintExport.js
++++ b/node_modules/@mui/x-data-grid/hooks/features/export/useGridPrintExport.js
+@@ -86,7 +86,10 @@ export const useGridPrintExport = (apiRef, props) => {
+     const gridCloneViewport = gridClone.querySelector(`.${gridClasses.virtualScroller}`); // Expand the viewport window to prevent clipping
+ 
+     gridCloneViewport.style.height = 'auto';
+-    gridCloneViewport.style.width = 'auto';
++    ///////////amir
++    // gridCloneViewport.style.width = 'auto';
++    gridCloneViewport.style.width = gridRootElement.clientWidth; //seems enough to make print scale the table to fit all columns in
++    //////////
+     gridCloneViewport.parentElement.style.width = 'auto';
+     gridCloneViewport.parentElement.style.height = 'auto'; // Allow to overflow to not hide the border of the last row
+ 
+@@ -171,7 +174,12 @@ export const useGridPrintExport = (apiRef, props) => {
+ 
+ 
+     if (process.env.NODE_ENV !== 'test') {
+-      printWindow.contentWindow.print();
++      /////////////////amir
++      setTimeout(()=>{
++        printWindow.contentWindow.print();
++      }, 1000)
++      // printWindow.contentWindow.print();
++      ////////////////
+     }
+   }, [apiRef, doc]);
+   const handlePrintWindowAfterPrint = React.useCallback(printWindow => {
+diff --git a/node_modules/@mui/x-data-grid/hooks/features/virtualization/useGridVirtualScroller.js b/node_modules/@mui/x-data-grid/hooks/features/virtualization/useGridVirtualScroller.js
+index 7155662..ced867c 100644
+--- a/node_modules/@mui/x-data-grid/hooks/features/virtualization/useGridVirtualScroller.js
++++ b/node_modules/@mui/x-data-grid/hooks/features/virtualization/useGridVirtualScroller.js
+@@ -248,7 +248,8 @@ export const useGridVirtualScroller = props => {
+ 
+     if (scrollLeft < 0 || scrollTop < 0 || !prevRenderContext.current) {
+       return;
+-    } // When virtualization is disabled, the context never changes during scroll
++    }
++    // When virtualization is disabled, the context never changes during scroll
+ 
+ 
+     const nextRenderContext = disableVirtualization ? prevRenderContext.current : computeRenderContext();

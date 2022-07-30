@@ -9,7 +9,7 @@ const TableWrapper = () => {
     // const filtered split keys
 
     return (
-        <Stack sx={{
+        <Stack spacing={9.5} sx={{
             // width: '100%',
             width: '50%',
         }}>
