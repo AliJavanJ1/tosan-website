@@ -150,14 +150,14 @@ function App() {
         <CacheProvider value={cacheRtl}>
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
-                    {/*<Header/>*/}
+                    <Header/>
                     <Routes>
-                        <Route exact path={'/'} element={<MainPage/>}/>
-                        <Route exact path='/call/:number' element={<PhoneCall/>}/>
-                        <Route exact path='/redirect/' element={<Redirect/>}/>
-                        <Route exact path='/products/' element={<ProductsPage />} />
+                        <Route path={'/'} element={<MainPage/>}/>
+                        <Route path='/call/:number' element={<PhoneCall/>}/>
+                        <Route path='/redirect/' element={<Redirect/>}/>
+                        <Route path='/products/:fullname/:sub1/:main' element={<ProductsPage />} />
                     </Routes>
-                    {/*<Footer />*/}
+                    <Footer />
                 </BrowserRouter>
             </ThemeProvider>
         </CacheProvider>
