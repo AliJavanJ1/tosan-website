@@ -5,6 +5,7 @@ import TableWrapper from "../components/PriceTable/TableWrapper";
 import OrderRegistrationProcedure from "../components/OrderRegistrationProcedure";
 import OrderRegistrationDescriptions from "../components/OrderRegistrationDescriptions";
 import CheckBoxFilter from "../components/CheckBoxFilter";
+import MiniSalesPeople from "../components/MiniSalesPeople";
 
 function ProductsPage() {
     const productsMainCategory = "جدول قیمت میلگرد آجدار"
@@ -47,6 +48,7 @@ function ProductsPage() {
                 >
                     <PriceTableQuickFilter/>
                     <CheckBoxFilter />
+                    <MiniSalesPeople/>
                 </Stack>
                 <Stack // Main Body Part
                     width="calc(100vw - 354px - 48px)"
