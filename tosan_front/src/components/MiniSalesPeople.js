@@ -111,7 +111,7 @@ const SalesPerson = ({domain, person, category, number}) => {
 }
 
 function MiniSalesPeople(props) {
-    // const category = _.chain(window.location.pathname).split('/').filter(part=>part !== '').nth(-2).value()
+    // const category = _.chain(window.location.pathname).split('/').filter(part=>part !== '').nth(1).value()
     const category = 'میلگرد'
     const domain = useSelector(store => store.static.domain)
     const number = useSelector(store => (store.app && store.app.general_data.phone_number.value))
@@ -142,7 +142,7 @@ function MiniSalesPeople(props) {
             boxShadow: '1px 3px 12px rgba(0, 0, 0, 0.08)',
             borderRadius: '4px',
             overflow: 'hidden',
-            // position: 'sticky',
+            position: 'relative',
         }}>
             <Stack>
                 <Stack alignItems={'center'} sx={{
