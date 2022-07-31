@@ -6,12 +6,13 @@ import OrderRegistrationProcedure from "../components/OrderRegistrationProcedure
 import OrderRegistrationDescriptions from "../components/OrderRegistrationDescriptions";
 import CheckBoxFilter from "../components/CheckBoxFilter";
 import MiniSalesPeople from "../components/MiniSalesPeople";
+import SubproductsSwiper from "../components/SubproductsSwiper";
 
 function ProductsPage() {
     const productsMainCategory = "جدول قیمت میلگرد آجدار"
 
     return (
-        <>
+        <Stack zIndex={0}>
             <Stack // Header
                 direction="row"
                 alignItems="center"
@@ -33,6 +34,7 @@ function ProductsPage() {
                     {productsMainCategory}
                 </Typography>
             </Stack>
+            <SubproductsSwiper/>
             <Stack direction="row">  {/* Body */}
                 <Stack // Side Bar
                     width="259px"
@@ -44,10 +46,10 @@ function ProductsPage() {
                     alignItems="stretch"
                     justifyContent="flex-start"
                     rowGap="20px"
-                    sx={{ backgroundColor: "white" }}
+                    sx={{backgroundColor: "white"}}
                 >
                     <PriceTableQuickFilter/>
-                    <CheckBoxFilter />
+                    <CheckBoxFilter/>
                     <MiniSalesPeople/>
                 </Stack>
                 <Stack // Main Body Part
@@ -58,15 +60,15 @@ function ProductsPage() {
                     alignItems="stretch"
                     justifyContent="flex-start"
                     rowGap="87px"
-                    sx={{ backgroundColor: "white.shade3" }}
+                    sx={{backgroundColor: "white.shade3"}}
                 >
-                    <TableWrapper />
-                    <SpecialOffer />
-                    <OrderRegistrationProcedure />
-                    <OrderRegistrationDescriptions />
+                    <TableWrapper/>
+                    <SpecialOffer/>
+                    <OrderRegistrationProcedure/>
+                    <OrderRegistrationDescriptions/>
                 </Stack>
             </Stack>
-        </>
+        </Stack>
     );
 }
 
