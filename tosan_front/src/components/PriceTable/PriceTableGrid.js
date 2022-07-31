@@ -91,6 +91,13 @@ export default forwardRef(function PriceTableGrid({raw_data}, ref) {
     });
     const pageSizes = [7, 14]
     let columns = data.columns
+
+    const [page, setPage] = useState(0);
+    const quickFilterInput = useSelector(store => store.filter.quickFilterInput)
+    const apiRef = useGridApiRef();
+    const [pageSize, setPageSize] = useState(pageSizes[0]);
+
+    // add renderers
     columns = useMemo(() => (
         columns.map(column => ({
                 ...column,
@@ -111,11 +118,7 @@ export default forwardRef(function PriceTableGrid({raw_data}, ref) {
                 ),
             }))
     ), [columns.length]);
-
-    const [page, setPage] = useState(0);
-    const quickFilterInput = useSelector(store => store.filter.quickFilterInput)
-    const apiRef = useGridApiRef();
-    const [pageSize, setPageSize] = useState(pageSizes[0]);
+    // add alignments
     columns = useMemo(() => {
         return (
             columns.map(({width, ...column}) => {
@@ -129,6 +132,7 @@ export default forwardRef(function PriceTableGrid({raw_data}, ref) {
         )
     }, [columns.length])
     const rows = data.rows
+
     const onPageSizeChange = (newPageSize) => {
         setPageSize(newPageSize)
         setPage(0)
