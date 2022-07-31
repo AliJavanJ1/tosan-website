@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {IconButton, InputBase, Stack} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -26,6 +26,9 @@ const PriceTableQuickFilter = () => {
         }, 300)
         setTimerId(id)
     }
+    useEffect(()=>()=>{
+        dispatch(setQuickFilterInput(''))
+    }, [])
     return (
         <Stack direction={'row'} sx={{
             height: '40px',
