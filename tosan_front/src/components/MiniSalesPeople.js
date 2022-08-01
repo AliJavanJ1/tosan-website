@@ -3,7 +3,6 @@ import {Avatar, Box, IconButton, Link, Paper, Stack, Typography} from "@mui/mate
 import {useSelector} from "react-redux";
 import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
-import {FreeMode} from "swiper";
 import _ from "lodash";
 import {ChevronLeft, ChevronRight, WhatsApp} from "@mui/icons-material";
 import PhoneEnabledOutlinedIcon from "@mui/icons-material/PhoneEnabledOutlined";
@@ -47,7 +46,7 @@ const SalesPerson = ({domain, person, category, number}) => {
             }} spacing={1.5}>
                 {
                     person.whats_app_link &&
-                    <Link href={"/redirect/?url=" + person.whats_app_link}
+                    <Link href={"&&" + person.whats_app_link}
                           underline={'none'} sx={{
                         fontSize: 0,
                     }}>
@@ -69,7 +68,7 @@ const SalesPerson = ({domain, person, category, number}) => {
                 }
                 {
                     person.inner_company_prefix_phone &&
-                    <Link href={"call/" + number} underline={'none'}>
+                    <Link href={"&&tel:" + number} underline={'none'}>
                         <Stack direction={'row'} sx={{
                             alignItems: 'center'
                         }} spacing={1.5}>
@@ -110,7 +109,7 @@ const SalesPerson = ({domain, person, category, number}) => {
     )
 }
 
-function MiniSalesPeople(props) {
+function MiniSalesPeople() {
     // const category = _.chain(window.location.pathname).split('/').filter(part=>part !== '').nth(1).value()
     const category = 'میلگرد'
     const domain = useSelector(store => store.static.domain)
