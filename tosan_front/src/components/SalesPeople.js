@@ -48,7 +48,7 @@ const SalesPerson = (props) => {
             }}>
                 {
                     salesPerson.whats_app_link &&
-                    <Link href={"/redirect/?url=" + salesPerson.whats_app_link} underline={'none'} sx={{
+                    <Link href={"&&tel:" + salesPerson.whats_app_link} underline={'none'} sx={{
                         fontSize: 0,
                     }}>
                         <WhatsApp sx={{
@@ -60,7 +60,7 @@ const SalesPerson = (props) => {
                 }
                 {
                     salesPerson.inner_company_prefix_phone &&
-                    <Link href={"call/" + number} underline={'none'}>
+                    <Link href={"&&tel:" + number} underline={'none'}>
                         <Stack direction={'row'} sx={{
                             bgcolor: 'primary.shade3',
                             alignItems: 'center',

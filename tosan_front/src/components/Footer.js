@@ -99,7 +99,7 @@ const Footer = () => {
                         xs="auto"
                     >
                         {socialMediaItems.map(item => (
-                            <Link href={item.link ? "/redirect/?url=" + item.link : item.link} key={item.id} sx={{
+                            <Link href={item.link ? "&&" + item.link : "#"} key={item.id} sx={{
                                 paddingRight: 3
                             }}>
                                 {item.icon}
