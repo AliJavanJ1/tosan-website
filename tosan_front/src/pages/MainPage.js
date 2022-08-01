@@ -4,15 +4,17 @@ import CircleImageSlide from "../components/CircleImageSlide";
 import SubsidiariesSlideshow from "../components/subsidiariesSlideshow";
 import ProductsSlideshow from "../components/productsSlideshow";
 import StrengthPoints from "../components/StrengthPoints";
+import QuickSearch from "../components/QuickSerch";
 
 const MainPage = () => (
     <>
-        <MainSlider />
-        <ProductsSlideshow/>
-        <CircleImageSlide/>
-        <SalesPeople/>
-        <SubsidiariesSlideshow/>
-        <StrengthPoints />
+            <MainSlider />
+            <ProductsSlideshow/>
+            <QuickSearch />
+            <CircleImageSlide/>
+            <SalesPeople/>
+            <SubsidiariesSlideshow/>
+            <StrengthPoints />
     </>
 );
 

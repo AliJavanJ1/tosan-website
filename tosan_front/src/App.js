@@ -10,8 +10,6 @@ import createCache from '@emotion/cache';
 import {useEffect} from "react";
 import {fetchAppData} from "./redux/appSlice";
 import {LinkBehavior} from "./components/linkBehavior"
-import PhoneCall from "./components/PhoneCall";
-import Redirect from "./components/Redirect";
 import Footer from "./components/Footer";
 import MainPage from "./pages/MainPage";
 import Header from "./components/header";
@@ -153,8 +151,6 @@ function App() {
                     <Header/>
                     <Routes>
                         <Route path={'/'} element={<MainPage/>}/>
-                        <Route path='/call/:number' element={<PhoneCall/>}/>
-                        <Route path='/redirect/' element={<Redirect/>}/>
                         <Route path='/products/:fullname/:sub1/:main' element={<ProductsPage />} />
                     </Routes>
                     <Footer />

@@ -13,4 +13,5 @@ const staticSlice = createSlice({
 })
 
 // export const {} = staticSlice.actions
+export {initialState}
 export default staticSlice.reducer
