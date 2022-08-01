@@ -1,20 +1,13 @@
-from rest_framework import status
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.response import Response
-from .models import *
-from company_data.models import *
 from company_data.serializers import *
 from .serializers import *
-from django.urls import reverse
-from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from django.http import JsonResponse
 from dataresolve.serializers import *
 from dataresolve.models import MainPageProductData
-from rest_framework.serializers import ListSerializer
 
 
-# Create your views here.
 @api_view(['GET'])
 @parser_classes([JSONParser])
 def get_main_page_data(request):
@@ -49,5 +42,5 @@ def get_main_page_data(request):
                      "main_product": product_images_srl.data,
                      "all_products": all_products_srl.data,
                      "employees": all_employees_srl.data,
-                     "subsidiaries": subsidiaries_srl.data
+                     "subsidiaries": subsidiaries_srl.data,
                      })

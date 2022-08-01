@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'company_data.apps.CompanyDataConfig',
     'import_export',
     "corsheaders",
+    'smart_selects',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -117,19 +119,18 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
+# JQUERY_URL = True
+USE_DJANGO_JQUERY = True
 
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+STATIC_ROOT = '../tosan_django/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -137,3 +138,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3004"
 ]
+handler404 = 'pages_data_api.views.bad_view'
+handler500 = 'pages_data_api.views.bad_view'
+handler403 = 'pages_data_api.views.bad_view'
+handler400 = 'pages_data_api.views.bad_view'

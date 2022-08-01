@@ -10,11 +10,10 @@ class EmployeeResources(resources.ModelResource):
         model = Employee
 
 
-# Register your models here.
 class EmployeeAdminForm(ImportExportModelAdmin):
     empty_value_display = '-خالی-'
     list_display = ('full_name', 'first_name', 'last_name', 'get_gob_str',
-                    'inner_company_prefix_phone')
+                    'inner_company_prefix_phone', 'image_tag')
     list_display_links = ('full_name',)
     list_per_page = 20
     search_fields = ('first_name', 'last_name')
@@ -36,7 +35,7 @@ class EmployeeAdminForm(ImportExportModelAdmin):
 
     get_gob_str.short_description = _('عنوان شغل')
 
-    full_name.short_description = _('نام کامل')
+    full_name.short_description = _('نام و نام خانوادگی')
 
 
 class JobCategoriesResources(resources.ModelResource):
@@ -56,7 +55,7 @@ class SubsidiaryResources(resources.ModelResource):
 
 
 class SubsidiaryAdminForm(ImportExportModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'main_page_tag', 'main_page_description')
     list_display_links = ('name',)
     resources = SubsidiaryResources
 

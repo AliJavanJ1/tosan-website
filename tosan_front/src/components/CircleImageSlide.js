@@ -10,7 +10,7 @@ const CircleImageSlide = () => {
     const middle_circle = useSelector(store => (store.app && store.app.main_page_data.middle_circle));
 
     const [imageIndex, setImageIndex] = useState(3);
-    let [middleCircle1, setMiddleCircle1] = useState(get_dict_to_array(middle_circle))
+    const [middleCircle1, setMiddleCircle1] = useState(get_dict_to_array(middle_circle))
     const [firstMiddleImage, setFirstMiddleImage] = useState(middle_circle ? middle_circle.file[imageIndex] : null);
     const [lastMiddleImage, setLastMiddleImage] = useState(middle_circle ? middle_circle.file[imageIndex] : null);
     const [middleText, setMiddleText] = useState(middle_circle ? middle_circle.value[imageIndex] : null);
@@ -66,7 +66,7 @@ const CircleImageSlide = () => {
     const onCircleClick = (index) => {
         change_vars(index);
         clearInterval(timerId)
-        setCount(currentCount+1)
+        setCount(currentCount + 1)
     }
 
     return (
@@ -75,193 +75,204 @@ const CircleImageSlide = () => {
             {middle_circle &&
                 <Box
                     sx={{
-                        marginBottom: 10,
-                        display: 'grid',
-                        gridTemplateColumns: '100%',
-                        gridTemplateRows: '100%',
-                        maxHeight: '550px',
                         width: '100%',
-                        height: 'auto',
-                        overflow: 'hidden',
+                        height: '550px',
+                        marginBottom: 10,
+                        overflow:'hidden',
                         boxSizing: 'border-box',
-                        opacity: .99
-                    }}>
+                    }}
+                >
                     <Box
-                        sx={
-                            {
-                                gridRow: 1,
-                                gridColumn: 1,
-                                display: 'grid',
-                                gridTemplateColumns: '100%',
-                                gridTemplateRows: '100%',
-                                alignItems: 'center',
-                                justifyItems: 'center',
-                                height: '100%',
-                                width: '100%',
-                                overflow: 'hidden',
-                                boxSizing: 'border-box',
-                                opacity: 0.99,
-                            }}
-                    >
-                        <img
-                            onTransitionEnd={() => {
-                                if (!FirstMiddleImageUp) {
-                                    setFirstMiddleImage(lastMiddleImage);
-                                }
-                            }}
-                            style={{
-                                gridRow: 1,
-                                gridColumn: 1,
-                                minWidth: "100%",
-                                minHeight: "100%",
-                                transition: "opacity 1.5s",
-                                opacity: FirstMiddleImageUp ? 1 : 0,
-                                zIndex: -1,
-                            }}
-                            src={firstMiddleImage}
-                        />
-                        <img
-                            onTransitionEnd={() => {
-                                if (FirstMiddleImageUp) {
-                                    setLastMiddleImage(firstMiddleImage);
-                                }
-                            }}
-
-                            style={{
-                                gridRow: 1,
-                                gridColumn: 1,
-                                minWidth: "100%",
-                                minHeight: "100%",
-                                transition: "opacity 1.5s",
-                                opacity: !FirstMiddleImageUp ? 1 : 0,
-                                zIndex: -1,
-                            }}
-                            src={lastMiddleImage}
-                        />
+                        sx={{
+                            display: 'grid',
+                            gridTemplateColumns: '100%',
+                            gridTemplateRows: '100%',
+                            maxHeight: '550px',
+                            width: '100%',
+                            height: 'auto',
+                            overflow: 'hidden',
+                            boxSizing: 'border-box',
+                            opacity: .99
+                        }}>
                         <Box
                             sx={
                                 {
                                     gridRow: 1,
                                     gridColumn: 1,
-                                    background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4))',
+                                    display: 'grid',
+                                    gridTemplateColumns: '100%',
+                                    gridTemplateRows: '100%',
+                                    alignItems: 'center',
+                                    justifyItems: 'center',
                                     height: '100%',
                                     width: '100%',
+                                    overflow: 'hidden',
+                                    boxSizing: 'border-box',
+                                    opacity: 0.99,
                                 }}
-                        ></Box>
-                        <Box sx={{
-                            gridColumn: 1,
-                            gridRow: 1,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: '100%',
-                            height: '100%',
-                            boxSizing: 'border-box',
-                            paddingTop: '3%',
-                            paddingBottom: '3%'
-                        }}>
+                        >
+                            <img
+                                onTransitionEnd={() => {
+                                    if (!FirstMiddleImageUp) {
+                                        setFirstMiddleImage(lastMiddleImage);
+                                    }
+                                }}
+                                style={{
+                                    gridRow: 1,
+                                    gridColumn: 1,
+                                    minWidth: "100%",
+                                    minHeight: "100%",
+                                    maxHeight: "300%",
+                                    transition: "opacity 1.5s",
+                                    opacity: FirstMiddleImageUp ? 1 : 0,
+                                    zIndex: -1,
+                                }}
+                                src={firstMiddleImage}
+                            />
+                            <img
+                                onTransitionEnd={() => {
+                                    if (FirstMiddleImageUp) {
+                                        setLastMiddleImage(firstMiddleImage);
+                                    }
+                                }}
+
+                                style={{
+                                    gridRow: 1,
+                                    gridColumn: 1,
+                                    minWidth: "100%",
+                                    minHeight: "100%",
+                                    maxHeight: "300%",
+                                    transition: "opacity 1.5s",
+                                    opacity: !FirstMiddleImageUp ? 1 : 0,
+                                    zIndex: -1,
+                                }}
+                                src={lastMiddleImage}
+                            />
                             <Box
-                                sx={{
-                                    aspectRatio: '1 / 1',
-                                    display: 'grid',
-                                    justifyItems: 'center',
-                                    alignItems: 'center',
-                                    gridTemplateColumns: '13% 1fr 13% 1fr 13%',
-                                    gridTemplateRows: '13% 1fr 13% 1fr 13%',
-                                    height: '100%',
-                                    transition: 'transform 1.5s',
-                                    transformOrigin: 'center',
-                                    transform: 'rotate(' + circleRotate + 'deg)'
-                                }}>
+                                sx={
+                                    {
+                                        gridRow: 1,
+                                        gridColumn: 1,
+                                        background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4))',
+                                        height: '100%',
+                                        width: '100%',
+                                    }}
+                            ></Box>
+                            <Box sx={{
+                                gridColumn: 1,
+                                gridRow: 1,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '100%',
+                                height: '100%',
+                                boxSizing: 'border-box',
+                                paddingTop: '3%',
+                                paddingBottom: '3%'
+                            }}>
                                 <Box
-                                    borderRadius="50%" sx={{
-                                    borderColor: "white",
-                                    gridColumn: "1 / 6",
-                                    gridRow: "1 / 6",
-                                    width: "87%",
-                                    height: "87%",
-                                    display: 'grid',
-                                    gridTemplateColumns: '1fr 66% 1fr',
-                                    gridTemplateRows: '1fr 66% 1fr',
-                                    alignItems: 'center',
-                                    justifyItems: 'center',
-                                    background: "rgba(242, 242, 242, 0.4)",
-                                    border: "3px solid #F2F2F2",
-                                    transition: 'transform 1.5s',
-                                    transformOrigin: 'center',
-                                    transform: 'rotate(' + -circleRotate + 'deg)'
-                                }}
-                                >
+                                    sx={{
+                                        aspectRatio: '1 / 1',
+                                        display: 'grid',
+                                        justifyItems: 'center',
+                                        alignItems: 'center',
+                                        gridTemplateColumns: '13% 1fr 13% 1fr 13%',
+                                        gridTemplateRows: '13% 1fr 13% 1fr 13%',
+                                        height: '100%',
+                                        transition: 'transform 1.5s',
+                                        transformOrigin: 'center',
+                                        transform: 'rotate(' + circleRotate + 'deg)'
+                                    }}>
                                     <Box
-                                        onTransitionEnd={() => {
-                                            if (!FirstMiddleImageUp) {
-                                                setMiddleText(lastMiddleText);
-                                            }
-                                        }}
-
-                                        sx={{
-                                            gridColumn: 2,
-                                            gridRow: 2,
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            justifyContent: 'space-evenly',
-                                            alignContent: 'center',
-                                            alignItems: 'center',
-                                            transition: "opacity 1.5s",
-                                            opacity: !FirstMiddleImageUp ? 1 : 0,
-                                            zIndex: -1,
-                                        }}
+                                        borderRadius="50%" sx={{
+                                        borderColor: "white",
+                                        gridColumn: "1 / 6",
+                                        gridRow: "1 / 6",
+                                        width: "87%",
+                                        height: "87%",
+                                        display: 'grid',
+                                        gridTemplateColumns: '1fr 66% 1fr',
+                                        gridTemplateRows: '1fr 66% 1fr',
+                                        alignItems: 'center',
+                                        justifyItems: 'center',
+                                        background: "rgba(242, 242, 242, 0.4)",
+                                        border: "3px solid #F2F2F2",
+                                        transition: 'transform 1.5s',
+                                        transformOrigin: 'center',
+                                        transform: 'rotate(' + -circleRotate + 'deg)'
+                                    }}
                                     >
-                                        {lastMiddleText && parse(lastMiddleText)}
-                                    </Box>
-
-                                    <Box
-                                        onTransitionEnd={() => {
-                                            if (FirstMiddleImageUp) {
-                                                setLastMiddleText(middleText);
-                                            }
-                                        }}
-
-                                        sx={{
-                                            gridColumn: 2,
-                                            gridRow: 2,
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            justifyContent: 'space-evenly',
-                                            alignContent: 'center',
-                                            alignItems: 'center',
-                                            transition: "opacity 1.5s",
-                                            opacity: FirstMiddleImageUp ? 1 : 0,
-                                            zIndex: -1,
-                                        }}
-                                    >
-                                        {middleText && parse(middleText)}
-                                    </Box>
-                                </Box>
-                                {
-                                    middleCircle1.map((keyy, index) =>
                                         <Box
-                                            borderRadius="50%"
-                                            key={index}
-                                            onClick={()=>onCircleClick(index)}
+                                            onTransitionEnd={() => {
+                                                if (!FirstMiddleImageUp) {
+                                                    setMiddleText(lastMiddleText);
+                                                }
+                                            }}
+
                                             sx={{
-                                                borderColor: "white",
-                                                gridColumn: calcGridIndexCol(index),
-                                                gridRow: calcGridIndexRow(index),
-                                                width: "100%",
-                                                height: "100%",
-                                                border: "3px solid #F2F2F2",
-                                                background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(' + 'http://127.0.0.1:8000' + keyy.file + ')',
-                                                backgroundSize: 'cover !important',
-                                                cursor: 'pointer',
-                                                transition: 'transform 1.5s',
-                                                transformOrigin: 'center',
-                                                transform: 'rotate(' + -circleRotate + 'deg)'
-                                            }
-                                            }>
+                                                gridColumn: 2,
+                                                gridRow: 2,
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'space-evenly',
+                                                alignContent: 'center',
+                                                alignItems: 'center',
+                                                transition: "opacity 1.5s",
+                                                opacity: !FirstMiddleImageUp ? 1 : 0,
+                                                zIndex: -1,
+                                            }}
+                                        >
+                                            {lastMiddleText && parse(lastMiddleText)}
                                         </Box>
-                                    )
-                                }
+
+                                        <Box
+                                            onTransitionEnd={() => {
+                                                if (FirstMiddleImageUp) {
+                                                    setLastMiddleText(middleText);
+                                                }
+                                            }}
+
+                                            sx={{
+                                                gridColumn: 2,
+                                                gridRow: 2,
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'space-evenly',
+                                                alignContent: 'center',
+                                                alignItems: 'center',
+                                                transition: "opacity 1.5s",
+                                                opacity: FirstMiddleImageUp ? 1 : 0,
+                                                zIndex: -1,
+                                            }}
+                                        >
+                                            {middleText && parse(middleText)}
+                                        </Box>
+                                    </Box>
+                                    {
+                                        middleCircle1.map((keyy, index) =>
+                                            <Box
+                                                borderRadius="50%"
+                                                key={index}
+                                                onClick={() => onCircleClick(index)}
+                                                sx={{
+                                                    borderColor: "white",
+                                                    gridColumn: calcGridIndexCol(index),
+                                                    gridRow: calcGridIndexRow(index),
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    border: "3px solid #F2F2F2",
+                                                    background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(' + 'http://127.0.0.1:8000' + keyy.file + ')',
+                                                    backgroundSize: 'cover !important',
+                                                    cursor: 'pointer',
+                                                    transition: 'transform 1.5s',
+                                                    transformOrigin: 'center',
+                                                    transform: 'rotate(' + -circleRotate + 'deg)'
+                                                }
+                                                }>
+                                            </Box>
+                                        )
+                                    }
+                                </Box>
                             </Box>
                         </Box>
                     </Box>

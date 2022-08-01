@@ -15,13 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
 from . import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('page_data/', include('pages_data_api.urls'))
-]
+                  path('admin/', admin.site.urls),
+                  path('page_data/', include('pages_data_api.urls')),
+                  path('products/', include('dataresolve.urls')),
+                  path('chaining/', include('smart_selects.urls')),
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

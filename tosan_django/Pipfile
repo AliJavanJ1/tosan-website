@@ -10,6 +10,14 @@ django-cleanup = "*"
 django-import-export = "*"
 pillow = "*"
 django-cors-headers = "*"
+django-select2 = "*"
+django-sortedm2m = "*"
+django-autocomplete-light = "*"
+django-easy-select2 = "*"
+django-smart-selects = "*"
+beautifulsoup4 = "*"
+geopy = "*"
+sorl-thumbnail = "*"
 
 [dev-packages]
 
