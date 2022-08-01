@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import {initialState as staticIS} from "./staticSlice";
 
 const fetchAppData = createAsyncThunk(
     'app/fetchAppData',
     async (arg=undefined, thunkAPI) => {
-        return fetch('http://localhost:8000/page_data/main_page/')
+        return fetch(staticIS.domain + '/page_data/main_page/')
             .then(res => res.json())
     }
 )

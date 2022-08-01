@@ -13,7 +13,7 @@ import {useSpring, animated} from '@react-spring/web';
 
 function MainSlider() {
     const transitionSpeed = 1000
-    const serverURL = "http://localhost:8000"
+    const serverURL = useSelector(store => store.static.domain)
     let slides = useSelector(store => (store.app && store.app.main_page_data.slide_show))
     if(slides) {
         slides = objectToList(slides)

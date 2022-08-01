@@ -55,7 +55,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8000",
   "devDependencies": {
     "@mui/x-data-grid-generator": "^5.14.0"
   }

@@ -10,7 +10,8 @@ import _ from 'lodash'
 
 
 const ProductSlide = ({product}) => {
-    const serverURL = "http://localhost:8000"
+    const serverURL = useSelector(store => store.static.domain)
+
     return (
         <Link href={'#'} underline={'none'}>
             <Paper sx={{

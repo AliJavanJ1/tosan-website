@@ -29,7 +29,7 @@ const Footer = () => {
     ]
 
     const subsidiaries = useSelector(store => (store.app && store.app.subsidiaries))
-    const serverURL = "http://localhost:8000"
+    const serverURL = useSelector(store => store.static.domain)
 
     const pages = [
         {
