@@ -11,7 +11,7 @@ function Phone({color}) {
         main_number = number.slice(3)
     }
     return (
-        number && <Link href={"call/" + number} underline="none">
+        number && <Link href={"&&tel:" + number} underline="none">
             <Grid
                 container
                 direction="row"

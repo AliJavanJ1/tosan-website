@@ -72,7 +72,7 @@ function OrderRegistrationProcedure() {
                     variant="demiBold"
                     color="primary.shade4"
                     dir="ltr"
-                    href={"/call/" + number}
+                    href={"&&tel:" + number}
                     underline="none"
                 >
                     {toFarsiNumber(number.slice(0, 3))+" - "+toFarsiNumber(number.slice(3))}

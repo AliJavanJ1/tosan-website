@@ -4,7 +4,7 @@ import {objectToList} from "../utils";
 import SvgIcon from "@mui/material/SvgIcon";
 
 function StrengthPoints() {
-    const serverURL = "http://localhost:8000"
+    const serverURL = useSelector(store => store.static.domain)
     let strengthPoints = useSelector(store => (store.app && store.app.main_page_data.strength_points))
     if(strengthPoints)
         strengthPoints = objectToList(strengthPoints)

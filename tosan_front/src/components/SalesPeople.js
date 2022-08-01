@@ -23,6 +23,7 @@ import {toFarsiNumber} from "../utils";
 const SalesPerson = (props) => {
     const {salesPerson} = props
     const number = useSelector(store => (store.app && store.app.general_data.phone_number.value))
+    const serverURL = useSelector(store => store.static.domain)
 
     return (
         <Stack spacing={2.5}>
@@ -39,7 +40,7 @@ const SalesPerson = (props) => {
                         {salesPerson.job_category + " " + _.join(salesPerson.fields_name, ' و ')}
                     </Typography>
                 </Stack>
-                <Avatar src={'http://localhost:8000' + salesPerson.image + '?h=300'} sx={{
+                <Avatar src={serverURL + salesPerson.image + '?h=300'} sx={{
                     height: salesPerson.image ? '120px' : '100px',
                     width: salesPerson.image ? '120px' : '100px',
                 }}/>
@@ -48,7 +49,7 @@ const SalesPerson = (props) => {
             }}>
                 {
                     salesPerson.whats_app_link &&
-                    <Link href={"/redirect/?url=" + salesPerson.whats_app_link} underline={'none'} sx={{
+                    <Link href={"&&" + salesPerson.whats_app_link} underline={'none'} sx={{
                         fontSize: 0,
                     }}>
                         <WhatsApp sx={{
@@ -60,7 +61,7 @@ const SalesPerson = (props) => {
                 }
                 {
                     salesPerson.inner_company_prefix_phone &&
-                    <Link href={"call/" + number} underline={'none'}>
+                    <Link href={"&&tel:" + number} underline={'none'}>
                         <Stack direction={'row'} sx={{
                             bgcolor: 'primary.shade3',
                             alignItems: 'center',

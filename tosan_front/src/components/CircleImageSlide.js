@@ -104,7 +104,7 @@ const CircleImageSlide = () => {
                                     gridTemplateRows: '100%',
                                     alignItems: 'center',
                                     justifyItems: 'center',
-                                    height: '100%',
+                                    height: '550px',
                                     width: '100%',
                                     overflow: 'hidden',
                                     boxSizing: 'border-box',
@@ -219,7 +219,7 @@ const CircleImageSlide = () => {
                                                 alignItems: 'center',
                                                 transition: "opacity 1.5s",
                                                 opacity: !FirstMiddleImageUp ? 1 : 0,
-                                                zIndex: -1,
+                                                zIndex: !FirstMiddleImageUp ? 1 : -1,
                                             }}
                                         >
                                             {lastMiddleText && parse(lastMiddleText)}
@@ -242,7 +242,7 @@ const CircleImageSlide = () => {
                                                 alignItems: 'center',
                                                 transition: "opacity 1.5s",
                                                 opacity: FirstMiddleImageUp ? 1 : 0,
-                                                zIndex: -1,
+                                                zIndex: FirstMiddleImageUp ? 1 : -1,
                                             }}
                                         >
                                             {middleText && parse(middleText)}
