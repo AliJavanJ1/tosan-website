@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useMemo, useRef} from 'react';
 import {Box, Grid, Stack, Typography} from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import {useSelector} from "react-redux";
@@ -6,21 +6,30 @@ import _ from "lodash";
 
 const Subname1Component = (props) => {
     const {subname1, items} = props
+    const fullNames = useMemo(() => {
+        return _.keys(items)
+    }, [items.length]);
+
     return (
         <Stack direction={'column'}>
             <Typography variant={'regularS'} color={'grey.shade4'}>
-                {subname1}
+                {
+                    fullNames.length === 1
+                        ?
+                        fullNames[0]
+                        :
+                        subname1
+                }
             </Typography>
             {
-                _.chain(items).pickBy((value, key) => key).map((items, subname2) => {
-                    return (
-                        <Typography variant={'regularS'} color={'grey.shade3'} key={subname2} sx={{
-                            marginTop: 2,
-                        }}>
-                            {subname2}
-                        </Typography>
-                    )
-                }).value()
+                fullNames.length > 1 &&
+                fullNames.map(fullName => (
+                    <Typography variant={'regularS'} color={'grey.shade3'} key={fullName} sx={{
+                        marginTop: 2,
+                    }}>
+                        {fullName}
+                    </Typography>
+                ))
             }
         </Stack>
     )
@@ -33,7 +42,7 @@ function DropdownPaneLayout(props) {
         .groupBy((product) => product['main_name'])
         .get(productName)
         .groupBy((product) => product['sub_name1'])
-        .mapValues((value) => _.groupBy(value, (product) => product['sub_name2']))
+        .mapValues((value) => _.groupBy(value, (product) => product['full_name']))
         .value()
     const boxRef = useRef(null)
     return (
@@ -82,8 +91,7 @@ function DropdownPaneLayout(props) {
                     {
                         _.map(grouped, (items, subname1) => {
                             return (
-                                <Grid item sx={{
-                                }} key={subname1}>
+                                <Grid item sx={{}} key={subname1}>
                                     <Subname1Component subname1={subname1} items={items}/>
                                 </Grid>
                             )

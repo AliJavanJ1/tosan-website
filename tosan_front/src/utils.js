@@ -1,11 +1,19 @@
-export function toFarsiNumber(num) {
-    const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+import _ from "lodash";
 
-    return num
+export function toFarsiNumber(num, addSplitter=false, minLen=null) {
+    const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    let res = num
         .toString()
         .split('')
         .map(x =>  farsiDigits.includes(x) ? x : farsiDigits[x])
-        .join('');
+        .join('')
+    if (addSplitter)
+        res = _.chunk(res.split("").reverse(), 3).map(element => element.reverse().join("")).reverse().join()
+    if(minLen) {
+        const extraLen = Math.max(0, minLen - String(num).length)
+        res = farsiDigits[0].repeat(extraLen).concat("", res)
+    }
+    return res
 }
 
 export function objectToList(object) {

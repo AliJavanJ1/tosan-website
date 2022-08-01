@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useMemo, useRef, useState} from 'react';
 import {
     Avatar,
     Button,
@@ -6,7 +6,6 @@ import {
     Link,
     Paper,
     Stack,
-    styled,
     Tab,
     Tabs,
     Typography,
@@ -40,17 +39,18 @@ const SalesPerson = (props) => {
                         {salesPerson.job_category + " " + _.join(salesPerson.fields_name, ' و ')}
                     </Typography>
                 </Stack>
-                <Avatar src={'http://localhost:8000' + salesPerson.image} sx={{
+                <Avatar src={'http://localhost:8000' + salesPerson.image + '?h=300'} sx={{
                     height: salesPerson.image ? '120px' : '100px',
                     width: salesPerson.image ? '120px' : '100px',
                 }}/>
             </Stack>
             <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} spacing={1.5} sx={{
-
             }}>
                 {
                     salesPerson.whats_app_link &&
-                    <Link href={"/redirect/?url=" + salesPerson.whats_app_link}>
+                    <Link href={"/redirect/?url=" + salesPerson.whats_app_link} underline={'none'} sx={{
+                        fontSize: 0,
+                    }}>
                         <WhatsApp sx={{
                             color: '#007231',
                             fontSize: '40px',
@@ -146,6 +146,20 @@ const SalesPeople = () => {
         setIsSwiperStart(swipeRef.current.swiper.isBeginning)
         setIsSwiperEnd(swipeRef.current.swiper.isEnd)
     }
+
+    const [swiperWidth, setSwiperWidth] = useState(0);
+    useLayoutEffect(() => {
+        if(swipeRef.current.clientWidth) {
+            function updateSize() {
+                setSwiperWidth(swipeRef.current.clientWidth);
+            }
+
+            window.addEventListener('resize', updateSize);
+            updateSize();
+            return () => window.removeEventListener('resize', updateSize);
+        }
+    }, [swipeRef.current]);
+
     return (
         <Box sx={{
             margin: 18,
@@ -195,7 +209,7 @@ const SalesPeople = () => {
                     }
                 </Stack>
                 <Swiper style={{
-                    width: '60%',
+                    // width: '60%',
                     display: 'flex',
                     justifyContent: "center",
                     alignItems: 'center',
@@ -204,7 +218,8 @@ const SalesPeople = () => {
                         (!isSwiperStart || !isSwiperEnd) &&
                         <IconButton slot={'container-start'} sx={{
                             position: 'relative',
-                            left: '48px',
+                            // left: '48px',
+                            left: Math.floor(swiperWidth/2) - 736/2 - 48.5, //todo dirty
                             zIndex: 2,
                         }} onClick={() => {
                             swipeRef.current.swiper.slidePrev()
@@ -230,7 +245,8 @@ const SalesPeople = () => {
                         (!isSwiperStart || !isSwiperEnd) &&
                         <IconButton slot={'container-end'} sx={{
                             position: 'relative',
-                            right: '48px',
+                            // right: '48px',
+                            right: Math.floor(swiperWidth/2) - 736/2 - 48.5,
                             zIndex: 2,
                         }} onClick={() => {
                             swipeRef.current.swiper.slideNext()
