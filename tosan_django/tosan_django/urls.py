@@ -21,9 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-                  path('page_data/', include('pages_data_api.urls')),
-                  path('products/', include('dataresolve.urls')),
-                  path('chaining/', include('smart_selects.urls')),
+                  path('api/page_data/', include('pages_data_api.urls')),
+                  path('api/products/', include('dataresolve.urls')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

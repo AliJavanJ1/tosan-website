@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.52b5744e.css",
+    "main.js": "/static/js/main.fa86423d.js",
+    "static/media/rebar.png": "/static/media/rebar.c4e6d0dbe3439f3edda9.png",
+    "static/media/IRANSansXMedium.ttf": "/static/media/IRANSansXMedium.4f1d99bc11045061eb51.ttf",
+    "static/media/IRANSansXDemiBold.ttf": "/static/media/IRANSansXDemiBold.62667fb79b1b86a5c58c.ttf",
+    "static/media/IRANSansXBold.ttf": "/static/media/IRANSansXBold.c24574dfea37477e552f.ttf",
+    "static/media/IRANSansXExtraBold.ttf": "/static/media/IRANSansXExtraBold.075d98a95cbd4427b30e.ttf",
+    "static/media/IRANSansXRegular.ttf": "/static/media/IRANSansXRegular.b790e428829ce9a59916.ttf",
+    "static/media/contact.svg": "/static/media/contact.236f168ec4650aa6ba7cf5616dacd99f.svg",
+    "static/media/enamad.svg": "/static/media/enamad.05c69d292834bd462d22fb3799df2ab1.svg",
+    "static/media/off.svg": "/static/media/off.0b903da8142549eac80d8ae8ea4700ac.svg",
+    "static/media/tosan-logo-2.svg": "/static/media/tosan-logo-2.e247c25253cfaaef39563b67e1c5b8b6.svg",
+    "static/media/tosan-logo.svg": "/static/media/tosan-logo.e3b3a86abd5f3bc2fa12b7a643186c7f.svg",
+    "static/media/excel.svg": "/static/media/excel.7f994cdfd4d8e586387e0e186f03a053.svg",
+    "index.html": "/index.html",
+    "main.52b5744e.css.map": "/static/css/main.52b5744e.css.map",
+    "main.fa86423d.js.map": "/static/js/main.fa86423d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.52b5744e.css",
+    "static/js/main.fa86423d.js"
+  ]
+}
