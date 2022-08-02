@@ -6,9 +6,8 @@ import {FreeMode} from "swiper";
 import _ from "lodash";
 import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
-import {useParams} from "react-router-dom";
 import {ChevronLeft, ChevronRight} from "@mui/icons-material";
-import {getProductUrl, useProductParams} from "../utils";
+import {getProductUrl, useProduct} from "../utils";
 
 const StyledButton = ({product, currentFull_name, href}) => {
     return (
@@ -41,7 +40,10 @@ const StyledButton = ({product, currentFull_name, href}) => {
 }
 
 const SubproductsSwiper = () => {
-    const [currentCategory, currentSubCategory1, currentFull_name] = useProductParams()
+    const product = useProduct()
+    const { main_name: currentCategory, sub_name1: currentSubCategory1, full_name: currentFull_name} = product ?
+        product :
+        {main_name: '', sub_name1: '', full_name: ''}
     // const {main: currentCategory, sub1: currentSubCategory1, fullname: currentFull_name} = useParams()
     // const currentCategory = decodeURI(_.chain(pathname).split('/').reverse().filter(part=>part !== '').nth(1).value())
     // const currentCategory = 'میلگرد'
