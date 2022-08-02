@@ -1,16 +1,26 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import {Box, IconButton, Stack, SvgIcon} from "@mui/material";
 import PriceTableGrid from "./PriceTableGrid";
 import Typography from "@mui/material/Typography";
 import PrintIcon from '@mui/icons-material/Print';
-import { ReactComponent as excelIcon } from '../../assets/icons/excel.svg';
+import {ReactComponent as excelIcon} from '../../assets/icons/excel.svg';
+import {useProductFromURL} from "../../utils";
+import {useSelector} from "react-redux";
+import TimeAgo from "react-timeago";
+import _ from "lodash"
+import persianStrings from 'react-timeago/lib/language-strings/fa'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 
-const PriceTable = (props) => {
-    // product_name + split_name
-    const tableName = 'میلگرد آجدار ذوب‌آهن اصفهان'
-
-    // get from datetime in the data
-    const lastUpdate = 'دیروز'
+const PriceTable = ({raw_data, scroll = false, title}) => {
+    const formatter = useMemo(()=>{
+        return buildFormatter(persianStrings)
+    }, [])
+    const product = useProductFromURL()
+    const tableName = title
+    console.log('pricetable rawdata', raw_data)
+    const mostRecentUpdate = useMemo(() => {
+        return Date.parse(_.maxBy(raw_data, item=>Date.parse(item.date_price_modified)).date_price_modified)
+    }, [raw_data, raw_data.length, product]);
     const gridRef = useRef()
 
     const onExcelClick = () => {
@@ -47,7 +57,8 @@ const PriceTable = (props) => {
                         marginLeft: '40px',
                         color: 'grey.shade4',
                     }}>
-                        {'آخرین به‌روزرسانی: ' + lastUpdate}
+                        {'آخرین به‌روزرسانی: '}
+                        <TimeAgo date={mostRecentUpdate} formatter={formatter}/>
                     </Typography>
                     <Box sx={{
                         bgcolor: 'white.shade3',
@@ -83,12 +94,12 @@ const PriceTable = (props) => {
                         justifyContent: 'center',
                     }}>
                         <IconButton onClick={onExcelClick}>
-                            <SvgIcon component={excelIcon} inheritViewBox />
+                            <SvgIcon component={excelIcon} inheritViewBox/>
                         </IconButton>
                     </Box>
                 </Stack>
             </Stack>
-            <PriceTableGrid ref={gridRef}/>
+            <PriceTableGrid ref={gridRef} raw_data={raw_data} scroll={scroll}/>
         </Stack>
     );
 };
