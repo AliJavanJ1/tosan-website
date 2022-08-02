@@ -8,6 +8,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import {useParams} from "react-router-dom";
 import {ChevronLeft, ChevronRight} from "@mui/icons-material";
+import {getProductUrl, useProductParams} from "../utils";
 
 const StyledButton = ({product, currentFull_name, href}) => {
     return (
@@ -40,7 +41,8 @@ const StyledButton = ({product, currentFull_name, href}) => {
 }
 
 const SubproductsSwiper = () => {
-    const {main: currentCategory, sub1: currentSubCategory1, fullname: currentFull_name} = useParams()
+    const [currentCategory, currentSubCategory1, currentFull_name] = useProductParams()
+    // const {main: currentCategory, sub1: currentSubCategory1, fullname: currentFull_name} = useParams()
     // const currentCategory = decodeURI(_.chain(pathname).split('/').reverse().filter(part=>part !== '').nth(1).value())
     // const currentCategory = 'میلگرد'
     // const currentSubCategory1 = decodeURI(_.chain(pathname).split('/').reverse().filter(part=>part !== '').nth(2).value())
@@ -131,8 +133,7 @@ const SubproductsSwiper = () => {
                                 width: 'max-content',
                             }}>
                                 <StyledButton product={product} currentFull_name={currentFull_name}
-                                              href={'/products/' + [currentCategory, currentSubCategory1, product]
-                                                  .reverse().join('/')}/>
+                                              href={getProductUrl(currentCategory, currentSubCategory1, product)}/>
                             </SwiperSlide>
                         )
                     })
@@ -145,8 +146,7 @@ const SubproductsSwiper = () => {
                                     width: 'max-content',
                                 }}>
                                     <StyledButton product={product} currentFull_name={currentFull_name}
-                                                  href={'/products/' + [currentCategory, subCategory1, product]
-                                                      .reverse().join('/')}/>
+                                                  href={getProductUrl(currentCategory, subCategory1, product)}/>
                                 </SwiperSlide>
                             )
                         })

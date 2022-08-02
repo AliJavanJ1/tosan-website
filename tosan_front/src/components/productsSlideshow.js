@@ -37,7 +37,7 @@ const ProductSlide = ({product}) => {
                         borderRadius: '8px',
                     }}>
                         <img
-                            src={serverURL + product.file + "?h=500"}
+                            src={serverURL + product.image + "?h=500"}
                             alt={product.product_main_name}
                             style={{
                                 // minHeight: "100%",
