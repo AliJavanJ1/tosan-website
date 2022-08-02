@@ -3,37 +3,25 @@ import MenuItem from "@mui/material/MenuItem";
 import PriceTable from "./PriceTable/PriceTable";
 import {useSelector} from "react-redux";
 import _ from "lodash";
-import {useMemo, useState} from "react";
-
-const addSplit = (allProds) => {
-    for (const product of allProds) {
-        product["split"] = "شرکت"
-        const allCompanies = [
-            "فولاد خوزستان",
-            "فولاد مبارکه",
-            "فولاد سمنگان",
-            "فولاد گوزان",
-            "سنگ‌آهن بافق یزد",
-            "ذوب آهن اصفهان",
-            "مس کرمان"
-        ]
-        product["split_options"] = allCompanies.sort(() => 0.5 - Math.random()).slice(0, Math.floor(Math.random() * allCompanies.length) + 1)
-    }
-    return _.groupBy(allProds, ({main_name}) => main_name)
-}
+import {useEffect, useState} from "react";
 
 function QuickSearch() {
-    const [allProducts, setAllProducts] = useState()
-    const allProductsRaw = useSelector(store => store.app && store.app["all_products"])
-
-    useMemo(() => {
-        if (allProductsRaw)
-            setAllProducts(addSplit(JSON.parse(JSON.stringify(allProductsRaw))))
-    }, [allProductsRaw])
+    const allProducts = useSelector(store => store.app && _.groupBy(store.app["all_products"], ({main_name}) => main_name))
+    const allRawPriceData = useSelector(({price}) => price)
 
     const [productCategory, setProductCategory] = useState()
-    const [productName, setProductName] = useState()
+    const [productDetails, setProductDetails] = useState()
     const [splitName, setSplitName] = useState()
+
+    const [rawFilteredPriceData, setRawFilteredPriceData] = useState()
+
+    useEffect(() => {
+        if (allRawPriceData && splitName) {
+            setRawFilteredPriceData(allRawPriceData.filter(product =>
+                product["display_name"] === productDetails["name"]
+                && Object.keys(product["attrs_vals"]).includes(productDetails["splitAttr"])
+                && product["attrs_vals"][productDetails["splitAttr"]] === splitName))
+        }}, [splitName])
 
     return (
         <Stack
@@ -117,7 +105,7 @@ function QuickSearch() {
                         label="نوع آهن‌آلات"
                         onChange={(event) => {
                             setProductCategory(event.target.value)
-                            setProductName(null)
+                            setProductDetails(null)
                             setSplitName(null)
                         }}
                     >
@@ -171,11 +159,11 @@ function QuickSearch() {
                     <InputLabel id="product-name-label">نام محصول</InputLabel>
                     <Select
                         labelId="product-name-label"
-                        value={productName || ""}
+                        value={(productDetails && productDetails["name"]) || ""}
                         disabled={!productCategory}
                         label="نام محصول"
                         onChange={(event) => {
-                            setProductName(event.target.value)
+                            setProductDetails({name: event.target.value, splitAttr: allProducts[productCategory].find(prod => prod["full_name"] === event.target.value)["split_by_attr"]})
                             setSplitName(null)
                         }}
                     >
@@ -188,7 +176,7 @@ function QuickSearch() {
                     fullWidth
                     sx={{
                         "& label": {
-                            color: productName ? "primary.shade4" : "rgba(0, 0, 0, 0.25)",
+                            color: productDetails ? "primary.shade4" : "rgba(0, 0, 0, 0.25)",
                         },
                         "& .MuiInputBase-input, svg": {
                             color: "primary.shade4",
@@ -221,15 +209,15 @@ function QuickSearch() {
                         }
                     }}
                 >
-                    <InputLabel id="select-split-label">{productName ? allProducts[productCategory].find(prod => prod["full_name"] === productName).split : "نامشخص"}</InputLabel>
+                    <InputLabel id="select-split-label">{productDetails ? productDetails["splitAttr"] : "نامشخص"}</InputLabel>
                     <Select
                         labelId="select-split-label"
                         value={splitName || ""}
-                        disabled={!productName}
-                        label={productName ? allProducts[productCategory].find(prod => prod["full_name"] === productName).split : "نامشخص"}
+                        disabled={!productDetails}
+                        label={productDetails ? productDetails["splitAttr"] : "نامشخص"}
                         onChange={(event) => setSplitName(event.target.value)}
                     >
-                        {productName && allProducts[productCategory].find(prod => prod["full_name"] === productName).split_options.map((option) => (
+                        {productDetails && allProducts[productCategory].find(prod => prod["full_name"] === productDetails["name"])["attr_vals"][productDetails["splitAttr"]].slice(1).map((option) => (
                             <MenuItem key={option} value={option}>{option}</MenuItem>
                         ))}
                     </Select>
@@ -238,7 +226,11 @@ function QuickSearch() {
             <Box
                 width={theme => "calc(100vw - 300px - " + theme.spacing(3*13) + ")"}
             >
-                <PriceTable />
+                {rawFilteredPriceData && <PriceTable
+                    rawData={rawFilteredPriceData}
+                    scroll={true}
+                    title={`${productDetails["name"]} ${productDetails["splitAttr"]} ${splitName}`}
+                />}
             </Box>
         </Stack>
     );

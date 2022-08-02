@@ -7,13 +7,15 @@ import "swiper/css";
 import "swiper/css/free-mode"
 import {ChevronLeft, ChevronRight} from "@mui/icons-material";
 import _ from 'lodash'
+import {getProductUrl} from "../utils";
 
 
 const ProductSlide = ({product}) => {
     const serverURL = useSelector(store => store.static.domain)
+    const firstProduct = useSelector(store => store.app && store.app["all_products"].find(prod => prod["main_name"] === product["product_main_name"]))
 
     return (
-        <Link href={'#'} underline={'none'}>
+        <Link href={firstProduct ? getProductUrl(firstProduct["main_name"], firstProduct["sub_name1"], firstProduct["full_name"]) : '#'} underline={'none'}>
             <Paper sx={{
                 bgcolor: 'primary.shade4',
                 boxShadow: '1px 3px 12px rgba(56, 56, 56, 0.2)',
