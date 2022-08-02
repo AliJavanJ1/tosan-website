@@ -227,7 +227,7 @@ function QuickSearch() {
                 width={theme => "calc(100vw - 300px - " + theme.spacing(3*13) + ")"}
             >
                 {rawFilteredPriceData && <PriceTable
-                    rawData={rawFilteredPriceData}
+                    raw_data={rawFilteredPriceData}
                     scroll={true}
                     title={`${productDetails["name"]} ${productDetails["splitAttr"]} ${splitName}`}
                 />}

@@ -92,7 +92,7 @@ function CheckBoxFilter() {
                                 value={option}
                                 labelPlacement="end"
                                 checked={selectedOptions.includes(option)}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                onChange={(event) => {
                                     dispatch(setCheckBoxFilter("split", option, event.target.checked))
                                 }}
                             />
