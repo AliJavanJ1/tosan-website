@@ -15,6 +15,7 @@ import MainPage from "./pages/MainPage";
 import Header from "./components/header";
 import {LicenseInfo} from '@mui/x-license-pro';
 import ProductsPage from "./pages/ProductsPage";
+import {fetchPriceData} from "./redux/priceSlice";
 
 LicenseInfo.setLicenseKey('x0jTPl0USVkVZV0SsMjM1kDNyADM5cjM2ETPZJVSQhVRsIDN0YTM6IVREJ1T0b9586ef25c9853decfa7709eee27a1e');
 
@@ -142,6 +143,7 @@ function App() {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(fetchAppData())
+        dispatch(fetchPriceData())
     }, [dispatch])
 
     return (
