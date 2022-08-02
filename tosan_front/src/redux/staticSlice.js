@@ -2,6 +2,7 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
     'domain': 'http://localhost:8000',
+    'apiDomain': 'http://localhost:8000/api',
 }
 
 const staticSlice = createSlice({
