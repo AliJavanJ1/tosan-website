@@ -11,25 +11,19 @@ import {
 import {ExpandMore, FilterAlt} from "@mui/icons-material";
 import {setCheckBoxFilter} from "../redux/filterSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {useProductFromURL} from "../utils";
 
 
 function CheckBoxFilter() {
-    const fieldName = "شرکت"
-    const fieldOptions = [
-        "فولاد خوزستان",
-        "فولاد مبارکه",
-        "فولاد سمنگان",
-        "فولاد گوزان",
-        "استقلال تهران",
-        "سنگ‌آهن بافق یزد",
-        "مس کرمان",
-        "ذوب آهن اصفهان",
-    ]
+    const product = useProductFromURL()
+    const fieldName = product && product["split_by_attr"]
+    const  fieldOptions = product && product["attr_vals"][fieldName].slice(1)
+
     const selectedOptions = useSelector(store => store.filter.checkBoxFilter.split)
     const dispatch = useDispatch()
 
     return (
-        <Accordion disableGutters sx={{
+        fieldOptions && <Accordion disableGutters sx={{
             boxShadow: 0,
             border: '1px solid #C4C4C4',
             borderRadius: '4px',
