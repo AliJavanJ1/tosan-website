@@ -12,12 +12,13 @@ from dataresolve.models import MainPageProductData
 @parser_classes([JSONParser])
 def get_main_page_data(request):
     general_data = GeneralPagesData.objects.all()
-    general_data_srl = PageSerializer(general_data, many=True)
-    general_data_srl_dict = general_data_srl.rearrange_key_values()
+    general_data_srl = PageSerializer(general_data, many=True).rearrange_key_values()
 
     main_page_data = MainPageData.objects.all()
-    main_page_data_srl = PageSerializer(main_page_data, many=True)
-    main_page_data_srl_dict = main_page_data_srl.rearrange_key_values()
+    main_page_data_srl = PageSerializer(main_page_data, many=True).rearrange_key_values()
+
+    products_page_data = ProductsPageData.objects.all()
+    products_page_data_srl = PageSerializer(products_page_data, many=True).rearrange_key_values()
 
     product_images = MainPageProductData.objects.all()
     product_images_srl = MainPageProductDataImageSerializer(product_images, many=True)
@@ -37,8 +38,9 @@ def get_main_page_data(request):
     #                      "subsidiaries": subsidiaries_srl.data
     #                      }, safe=False, json_dumps_params={'ensure_ascii': False})
 
-    return Response({"general_data": general_data_srl_dict,
-                     "main_page_data": main_page_data_srl_dict,
+    return Response({"general_data": general_data_srl,
+                     "main_page_data": main_page_data_srl,
+                     "products_page_data": products_page_data_srl,
                      "main_product": product_images_srl.data,
                      "all_products": all_products_srl.data,
                      "employees": all_employees_srl.data,
