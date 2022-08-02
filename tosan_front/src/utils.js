@@ -66,3 +66,14 @@ export function useProductFromId(id){
     }, [id, allProducts, allProducts.length]);
     return product
 }
+
+export function combinedToFarsi(str){
+    let farsiStr = _.chain(str).map(char => {
+        if (!isNaN(char)) {
+            return toFarsiNumber(char)
+        } else {
+            return char
+        }
+    }).join('').value()
+    return farsiStr
+}
