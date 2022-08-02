@@ -6,7 +6,7 @@ import _ from "lodash";
 import {useEffect, useState} from "react";
 
 function QuickSearch() {
-    let allProducts = useSelector(store => store.app && _.groupBy(store.app["all_products"], ({main_name}) => main_name))
+    const allProducts = useSelector(store => store.app && _.groupBy(store.app["all_products"], ({main_name}) => main_name))
     const allRawPriceData = useSelector(({price}) => price)
 
     const [productCategory, setProductCategory] = useState()

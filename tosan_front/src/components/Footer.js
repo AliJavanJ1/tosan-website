@@ -7,6 +7,7 @@ import { ReactComponent as ENemad} from "../assets/icons/enamad.svg";
 import Phone from "./Phone";
 import ReadMore from "./ReadMore";
 import {useSelector} from "react-redux";
+import {getProductUrl} from "../utils";
 
 const Footer = () => {
 
@@ -59,7 +60,9 @@ const Footer = () => {
         },
     ]
 
-    const products = useSelector(store => (store.app && store.app.main_product))
+    const products = useSelector(store => (store.app ? store.app.main_product : []))
+    const allProducts = useSelector(store => store.app && store.app["all_products"])
+
     const footer_company_description = useSelector(store => (store.app && store.app.general_data.footer_company_description.value))
     let footer_company_description_title, footer_company_description_content
     if(footer_company_description) {
@@ -312,7 +315,12 @@ const Footer = () => {
                             }
                             {products && products.map(product => (
                                 <Link
-                                    href="/"
+                                    href={(() => {
+                                        const firstProduct = allProducts.find(prod => prod["main_name"] === product["product_main_name"])
+                                        return firstProduct ? getProductUrl(firstProduct["main_name"],
+                                                                            firstProduct["sub_name1"],
+                                                                            firstProduct["full_name"]) : "#"
+                                    })()}
                                     key={product.product_main_name}
                                     variant="regularX"
                                     color="white.shade2"
