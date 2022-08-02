@@ -67,8 +67,7 @@ class PriceTableSerializer(serializers.Serializer):
     price = serializers.FloatField(allow_null=False)
     date_price_modified = serializers.DateTimeField(allow_null=False)
     last_day_price = serializers.FloatField(allow_null=False)
-    hasOffer = serializers.BooleanField(allow_null=False)
-    offerPrice = serializers.FloatField(allow_null=True)
+    offer_price = serializers.SerializerMethodField()
 
     def get_attrs_vals(self, obj):
         attr_vals = dict()
@@ -81,3 +80,8 @@ class PriceTableSerializer(serializers.Serializer):
 
     def get_product_id(self, obj):
         return obj.product_name_str.product_name.id
+
+    def get_offer_price(self, obj):
+        if not obj.hasOffer:
+            return obj.price
+        return obj.offerPrice
