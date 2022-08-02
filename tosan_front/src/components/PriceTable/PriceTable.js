@@ -15,12 +15,15 @@ const PriceTable = ({raw_data, scroll = false, title}) => {
     const formatter = useMemo(()=>{
         return buildFormatter(persianStrings)
     }, [])
-    const product = useProductFromURL()
     const tableName = title
     console.log('pricetable rawdata', raw_data)
     const mostRecentUpdate = useMemo(() => {
-        return Date.parse(_.maxBy(raw_data, item=>Date.parse(item.date_price_modified)).date_price_modified)
-    }, [raw_data, raw_data.length, product]);
+        if(raw_data.length) {
+            return Date.parse(_.maxBy(raw_data, item => Date.parse(item.date_price_modified)).date_price_modified)
+        }else{
+            return null
+        }
+    }, [raw_data, raw_data.length]);
     const gridRef = useRef()
 
     const onExcelClick = () => {
@@ -58,7 +61,10 @@ const PriceTable = ({raw_data, scroll = false, title}) => {
                         color: 'grey.shade4',
                     }}>
                         {'آخرین به‌روزرسانی: '}
-                        <TimeAgo date={mostRecentUpdate} formatter={formatter}/>
+                        {
+                            raw_data.length > 0 &&
+                            <TimeAgo date={mostRecentUpdate} formatter={formatter}/>
+                        }
                     </Typography>
                     <Box sx={{
                         bgcolor: 'white.shade3',
