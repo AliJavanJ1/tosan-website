@@ -44,8 +44,11 @@ export function useProductFromURL(){
                 product.main_name === currentCategory &&
                 product.sub_name1 === currentSubCategory1 &&
                 product.full_name === currentFull_name)
-            if (tmpProducts.length !== 1) {
+            if (tmpProducts.length > 1) {
                 console.warn('two products with the same main_name, sub1, fullname')
+            }
+            if (tmpProducts.length === 0) {
+                console.warn('no product with these specs found')
             }
             return tmpProducts[0]
         } else{
