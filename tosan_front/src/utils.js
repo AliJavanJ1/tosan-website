@@ -1,5 +1,7 @@
 import _ from "lodash";
 import {useParams} from "react-router-dom";
+import {useMemo} from "react";
+import {useSelector} from "react-redux";
 
 export function toFarsiNumber(num, addSplitter=false, minLen=null) {
     const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -33,7 +35,20 @@ export function getProductUrl(category, subname1, fullanme){
         .reverse().join('/')
 }
 
-export function useProductParams(){
-    let {main: currentCategory, sub1: currentSubCategory1, fullname: currentFull_name} = useParams()
-    return [currentCategory, currentSubCategory1, currentFull_name]
+export function useProduct(){
+    const {main: currentCategory, sub1: currentSubCategory1, fullname: currentFull_name} = useParams()
+    const allProducts = useSelector(store => store.app ? store.app.all_products : [])
+    const product = useMemo(() => {
+        if(allProducts.length) {
+            const tmpProducts = allProducts.filter((product) =>
+                product.main_name === currentCategory &&
+                product.sub_name1 === currentSubCategory1 &&
+                product.full_name === currentFull_name)
+            if (tmpProducts.length !== 1) {
+                console.warn('two products with the same main_name, sub1, fullname')
+            }
+            return tmpProducts[0]
+        }
+    }, [currentCategory, currentSubCategory1, currentFull_name, allProducts, allProducts.length]);
+    return product
 }
