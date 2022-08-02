@@ -2,7 +2,7 @@ import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
-import {ListItemIcon, ListItemText, Stack} from "@mui/material";
+import {Icon, ListItemIcon, ListItemText, Stack, SvgIcon} from "@mui/material";
 import HoverPopover from 'material-ui-popup-state/HoverPopover'
 import {
     usePopupState,
@@ -14,8 +14,9 @@ import {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import DropdownPaneLayout from "./dropdownPaneLayout";
 import ElderlyWomanIcon from '@mui/icons-material/ElderlyWoman';
+// import { ReactComponent as headsetIcon } from 'http://localhost:8000/media/products_icon_files/logo-naked.cab1df1a.svg'
+// import {ReactComponent as headsetIcon} from "../assets/icons/contact.svg";
 
-// todo: order of disappearance of panes is wrong
 
 export default function ProductsDropdown() {
     const popupStateMenu = usePopupState({
@@ -62,11 +63,13 @@ export default function ProductsDropdown() {
         popupStatePane.close()
         setHoveredProduct(-1)
         setSubmittedHoveredProduct(-1)
-        if(timerId)
+        if (timerId)
             clearTimeout(timerId)
         setTimerId(null)
     }
     const mainProducts = useSelector(store => store.app ? store.app['main_product'] : [])
+
+    // console.log(StarIcon)
     return (
         <>
             <Stack
@@ -119,14 +122,19 @@ export default function ProductsDropdown() {
                                 onMouseEnter={() => onItemMouseEnter(product['product_main_name'])}
                                 key={product['product_main_name']}
                                 sx={{
-                                    height: (theme)=>theme.spacing(7),
+                                    height: (theme) => theme.spacing(7),
                                     width: menuPaper && menuPaper.clientWidth ? menuPaper.clientWidth : null,
                                     // ...(menuPaper && menuPaper.clientWidth && {width: menuPaper.clientWidth}),
                                     paddingLeft: 1,
+                                    cursor: 'default',
                                 }}
                             >
                                 <ListItemIcon>
-                                    <ElderlyWomanIcon sx={{color:'grey.shade3'}}/>
+                                    <img src={product.icon} style={{
+                                        height: '24px',
+                                        width: '24px',
+                                    }}/>
+                                    {/*<ElderlyWomanIcon sx={{color:'grey.shade3'}}/>*/}
                                 </ListItemIcon>
                                 <ListItemText>
                                     <Typography variant={'regular'} sx={{
@@ -170,7 +178,8 @@ export default function ProductsDropdown() {
                         },
                     }}
                 >
-                    <DropdownPaneLayout productName={isPaneHovered ? submittedHoveredProduct : hoveredProduct}/>
+                    <DropdownPaneLayout productName={isPaneHovered ? submittedHoveredProduct : hoveredProduct}
+                                        popupStateMenu={popupStateMenu} popupStatePane={popupStatePane}/>
                 </HoverPopover>
             </HoverMenu>
         </>

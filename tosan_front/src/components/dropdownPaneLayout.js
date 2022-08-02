@@ -1,34 +1,53 @@
 import React, {useMemo, useRef} from 'react';
-import {Box, Grid, Stack, Typography} from "@mui/material";
+import {Box, Grid, Link, Stack, Typography} from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import {useSelector} from "react-redux";
 import _ from "lodash";
+import {getProductUrl} from "../utils";
 
 const Subname1Component = (props) => {
-    const {subname1, items} = props
+    const {subname1, items, productName, popupStatePane, popupStateMenu} = props
     const fullNames = useMemo(() => {
         return _.keys(items)
     }, [items.length]);
 
     return (
         <Stack direction={'column'}>
-            <Typography variant={'regularS'} color={'grey.shade4'}>
-                {
-                    fullNames.length === 1
-                        ?
-                        fullNames[0]
-                        :
-                        subname1
-                }
-            </Typography>
+            {
+                fullNames.length === 1
+                    ?
+                    <Link underline={'none'} href={getProductUrl(productName, subname1, fullNames[0])}
+                    onClick={()=>{
+                        popupStatePane.close()
+                        popupStateMenu.close()
+                    }}>
+                        <Typography variant={'regularS'} color={'grey.shade4'}>
+                            {fullNames[0]}
+                        </Typography>
+                    </Link>
+                    // fullNames[0]
+                    :
+                    <Typography variant={'regularS'} color={'grey.shade4'} sx={{
+                        cursor: 'default',
+                    }}>
+                        {subname1}
+                    </Typography>
+            }
             {
                 fullNames.length > 1 &&
-                fullNames.map(fullName => (
-                    <Typography variant={'regularS'} color={'grey.shade3'} key={fullName} sx={{
+                fullNames.map((fullName) => (
+                    <Link key={fullName} href={getProductUrl(productName, subname1, fullName)} underline={'none'} sx={{
                         marginTop: 2,
+                    }} onClick={()=>{
+                        popupStatePane.close()
+                        popupStateMenu.close()
                     }}>
-                        {fullName}
-                    </Typography>
+                        <Typography variant={'regularS'} color={'grey.shade3'} sx={{
+                            marginTop: 2,
+                        }}>
+                            {fullName}
+                        </Typography>
+                    </Link>
                 ))
             }
         </Stack>
@@ -36,7 +55,7 @@ const Subname1Component = (props) => {
 }
 
 function DropdownPaneLayout(props) {
-    const {productName} = props
+    const {productName, popupStatePane, popupStateMenu} = props
     const allProducts = useSelector(store => store.app ? store.app['all_products'] : [])
     let grouped = _.chain(allProducts)
         .groupBy((product) => product['main_name'])
@@ -60,7 +79,8 @@ function DropdownPaneLayout(props) {
                 }}>
                     <Typography variant={'regularS'} sx={{
                         marginRight: 1.5,
-                        color: 'rgba(0, 0, 0, 0.7)'
+                        color: 'rgba(0, 0, 0, 0.7)',
+                        cursor: 'default',
                     }}>
                         {'قیمت انواع '}
                         {productName}
@@ -68,7 +88,7 @@ function DropdownPaneLayout(props) {
                     {/*<Divider flexItem={true} variant={'inset'} orientation={'horizontal'}/>*/}
                     <ArrowBackIosNewIcon sx={{
                         color: 'grey.shade2',
-                        fontSize: '12px'
+                        fontSize: '12px',
                     }}/>
                 </Stack>
                 <Grid container direction={'column'} rowSpacing={4} columnSpacing={2} sx={{
@@ -92,7 +112,8 @@ function DropdownPaneLayout(props) {
                         _.map(grouped, (items, subname1) => {
                             return (
                                 <Grid item sx={{}} key={subname1}>
-                                    <Subname1Component subname1={subname1} items={items}/>
+                                    <Subname1Component subname1={subname1} items={items} productName={productName}
+                                                       popupStatePane={popupStatePane} popupStateMenu={popupStateMenu}/>
                                 </Grid>
                             )
                         })

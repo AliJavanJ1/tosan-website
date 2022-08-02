@@ -5,13 +5,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import {Divider, Grid, InputBase, Stack, styled, SvgIcon} from "@mui/material";
+import {Divider, Grid, InputBase, Link, Stack, styled, SvgIcon} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import {ReactComponent as logo} from "../assets/logos/tosan-logo.svg"
 import {experimental_sx as esx,} from '@mui/system';
 import Phone from "./Phone";
 import {ReactComponent as headsetIcon} from "../assets/icons/contact.svg";
 import ProductsDropdown from "./productsDropdown";
+import {useSelector} from "react-redux";
 
 // todo font of search input
 
@@ -34,6 +35,8 @@ const StyledButton = styled(Button)(
 )
 
 export default function Header() {
+    const number = useSelector(store => (store.app && store.app.general_data.phone_number.value))
+
     return (
         <AppBar position="sticky" sx={{
             bgcolor: 'white.shade3',
@@ -98,22 +101,24 @@ export default function Header() {
             <StyledToolbar sx={{
                 height: (theme) => theme.spacing(13.75),
             }}>
-                <Grid container item xs={'auto'} alignItems={'center'}>
-                    <Grid item>
-                        <SvgIcon component={logo} inheritViewBox sx={{
-                            fontSize: 61,
-                            marginLeft: `-10px`,
-                        }}/>
+                <Link href={'/'} underline={'none'}>
+                    <Grid container item xs={'auto'} alignItems={'center'}>
+                        <Grid item>
+                            <SvgIcon component={logo} inheritViewBox sx={{
+                                fontSize: 61,
+                                marginLeft: `-10px`,
+                            }}/>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant={'extraBold'} sx={{
+                                color: 'primary.shade4',
+                                marginLeft: 1,
+                            }}>
+                                توسن
+                            </Typography>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <Typography variant={'extraBold'} sx={{
-                            color: 'primary.shade4',
-                            marginLeft: 1,
-                        }}>
-                            توسن
-                        </Typography>
-                    </Grid>
-                </Grid>
+                </Link>
                 <Stack direction={'row'} marginLeft={8} spacing={4} sx={{
                     height: '100%'
                 }}>
