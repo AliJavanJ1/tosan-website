@@ -35,7 +35,7 @@ export function getProductUrl(category, subname1, fullanme){
         .reverse().join('/')
 }
 
-export function useProduct(){
+export function useProductFromURL(){
     const {main: currentCategory, sub1: currentSubCategory1, fullname: currentFull_name} = useParams()
     const allProducts = useSelector(store => store.app ? store.app.all_products : [])
     const product = useMemo(() => {
@@ -48,7 +48,21 @@ export function useProduct(){
                 console.warn('two products with the same main_name, sub1, fullname')
             }
             return tmpProducts[0]
+        } else{
+            return null
         }
     }, [currentCategory, currentSubCategory1, currentFull_name, allProducts, allProducts.length]);
+    return product
+}
+
+export function useProductFromId(id){
+    const allProducts = useSelector(store => store.app ? store.app.all_products : [])
+    const product = useMemo(() => {
+        if(allProducts.length){
+            const filteredById = allProducts.filter((product)=>product.product_id === id)
+            console.assert(filteredById.length===1)
+            return(filteredById[0])
+        }
+    }, [id, allProducts, allProducts.length]);
     return product
 }

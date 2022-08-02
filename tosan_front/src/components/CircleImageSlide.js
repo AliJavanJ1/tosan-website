@@ -8,6 +8,7 @@ import parse from 'html-react-parser';
 
 const CircleImageSlide = () => {
     const middle_circle = useSelector(store => (store.app && store.app.main_page_data.middle_circle));
+    const serverURL = useSelector(store => store.static.domain)
 
     const [imageIndex, setImageIndex] = useState(3);
     const [middleCircle1, setMiddleCircle1] = useState(get_dict_to_array(middle_circle))
@@ -21,8 +22,8 @@ const CircleImageSlide = () => {
 
     useEffect(() => {
         if (middle_circle) {
-            setFirstMiddleImage(middle_circle ? 'http://127.0.0.1:8000' + middle_circle.file[imageIndex] : null);
-            setLastMiddleImage(middle_circle ? 'http://127.0.0.1:8000' + middle_circle.file[imageIndex] : null);
+            setFirstMiddleImage(middle_circle ? serverURL + middle_circle.file[imageIndex] : null);
+            setLastMiddleImage(middle_circle ? serverURL + middle_circle.file[imageIndex] : null);
             setMiddleText(middle_circle ? middle_circle.value[imageIndex] : null);
             setLastMiddleText(middle_circle ? middle_circle.value[imageIndex] : null);
             setMiddleCircle1(get_dict_to_array(middle_circle));
@@ -33,10 +34,10 @@ const CircleImageSlide = () => {
         let keyy = middleCircle1[index];
         if (FirstMiddleImageUp) {
             setLastMiddleText(keyy.text);
-            setLastMiddleImage('http://127.0.0.1:8000' + keyy.file);
+            setLastMiddleImage(serverURL + keyy.file);
         } else {
             setMiddleText(keyy.text);
-            setFirstMiddleImage('http://127.0.0.1:8000' + keyy.file)
+            setFirstMiddleImage(serverURL + keyy.file)
         }
         setFirstMiddleImageUp(!FirstMiddleImageUp);
 
@@ -261,7 +262,7 @@ const CircleImageSlide = () => {
                                                     width: "100%",
                                                     height: "100%",
                                                     border: "3px solid #F2F2F2",
-                                                    background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(' + 'http://127.0.0.1:8000' + keyy.file + ')',
+                                                    background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(' + serverURL + keyy.file + ')',
                                                     backgroundSize: 'cover !important',
                                                     cursor: 'pointer',
                                                     transition: 'transform 1.5s',

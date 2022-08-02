@@ -1,38 +1,21 @@
-import {Anchor} from "@mui/icons-material";
 import {Link, Stack, Typography} from "@mui/material";
-import {toFarsiNumber} from "../utils";
+import {objectToList, toFarsiNumber} from "../utils";
 import {useSelector} from "react-redux";
+import SvgIcon from "@mui/material/SvgIcon";
 
 function OrderRegistrationProcedure() {
-    const orderRegistrationProcedure = [
-        {
-            icon: <Anchor sx={{ fontSize: 60 }}/>,
-            title: "ثبت سفارش",
-            description: "و صدور پیش فاکتور",
-        },
-        {
-            icon: <Anchor sx={{ fontSize: 60 }}/>,
-            title: "تعیین شیوه پرداخت",
-            description: "یک توضیح کوتاه آزمایشی",
-        },
-        {
-            icon: <Anchor sx={{ fontSize: 60 }}/>,
-            title: "تایید بار و کنترل کیفیت",
-            description: "یک توضیح کوتاه آزمایشی",
-        },
-        {
-            icon: <Anchor sx={{ fontSize: 60 }}/>,
-            title: "تحویل در سریع‌ترین زمان",
-            description: "یک توضیح کوتاه آزمایشی",
-        },
-        {
-            icon: <Anchor sx={{ fontSize: 60 }}/>,
-            title: "تسویه صورتحساب",
-            description: "یک توضیح کوتاه آزمایشی",
-        },
-    ]
+    const orderRegistrationProcedure = useSelector(store => (store.app && objectToList(store.app["products_page_data"]["order_registration_procedure"]).map(item => {
+        const splitData = item.value.split("\r\n")
+        return {
+            icon: item.file,
+            title: splitData[0],
+            description: splitData[1],
+        }
+    })))
 
     const number = useSelector(store => (store.app && store.app.general_data.phone_number.value))
+
+    const serverURL = useSelector(store => store.static.domain)
 
     return (
         <Stack
@@ -91,7 +74,7 @@ function OrderRegistrationProcedure() {
                 flexWrap="nowrap"
                 width="100%"
             >
-                {orderRegistrationProcedure.map((item, index) => (
+                {orderRegistrationProcedure && orderRegistrationProcedure.map((item, index) => (
                     <Stack
                         direction="column"
                         alignItems="center"
@@ -100,7 +83,11 @@ function OrderRegistrationProcedure() {
                         marginTop="42px"
                         key={index}
                     >
-                        {item.icon}
+                        <SvgIcon inheritViewBox sx={{
+                            fontSize: 60,
+                        }}>
+                            <image href={serverURL + item.icon} width={60} />
+                        </SvgIcon>
                         <Typography variant="demiBoldS" color="gray.shade5" sx={{ marginTop: "22px" }}>
                             {item.title}
                         </Typography>
