@@ -18,6 +18,7 @@ django-smart-selects = "*"
 beautifulsoup4 = "*"
 geopy = "*"
 sorl-thumbnail = "*"
+gunicorn = "*"
 
 [dev-packages]
 

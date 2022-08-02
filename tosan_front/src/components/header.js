@@ -12,7 +12,6 @@ import {experimental_sx as esx,} from '@mui/system';
 import Phone from "./Phone";
 import {ReactComponent as headsetIcon} from "../assets/icons/contact.svg";
 import ProductsDropdown from "./productsDropdown";
-import {useSelector} from "react-redux";
 
 // todo font of search input
 
@@ -35,8 +34,6 @@ const StyledButton = styled(Button)(
 )
 
 export default function Header() {
-    const number = useSelector(store => (store.app && store.app.general_data.phone_number.value))
-
     return (
         <AppBar position="sticky" sx={{
             bgcolor: 'white.shade3',
