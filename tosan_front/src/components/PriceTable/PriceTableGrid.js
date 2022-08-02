@@ -5,13 +5,14 @@ import {
     useGridApiRef,
     SortGridMenuItems,
 } from '@mui/x-data-grid-pro';
-import {Stack, TablePagination, Typography} from "@mui/material";
+import {Box, Stack, TablePagination, Typography} from "@mui/material";
 import {forwardRef, useEffect, useImperativeHandle, useMemo, useState} from "react";
 import {faIR as gridLocale, GridColumnMenuContainer, GridFilterMenuItem} from '@mui/x-data-grid-pro';
-import {toFarsiNumber} from "../../utils";
+import {combinedToFarsi, toFarsiNumber} from "../../utils";
 import {useSelector} from "react-redux";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import _ from "lodash"
 
 const GridColumnMenu = forwardRef((props, ref) => {
     const {hideMenu, currentColumn} = props;
@@ -24,7 +25,15 @@ const GridColumnMenu = forwardRef((props, ref) => {
 });
 
 const PriceCell = (props) => {
-    const condition = Math.floor(props.value) % 2 === 1
+    // if needed 3 state add third symbol, and third state for condition
+    const currentPrice = props.value
+    const lastPrice = props.row['lastPrice']
+    let changeState = 0
+    if(currentPrice > lastPrice){
+        changeState = 1
+    }else if(currentPrice < lastPrice){
+        changeState = -1
+    }
     return (
         <Stack direction={"row"} sx={{
             width: '100%',
@@ -32,29 +41,39 @@ const PriceCell = (props) => {
         }}>
             <Typography
                 variant={'regularX'}
-                color={condition ? '#007231' : '#9C0000'}
                 marginRight={1}
                 sx={{
                     flexGrow: 1,
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    ...(changeState !== 0 && {
+                        color: changeState === 1 ? '#007231' : '#9C0000'
+                    }),
                 }}
             >
-                {props.value}
+                {toFarsiNumber(props.value)}
             </Typography>
             {
-                condition
-                    ?
-                    <ExpandMoreIcon sx={{
+                changeState === 1 &&
+                <ExpandLessIcon sx={{
                         color: '#007231',
                         width: '30px',
                         marginRight: 1,
                     }}/>
-                    :
-                    <ExpandLessIcon sx={{
-                        color: '#9C0000',
-                        width: '30px',
-                        marginRight: 1,
-                    }}/>
+            }
+            {
+                changeState === 0 &&
+                <Box sx={{
+                    width: '30px',
+                    marginRight: 1,
+                }}></Box>
+            }
+            {
+                changeState === -1 &&
+                <ExpandMoreIcon sx={{
+                    color: '#9C0000',
+                    width: '30px',
+                    marginRight: 1,
+                }}/>
             }
         </Stack>
     )
@@ -82,8 +101,52 @@ const PriceCell = (props) => {
 //     )
 // }
 
-export default forwardRef(function PriceTableGrid({raw_data}, ref) {
+const getColumns = (raw_data) => {
+    //field, type, headerName,
+    let attrs = _.chain(raw_data).map(data => data.attrs_vals).value()
+    // console.log(attrs)
+    let merged = _.mergeWith({}, ...attrs, (objVal, srcVal) => {
+        // console.log('pair', objVal, srcVal)
+        return _.isUndefined(objVal) ? [srcVal] : [...objVal, srcVal]
+    })
+    let columns = _.map(merged, (value, key) => {
+        const type = _.some(value, isNaN) ? 'string' : 'number'
+        return {
+            field: key,
+            type: type,
+            valueGetter: ({value}) => {
+                if (type === 'number') {
+                    return parseInt(value)
+                } else {
+                    return value
+                }
+            },
+        }
+    })
+    columns.push({
+        field: 'price',
+        headerName: 'قیمت (ریال)',
+        type: 'number',
+        valueGetter: ({value}) => parseInt(value)
+    })
+    return columns
+}
+
+const getRows = (raw_data) => {
+    let rows = _.map(raw_data, (data, index) => {
+        return {
+            ...data.attrs_vals,
+            'price': data.offer_price,
+            'lastPrice': data.last_day_price,
+            id: index,
+        }
+    })
+    return rows
+}
+
+export default forwardRef(function PriceTableGrid({raw_data, scroll}, ref) {
     const rowHeight = 46
+    const scrollHeightMult = 10
     const {data} = useDemoData({
         dataSet: 'Commodity',
         rowLength: 60,
@@ -91,6 +154,18 @@ export default forwardRef(function PriceTableGrid({raw_data}, ref) {
     });
     const pageSizes = [7, 14]
     let columns = data.columns
+    let rows = data.rows
+    // console.log(columns)
+    // console.log(rows)
+    // console.log(raw_data)
+
+    columns = useMemo(() => {
+        return getColumns(raw_data)
+    }, [])
+    rows = useMemo(() => {
+        return getRows(raw_data)
+    }, []);
+    // console.log(columns)
 
     const [page, setPage] = useState(0);
     const quickFilterInput = useSelector(store => store.filter.quickFilterInput)
@@ -100,23 +175,27 @@ export default forwardRef(function PriceTableGrid({raw_data}, ref) {
     // add renderers
     columns = useMemo(() => (
         columns.map(column => ({
-                ...column,
-                renderHeader: (props) => (
+            ...column,
+            renderHeader: (props) => {
+                return (
                     <Typography variant={'medium'} color={'grey.shade4'}>
-                        {props.field}
+                        {props.colDef.headerName ? props.colDef.headerName : props.field}
                     </Typography>
-                ),
-                ...(column.field === 'unitPrice' ? {
-                        renderCell: PriceCell,
-                    } : {
-                        renderCell: (props) => (
+                )
+            },
+            ...(column.field === 'price' ? {
+                    renderCell: PriceCell,
+                } : {
+                    renderCell: (props) => {
+                        return (
                             <Typography variant={'regularX'} color={'grey.shade4'}>
-                                {props.value}
+                                {combinedToFarsi(String(props.value))}
                             </Typography>
                         )
                     }
-                ),
-            }))
+                }
+            ),
+        }))
     ), [columns.length]);
     // add alignments
     columns = useMemo(() => {
@@ -131,7 +210,6 @@ export default forwardRef(function PriceTableGrid({raw_data}, ref) {
             })
         )
     }, [columns.length])
-    const rows = data.rows
 
     const onPageSizeChange = (newPageSize) => {
         setPageSize(newPageSize)
@@ -193,7 +271,11 @@ export default forwardRef(function PriceTableGrid({raw_data}, ref) {
     // console.log(rows)
 
     return (
-        <Stack sx={{}}>
+        <Stack sx={{
+            ...(scroll && {
+                height: rowHeight * scrollHeightMult,
+            }),
+        }}>
             <DataGridPro
                 apiRef={apiRef}
                 sx={{
@@ -233,10 +315,10 @@ export default forwardRef(function PriceTableGrid({raw_data}, ref) {
 
                 rowHeight={rowHeight}
                 headerHeight={rowHeight}
-                autoHeight
+                autoHeight={!scroll}
 
                 rowsPerPageOptions={pageSizes}
-                pagination
+                pagination={!scroll}
                 pageSize={pageSize}
                 page={page}
                 onPageChange={onPageChange}

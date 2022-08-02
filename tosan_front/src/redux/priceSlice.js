@@ -4,7 +4,7 @@ import {initialState as staticIS} from "./staticSlice";
 const fetchPriceData = createAsyncThunk(
     'price/fetchPriceData',
     async (arg=undefined, thunkAPI) => {
-        return fetch(staticIS.domain + '/products/')
+        return fetch(staticIS.apiDomain + '/products/')
             .then(res => res.json())
     }
 )

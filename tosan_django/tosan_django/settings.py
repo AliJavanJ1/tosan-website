@@ -28,9 +28,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['94.101.178.223']
 
 django_cleanup.apps.CleanupConfig
 # Application definition
@@ -128,7 +128,7 @@ USE_TZ = True
 # JQUERY_URL = True
 USE_DJANGO_JQUERY = True
 
-STATIC_URL = 'static/'
+STATIC_URL = 'staticfiles/'
 
 STATIC_ROOT = '../tosan_django/static/'
 

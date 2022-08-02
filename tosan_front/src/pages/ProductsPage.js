@@ -63,7 +63,6 @@ function ProductsPage() {
                     sx={{backgroundColor: "white.shade3"}}
                 >
                     <TableWrapper/>
-                    <SpecialOffer/>
                     <OrderRegistrationProcedure/>
                     <OrderRegistrationDescriptions/>
                 </Stack>

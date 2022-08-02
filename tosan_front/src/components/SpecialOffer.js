@@ -6,14 +6,15 @@ import SvgIcon from "@mui/material/SvgIcon";
 import {toFarsiNumber} from "../utils";
 import {AvTimer} from "@mui/icons-material";
 
-function SpecialOffer() {
+function SpecialOffer({specialOffer}) {
     const [timerData, setTimerData] = useState()
-    const specialOffer = {
-        title: "میلگرد ۱۶ آجدار ظفر بناب",
-        previousPrice: 16_270,
-        currentPrice: 15_300,
-        image: RebarPNG,
-    }
+    // const specialOffer =
+    // {
+    //     title: "میلگرد ۱۶ آجدار ظفر بناب",
+    //     previousPrice: 16_270,
+    //     currentPrice: 15_300,
+    //     image: RebarPNG,
+    // }
 
     useEffect(() => {
         const date = new Date()
@@ -236,7 +237,7 @@ function SpecialOffer() {
                         </Typography>
                     ))}
                 </Stack>
-                <img src={RebarPNG} alt="rebar" height="100%" />
+                <img src={specialOffer.image} alt="rebar" height="100%" />
             </Stack>
         </Box>
     );
