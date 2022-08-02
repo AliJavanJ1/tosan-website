@@ -7,7 +7,7 @@ import _ from "lodash";
 import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import {ChevronLeft, ChevronRight} from "@mui/icons-material";
-import {getProductUrl, useProduct} from "../utils";
+import {getProductUrl, useProductFromURL} from "../utils";
 
 const StyledButton = ({product, currentFull_name, href}) => {
     return (
@@ -40,7 +40,7 @@ const StyledButton = ({product, currentFull_name, href}) => {
 }
 
 const SubproductsSwiper = () => {
-    const product = useProduct()
+    const product = useProductFromURL()
     const { main_name: currentCategory, sub_name1: currentSubCategory1, full_name: currentFull_name} = product ?
         product :
         {main_name: '', sub_name1: '', full_name: ''}
