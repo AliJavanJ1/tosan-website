@@ -36,7 +36,7 @@ class AllProductsSerializer(serializers.Serializer):
         for index, attr in enumerate(attrs):
             attr_vals[attr.attr_name] = []
             vals = getattr(obj, f'att{index + 1}_val').all()
-            attr_vals[attr.attr_name].append({"priority": index})
+            attr_vals[attr.attr_name].append({"priority": getattr(obj, f'att{index + 1}_order')})
             for val in vals.iterator():
                 attr_vals[attr.attr_name].append(val.prod_value)
         return attr_vals

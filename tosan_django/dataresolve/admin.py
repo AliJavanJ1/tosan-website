@@ -129,6 +129,42 @@ class ProductCategoryMainNameFilter(admin.SimpleListFilter):
 
 
 class ProductsNamesForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(ProductsNamesForm, self).clean()
+        attrs_len = len(cleaned_data['attrs'])
+        all_orders = {}
+        for i in range(1, attrs_len + 1):
+            attr_order = cleaned_data[f'att{i}_order']
+            if attr_order:
+                if attr_order in all_orders:
+                    all_orders[attr_order].append(f'att{i}_order')
+                else:
+                    all_orders[attr_order] = [f'att{i}_order']
+        for i in range(attrs_len + 1, 11):
+            cleaned_data[f'att{i}_order'] = i
+
+        has_any_errors = False
+        for key, value in all_orders.items():
+            if len(value) != 1:
+                has_any_errors = True
+                for order in value:
+                    print("here", order)
+                    self.add_error(order, "مقادیر اولیت ها باید متفاوت باشد")
+
+        if not has_any_errors:
+            all_orders_key = list(all_orders.keys())
+            sorted_orders = sorted(all_orders)
+            res_result = [x for x in sorted_orders]
+            for index, value in enumerate(sorted_orders):
+                ind = all_orders_key.index(value)
+                res_result[ind] = index + 1
+            for i in range(0, len(all_orders_key)):
+                cleaned_data[f'att{i + 1}_order'] = res_result[i]
+            print(all_orders_key)
+            print(sorted_orders)
+            print(res_result)
+        return cleaned_data
+
     class Meta:
         model = ProductNames
         fields = (
@@ -136,7 +172,10 @@ class ProductsNamesForm(forms.ModelForm):
             'attrs',
             'att1_val', 'att2_val', 'att3_val',
             'att4_val', 'att5_val', 'att6_val', 'att7_val', 'att8_val',
-            'att9_val', 'att10_val')
+            'att9_val', 'att10_val',
+            'att1_order', 'att2_order', 'att3_order', 'att4_order', 'att5_order', 'att6_order', 'att7_order',
+            'att8_order', 'att9_order', 'att10_order'
+        )
 
 
 class ProductNamesAdminForm(ImportExportModelAdmin):
@@ -170,43 +209,43 @@ class ProductNamesAdminForm(ImportExportModelAdmin):
             'classes': ('main_class',)
         }),
         ('صفت ۱', {
-            'fields': ('att1_val',),
+            'fields': ('att1_val', 'att1_order'),
             'classes': ('0-attr',)
         }),
         ('صفت ۲', {
-            'fields': ('att2_val',),
+            'fields': ('att2_val', 'att2_order'),
             'classes': ('1-attr',)
         }),
         ('صفت ۳', {
-            'fields': ('att3_val',),
+            'fields': ('att3_val', 'att3_order'),
             'classes': ('2-attr',)
         }),
         ('صفت ۴', {
-            'fields': ('att4_val',),
+            'fields': ('att4_val', 'att4_order'),
             'classes': ('3-attr',)
         }),
         ('صفت ۵', {
-            'fields': ('att5_val',),
+            'fields': ('att5_val', 'att5_order'),
             'classes': ('4-attr',)
         }),
         ('صفت ۶', {
-            'fields': ('att6_val',),
+            'fields': ('att6_val', 'att6_order'),
             'classes': ('5-attr',)
         }),
         ('صفت ۷', {
-            'fields': ('att7_val',),
+            'fields': ('att7_val', 'att7_order'),
             'classes': ('6-attr',)
         }),
         ('صفت ۸', {
-            'fields': ('att8_val',),
+            'fields': ('att8_val', 'att8_order'),
             'classes': ('7-attr',)
         }),
         ('صفت ۹', {
-            'fields': ('att9_val',),
+            'fields': ('att9_val', 'att9_order'),
             'classes': ('8-attr',)
         }),
         ('صفت ۱۰', {
-            'fields': ('att10_val',),
+            'fields': ('att10_val', 'att10_order'),
             'classes': ('9-attr',)
         })
     )

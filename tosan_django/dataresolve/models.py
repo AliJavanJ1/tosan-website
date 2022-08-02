@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.html import mark_safe
 
 CATEGORY_TYPE = (
@@ -82,27 +82,46 @@ class ProductNames(models.Model):
 
     att1_val = models.ManyToManyField(PossibleProductsAttributes, related_name='att1_val', blank=True,
                                       verbose_name='مقادیر ممکن')
+    att1_order = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(10)],
+                                     default=1, verbose_name="اولویت در جدول")
     att2_val = models.ManyToManyField(PossibleProductsAttributes, related_name='att2_val', blank=True,
                                       verbose_name='مقادیر ممکن')
+    att2_order = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(10)],
+                                     default=2, verbose_name="اولویت در جدول")
     att3_val = models.ManyToManyField(PossibleProductsAttributes, related_name='att3_val', blank=True,
                                       verbose_name='مقادیر ممکن')
+    att3_order = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(10)],
+                                     default=3, verbose_name="اولویت در جدول")
     att4_val = models.ManyToManyField(PossibleProductsAttributes, related_name='att4_val', blank=True,
                                       verbose_name='مقادیر ممکن')
+    att4_order = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(10)],
+                                     default=4, verbose_name="اولویت در جدول")
     att5_val = models.ManyToManyField(PossibleProductsAttributes, related_name='att5_val', blank=True,
                                       verbose_name='مقادیر ممکن')
+    att5_order = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(10)],
+                                     default=5, verbose_name="اولویت در جدول")
     att6_val = models.ManyToManyField(PossibleProductsAttributes, related_name='att6_val', blank=True,
                                       verbose_name='مقادیر ممکن')
+    att6_order = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(10)],
+                                     default=6, verbose_name="اولویت در جدول")
     att7_val = models.ManyToManyField(PossibleProductsAttributes, related_name='att7_val', blank=True,
                                       verbose_name='مقادیر ممکن')
+    att7_order = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(10)],
+                                     default=7, verbose_name="اولویت در جدول")
     att8_val = models.ManyToManyField(PossibleProductsAttributes, related_name='att8_val', blank=True,
                                       verbose_name='مقادیر ممکن')
+    att8_order = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(10)],
+                                     default=8, verbose_name="اولویت در جدول")
     att9_val = models.ManyToManyField(PossibleProductsAttributes, related_name='att9_val', blank=True,
                                       verbose_name='مقادیر ممکن')
+    att9_order = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(10)],
+                                     default=9, verbose_name="اولویت در جدول")
     att10_val = models.ManyToManyField(PossibleProductsAttributes, related_name='att10_val', blank=True,
                                        verbose_name='مقادیر ممکن')
+    att10_order = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(10)],
+                                      default=10, verbose_name="اولویت در جدول")
 
     def image_tag(self):
-        print("here", self.product_image_offer)
         return mark_safe(
             '<img src="/media/%s" width="50" height="50" />' % self.product_image_offer)
 
