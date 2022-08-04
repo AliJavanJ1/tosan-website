@@ -13,7 +13,14 @@ function AboutUs() {
             <iframe
                 name="report"
                 src={serverURL + "/contact-us"}
-                onLoad={iframe => setTimeout(() => setContent(iframe.target.contentDocument.documentElement.innerHTML), 1)}
+                onLoad={iframe => {
+                    console.log("0 kir: ", iframe.target)
+                    // setTimeout(() => console.log("3000 cos: ", iframe.target), 3000)
+                    console.log(iframe.target.contentDocument)
+                    console.log(iframe.target.contentDocument.documentElement)
+                    console.log(iframe.target.contentDocument.documentElement.innerHTML)
+                    setTimeout(() => setContent(iframe.target.contentDocument.documentElement.innerHTML), 1)
+                }}
                 style={{
                     border: 0,
                     height: 0,
