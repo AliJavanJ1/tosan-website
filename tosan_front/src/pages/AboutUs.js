@@ -15,7 +15,10 @@ function AboutUs() {
                 src={serverURL + "/contact-us"}
                 onLoad={iframe => {
                     console.log("0 kir: ", iframe.target)
-                    setTimeout(() => console.log("3000 cos: ", iframe.target), 3000)
+                    // setTimeout(() => console.log("3000 cos: ", iframe.target), 3000)
+                    console.log(iframe.target.contentDocument)
+                    console.log(iframe.target.contentDocument.documentElement)
+                    console.log(iframe.target.contentDocument.documentElement.innerHTML)
                     setTimeout(() => setContent(iframe.target.contentDocument.documentElement.innerHTML), 1)
                 }}
                 style={{
