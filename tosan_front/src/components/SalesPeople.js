@@ -18,7 +18,7 @@ import PhoneEnabledOutlinedIcon from '@mui/icons-material/PhoneEnabledOutlined';
 import {Swiper, SwiperSlide} from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import {toFarsiNumber} from "../utils";
+import {getProductUrl, toFarsiNumber} from "../utils";
 
 const SalesPerson = (props) => {
     const {salesPerson} = props
@@ -107,6 +107,7 @@ const SalesSlide = (props) => {
 
 const SalesPeople = () => {
     const people = useSelector(store => store.app ? store.app.employees : [])
+    const all_products = useSelector(store => store.app && store.app["all_products"])
     const chunkSize = 2
     const categories = useMemo(() => {
         // console.log('categ ' + people.length)
@@ -147,6 +148,18 @@ const SalesPeople = () => {
         setIsSwiperStart(swipeRef.current.swiper.isBeginning)
         setIsSwiperEnd(swipeRef.current.swiper.isEnd)
     }
+    const productURL = useMemo(()=>{
+        if(selectedCategory){
+            const product = all_products.find(prod => prod.main_name === selectedCategory)
+            if(product){
+                return getProductUrl(product["main_name"], product["sub_name1"], product["full_name"])
+            }else {
+                return '#'
+            }
+        }else{
+            return '#'
+        }
+    }, [selectedCategory])
 
     const [swiperWidth, setSwiperWidth] = useState(0);
     useLayoutEffect(() => {
@@ -262,7 +275,7 @@ const SalesPeople = () => {
                     <Button variant="outlined" endIcon={<ChevronLeft/>} sx={{
                         color: 'grey.shade3',
                         paddingY: 1,
-                    }}>
+                    }} href={productURL}>
                         <Typography variant={'demiBoldS'} color={'grey.shade3'}>
                             {
                                 'لیست قیمت'
