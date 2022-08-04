@@ -16,6 +16,7 @@ import Header from "./components/header";
 import {LicenseInfo} from '@mui/x-license-pro';
 import ProductsPage from "./pages/ProductsPage";
 import {fetchPriceData} from "./redux/priceSlice";
+import AboutUs from "./pages/AboutUs";
 
 LicenseInfo.setLicenseKey('x0jTPl0USVkVZV0SsMjM1kDNyADM5cjM2ETPZJVSQhVRsIDN0YTM6IVREJ1T0b9586ef25c9853decfa7709eee27a1e');
 
@@ -154,6 +155,7 @@ function App() {
                     <Routes>
                         <Route path={'/'} element={<MainPage/>}/>
                         <Route path='/products/:fullname/:sub1/:main' element={<ProductsPage />} />
+                        <Route path={'/about-us'} element={<AboutUs />}/>
                     </Routes>
                     <Footer />
                 </BrowserRouter>
