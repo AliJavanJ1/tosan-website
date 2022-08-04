@@ -42,10 +42,8 @@ const ProductSlide = ({product}) => {
                             src={serverURL + product.image + "?h=500"}
                             alt={product.product_main_name}
                             style={{
-                                // minHeight: "100%",
-                                // minWidth: "100%",
-                                height: '127px',
-                                width: '160px',
+                                height: '100%',
+                                width: '100%',
                                 objectFit: 'cover'
                             }}
                         />
