@@ -161,10 +161,10 @@ export default forwardRef(function PriceTableGrid({raw_data, scroll}, ref) {
 
     columns = useMemo(() => {
         return getColumns(raw_data)
-    }, [])
+    }, [raw_data])
     rows = useMemo(() => {
         return getRows(raw_data)
-    }, []);
+    }, [raw_data]);
     // console.log(columns)
 
     const [page, setPage] = useState(0);
