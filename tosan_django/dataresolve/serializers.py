@@ -31,14 +31,28 @@ class AllProductsSerializer(serializers.Serializer):
         return ress
 
     def get_attr_vals(self, obj):
+        product_str = ProductNameStr.objects.get(product_name=obj)
+        all_prices = product_str.prod_name_str.all()
+        attr_vals_in_prices = {}
+        all_prices = all_prices.iterator()
+        for price in all_prices:
+            for index in range(1, 11):
+                attr = getattr(price, f'name_att{index}')
+                val = getattr(price, f'name_att_val{index}')
+                if attr and not (attr.attr_name in attr_vals_in_prices):
+                    attr_vals_in_prices[attr.attr_name] = []
+                if val:
+                    attr_vals_in_prices[attr.attr_name].append(val.prod_value)
         attrs = [attr for attr in obj.attrs.all().iterator()]
         attr_vals = {}
         for index, attr in enumerate(attrs):
-            attr_vals[attr.attr_name] = []
-            vals = getattr(obj, f'att{index + 1}_val').all()
-            attr_vals[attr.attr_name].append({"priority": getattr(obj, f'att{index + 1}_order')})
-            for val in vals.iterator():
-                attr_vals[attr.attr_name].append(val.prod_value)
+            if attr.attr_name in attr_vals_in_prices:
+                attr_vals[attr.attr_name] = []
+                vals = getattr(obj, f'att{index + 1}_val').all()
+                attr_vals[attr.attr_name].append({"priority": getattr(obj, f'att{index + 1}_order')})
+                for val in vals.iterator():
+                    if val.prod_value in attr_vals_in_prices[attr.attr_name]:
+                        attr_vals[attr.attr_name].append(val.prod_value)
         return attr_vals
 
     def get_split_by_attr(self, obj):

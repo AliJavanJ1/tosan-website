@@ -28,9 +28,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['94.101.178.223']
+# ALLOWED_HOSTS = ['94.101.178.223']
+ALLOWED_HOSTS = []
 
 django_cleanup.apps.CleanupConfig
 # Application definition

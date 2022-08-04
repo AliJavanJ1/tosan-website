@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.html import mark_safe
+from django_resized import ResizedImageField
 
 CATEGORY_TYPE = (
     ('main', 'اصلی'),
@@ -46,13 +47,14 @@ class MainPageProductData(models.Model):
                                              blank=False, verbose_name="نام اصلی محصول", null=True,
                                              limit_choices_to={'category_type': 'main'})
 
-    image = models.ImageField(blank=True, upload_to='products_images_files')
+    image = ResizedImageField(size=[160, None], quality=100, keep_meta=False, blank=True,
+                              upload_to='products_images_files')
     icon = models.FileField(blank=True, upload_to="products_icon_files", verbose_name='آیکون محصول در منو هدر')
 
     def image_tag(self):
         if self.image:
             return mark_safe(
-                '<img src="/media/%s" width="100" height="100" />' % self.image)
+                '<img src="/media/%s" width="160" height="127" />' % self.image)
         return self.image
 
     image_tag.short_description = "تصویر اسلایدر صفحه اصلی محصول"
@@ -77,8 +79,10 @@ class ProductNames(models.Model):
     sort_by_attr = models.ForeignKey(ProductsAttributes, related_name="sortby_attr", blank=True,
                                      on_delete=models.CASCADE, verbose_name="صفت جدا کننده‌ی جدول", null=True)
 
-    product_image_offer = models.ImageField(verbose_name="عکس پشنهاد ویژه محصول", upload_to="offer_product_pic",
-                                            null=True)
+    product_image_offer = ResizedImageField(size=[240, None], quality=100, keep_meta=False,
+                                            verbose_name="عکس پشنهاد ویژه محصول",
+                                            upload_to="offer_product_pic",
+                                            null=True, blank=True)
 
     att1_val = models.ManyToManyField(PossibleProductsAttributes, related_name='att1_val', blank=True,
                                       verbose_name='مقادیر ممکن')
@@ -123,7 +127,7 @@ class ProductNames(models.Model):
 
     def image_tag(self):
         return mark_safe(
-            '<img src="/media/%s" width="50" height="50" />' % self.product_image_offer)
+            '<img src="/media/%s" width="70" height="auto"/>' % self.product_image_offer)
 
     image_tag.short_description = "تصویر پیشنهاد ویژه"
 

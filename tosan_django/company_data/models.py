@@ -1,6 +1,7 @@
 from django.db import models
 from dataresolve.models import ProductCategories
 from django.utils.html import mark_safe
+from django_resized import ResizedImageField
 
 GENDER_CHOICES = (
     ("G", 'خانم'),
@@ -32,12 +33,13 @@ class Employee(models.Model):
     whats_app_link = models.URLField(max_length=2000, blank=True, verbose_name="لینک واتساپ")
     inner_company_prefix_phone = models.IntegerField(blank=True, verbose_name="تلفن داخلی", null=True)
     gender = models.CharField(blank=False, max_length=10, default='B', choices=GENDER_CHOICES, verbose_name="جنسیت")
-    image = models.ImageField(blank=True, upload_to="employees_data", verbose_name="عکس")
+    image = ResizedImageField(size=[120, None], quality=100, keep_meta=False, blank=True, upload_to="employees_data",
+                              verbose_name="عکس")
 
     def image_tag(self):
         if self.image:
             return mark_safe(
-                '<img src="/media/%s" width="70" height="70" />' % self.image)
+                f'<img src="/media/{self.image}" width="120" height="auto" style=\"border-radius: 50%;\"/>')
         return self.image
 
     image_tag.short_description = "عکس"
@@ -53,13 +55,14 @@ class Subsidiary(models.Model):
     name = models.CharField(blank=False, max_length=200, verbose_name="نام شرکت زیر مجموعه")
     icon = models.FileField(blank=True, upload_to="subsidiary_icon", verbose_name="آیکون")
     icon_gold = models.FileField(blank=True, upload_to="subsidiary_icon", verbose_name="آیکون طلایی")
-    main_page_image = models.ImageField(blank=True, upload_to="subsidiary_main_image")
+    main_page_image = ResizedImageField(size=[650, None], quality=100, keep_meta=False, blank=True,
+                                        upload_to="subsidiary_main_image")
     main_page_description = models.TextField(blank=True, verbose_name="متن زیر مجموعه در صفحه‌ی اصلی")
 
     def main_page_tag(self):
         if self.main_page_image:
             return mark_safe(
-                '<img src="/media/%s" width="200" height="100" />' % self.main_page_image)
+                '<img src="/media/%s" width="200" height="auto />' % self.main_page_image)
         return self.main_page_image
 
     main_page_tag.short_description = "عکس زیر‌مجموعه در صفحه‌ی اصلی"

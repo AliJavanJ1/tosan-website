@@ -23,7 +23,11 @@ def get_main_page_data(request):
     product_images = MainPageProductData.objects.all()
     product_images_srl = MainPageProductDataImageSerializer(product_images, many=True)
 
-    all_products = ProductNames.objects.all()
+    all_product_strs = ProductNameStr.objects.all()
+    all_products = []
+    for prod_str in all_product_strs:
+        if len(prod_str.prod_name_str.all()) > 0:
+            all_products.append(prod_str.product_name)
     all_products_srl = AllProductsSerializer(all_products, many=True)
 
     employees = Employee.objects.all()
