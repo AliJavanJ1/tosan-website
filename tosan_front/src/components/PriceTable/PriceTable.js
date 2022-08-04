@@ -16,7 +16,7 @@ const PriceTable = ({raw_data, scroll = false, title}) => {
         return buildFormatter(persianStrings)
     }, [])
     const tableName = title
-    console.log('pricetable rawdata', raw_data)
+    // console.log('pricetable rawdata', raw_data)
     const mostRecentUpdate = useMemo(() => {
         if(raw_data.length) {
             return Date.parse(_.maxBy(raw_data, item => Date.parse(item.date_price_modified)).date_price_modified)
