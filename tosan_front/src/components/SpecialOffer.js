@@ -1,20 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import RebarPNG from "../assets/rebar.png"
 import {Box, Stack, Typography} from "@mui/material";
 import { ReactComponent as OFF} from "../assets/icons/off.svg";
 import SvgIcon from "@mui/material/SvgIcon";
 import {toFarsiNumber} from "../utils";
 import {AvTimer} from "@mui/icons-material";
+import {useSelector} from "react-redux";
 
 function SpecialOffer({specialOffer}) {
     const [timerData, setTimerData] = useState()
-    // const specialOffer =
-    // {
-    //     title: "میلگرد ۱۶ آجدار ظفر بناب",
-    //     previousPrice: 16_270,
-    //     currentPrice: 15_300,
-    //     image: RebarPNG,
-    // }
+    const serverURL = useSelector(store => store.static.domain)
 
     useEffect(() => {
         const date = new Date()
@@ -237,7 +231,7 @@ function SpecialOffer({specialOffer}) {
                         </Typography>
                     ))}
                 </Stack>
-                <img src={specialOffer.image} alt="rebar" height="100%" />
+                <img src={serverURL + specialOffer.image} alt="rebar" height="100%" />
             </Stack>
         </Box>
     );
