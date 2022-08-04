@@ -135,11 +135,12 @@ function MainSlider() {
                         }}
                     >
                         <img
-                            src={serverURL + slide.file + "?h=500"}
+                            src={serverURL + slide.file}
                             alt={slide.title}
                             style={{
-                                minHeight: "100%",
-                                minWidth: "100%",
+                                height: "100%",
+                                width: "100%",
+                                objectFit: "cover",
                             }}
                         />
                     </SwiperSlide>
