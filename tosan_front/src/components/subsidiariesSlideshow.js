@@ -32,6 +32,8 @@ function SubsidiariesSlideshow() {
         setIsSwiperStart(textSwipeRef.current.swiper.isBeginning)
         setIsSwiperEnd(textSwipeRef.current.swiper.isEnd)
     }
+    const serverURL = useSelector(store => store.static.domain)
+
     return (
         <Stack sx={{
             bgcolor: 'white.shade2',
@@ -137,7 +139,7 @@ function SubsidiariesSlideshow() {
                                                 borderRadius: '4px',
                                                 filter: 'drop-shadow(1px 3px 12px rgba(56, 56, 56, 0.2))',
                                             }}>
-                                                <img src={subsidiary.main_page_image} alt={subsidiary.name} style={{
+                                                <img src={serverURL + subsidiary.main_page_image} alt={subsidiary.name} style={{
                                                     height: '372px',
                                                     width: 'auto',
                                                 }}/>
