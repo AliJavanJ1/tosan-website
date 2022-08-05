@@ -12,16 +12,37 @@ function QuickSearch() {
     const [productCategory, setProductCategory] = useState()
     const [productDetails, setProductDetails] = useState()
     const [splitName, setSplitName] = useState()
+    const [tableTitle, setTableTitle] = useState();
+    const [initialize, setInitialize] = useState(true);
 
     const [rawFilteredPriceData, setRawFilteredPriceData] = useState()
 
     useEffect(() => {
+        if (initialize)
+            if (allProducts && !productCategory)
+                setProductCategory(Object.keys(allProducts)[0])
+            else if (productCategory && !productDetails)
+                setProductDetails({
+                    name: allProducts[productCategory][0]["full_name"],
+                    splitAttr: allProducts[productCategory][0]["split_by_attr"]
+                })
+            else if (productDetails && !splitName)
+                setSplitName(allProducts[productCategory][0]["attr_vals"][productDetails["splitAttr"]].slice(1)[0])
+            else if (splitName)
+                setInitialize(false)
+
+    }, [allProducts, productCategory, productDetails, splitName]);
+
+
+    useEffect(() => {
         if (allRawPriceData && splitName) {
+            setTableTitle(`${productDetails["name"]} ${productDetails["splitAttr"]} ${splitName}`)
             setRawFilteredPriceData(allRawPriceData.filter(product =>
                 product["display_name"] === productDetails["name"]
                 && Object.keys(product["attrs_vals"]).includes(productDetails["splitAttr"])
                 && product["attrs_vals"][productDetails["splitAttr"]] === splitName))
-        }}, [splitName])
+        }
+    }, [splitName])
 
     return (
         <Stack
@@ -163,7 +184,10 @@ function QuickSearch() {
                         disabled={!productCategory}
                         label="نام محصول"
                         onChange={(event) => {
-                            setProductDetails({name: event.target.value, splitAttr: allProducts[productCategory].find(prod => prod["full_name"] === event.target.value)["split_by_attr"]})
+                            setProductDetails({
+                                name: event.target.value,
+                                splitAttr: allProducts[productCategory].find(prod => prod["full_name"] === event.target.value)["split_by_attr"]
+                            })
                             setSplitName(null)
                         }}
                     >
@@ -209,7 +233,8 @@ function QuickSearch() {
                         }
                     }}
                 >
-                    <InputLabel id="select-split-label">{productDetails ? productDetails["splitAttr"] : "نامشخص"}</InputLabel>
+                    <InputLabel
+                        id="select-split-label">{productDetails ? productDetails["splitAttr"] : "نامشخص"}</InputLabel>
                     <Select
                         labelId="select-split-label"
                         value={splitName || ""}
@@ -224,12 +249,12 @@ function QuickSearch() {
                 </FormControl>
             </Stack>
             <Box
-                width={theme => "calc(100vw - 300px - " + theme.spacing(3*13) + ")"}
+                width={theme => "calc(100vw - 300px - " + theme.spacing(3 * 13) + ")"}
             >
                 {rawFilteredPriceData && <PriceTable
                     raw_data={rawFilteredPriceData}
                     scroll={true}
-                    title={`${productDetails["name"]} ${productDetails["splitAttr"]} ${splitName}`}
+                    title={tableTitle}
                 />}
             </Box>
         </Stack>
