@@ -19,6 +19,7 @@ import ElderlyWomanIcon from '@mui/icons-material/ElderlyWoman';
 
 
 export default function ProductsDropdown() {
+    const serverURL = useSelector(store => store.static.domain)
     const popupStateMenu = usePopupState({
         variant: 'popover',
         popupId: 'menuPopup',
@@ -130,7 +131,7 @@ export default function ProductsDropdown() {
                                 }}
                             >
                                 <ListItemIcon>
-                                    <img src={product.icon} style={{
+                                    <img src={serverURL + product.icon} style={{
                                         height: '24px',
                                         width: '24px',
                                     }}/>

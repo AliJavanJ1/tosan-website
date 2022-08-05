@@ -12,8 +12,7 @@ import {experimental_sx as esx,} from '@mui/system';
 import Phone from "./Phone";
 import {ReactComponent as headsetIcon} from "../assets/icons/contact.svg";
 import ProductsDropdown from "./productsDropdown";
-
-// todo font of search input
+import HeaderSearchbox from "./HeaderSearchbox";
 
 const StyledToolbar = styled(Toolbar)(
     esx({
@@ -63,36 +62,7 @@ export default function Header() {
                         </Typography>
                     </StyledButton>
                 </Stack>
-                <Grid container item xs={'auto'}>
-                    <Grid item>
-                        <Box sx={{
-                            boxShadow: `inset 2px 4px 15px rgba(56, 56, 56, 0.15)`,
-                            borderRadius: `25px`,
-                            bgcolor: 'white.shade1',
-                            height: (theme) => theme.spacing(6),
-                            width: (theme) => theme.spacing(41),
-                            display: `flex`,
-                        }}>
-                            <IconButton type="submit" sx={{
-                                bgcolor: 'grey.shade1',
-                                height: (theme) => theme.spacing(6),
-                                width: (theme) => theme.spacing(6),
-                                color: 'primary.shade1',
-                            }}>
-                                <SearchIcon fontSize={'large'}/>
-                            </IconButton>
-                            <InputBase
-                                sx={{
-                                    height: (theme) => theme.spacing(6),
-                                    marginLeft: 2,
-                                    flexGrow: 1,
-                                    marginRight: `1em`
-                                }}
-                                placeholder="جستجو"
-                            />
-                        </Box>
-                    </Grid>
-                </Grid>
+                <HeaderSearchbox/>
             </StyledToolbar>
             <Divider variant={'middle'} flexItem={true}/>
             <StyledToolbar sx={{
