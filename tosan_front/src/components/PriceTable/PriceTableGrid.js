@@ -8,7 +8,7 @@ import {
 import {Box, Stack, TablePagination, Typography} from "@mui/material";
 import {forwardRef, useEffect, useImperativeHandle, useMemo, useState} from "react";
 import {faIR as gridLocale, GridColumnMenuContainer, GridFilterMenuItem} from '@mui/x-data-grid-pro';
-import {combinedToFarsi, toFarsiNumber} from "../../utils";
+import {combinedToFarsi, toFarsiNumber, useProductFromURL} from "../../utils";
 import {useSelector} from "react-redux";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -29,9 +29,9 @@ const PriceCell = (props) => {
     const currentPrice = props.value
     const lastPrice = props.row['lastPrice']
     let changeState = 0
-    if(currentPrice > lastPrice){
+    if (currentPrice > lastPrice) {
         changeState = 1
-    }else if(currentPrice < lastPrice){
+    } else if (currentPrice < lastPrice) {
         changeState = -1
     }
     return (
@@ -55,10 +55,10 @@ const PriceCell = (props) => {
             {
                 changeState === 1 &&
                 <ExpandLessIcon sx={{
-                        color: '#007231',
-                        width: '30px',
-                        marginRight: 1,
-                    }}/>
+                    color: '#007231',
+                    width: '30px',
+                    marginRight: 1,
+                }}/>
             }
             {
                 changeState === 0 &&
@@ -80,7 +80,6 @@ const PriceCell = (props) => {
 }
 
 // const CustomPagination = (props) => {
-//     console.log(props)
 //     return(
 //         <TablePagination
 //             labelRowsPerPage="Rows per page" // <-- change here for anything you like
@@ -101,12 +100,10 @@ const PriceCell = (props) => {
 //     )
 // }
 
-const getColumns = (raw_data) => {
+const getColumns = (raw_data, product) => {
     //field, type, headerName,
     let attrs = _.chain(raw_data).map(data => data.attrs_vals).value()
-    // console.log(attrs)
     let merged = _.mergeWith({}, ...attrs, (objVal, srcVal) => {
-        // console.log('pair', objVal, srcVal)
         return _.isUndefined(objVal) ? [srcVal] : [...objVal, srcVal]
     })
     let columns = _.map(merged, (value, key) => {
@@ -123,6 +120,9 @@ const getColumns = (raw_data) => {
             },
         }
     })
+    columns = _.sortBy(columns, (column=> {
+        return product.attr_vals[column.field][0].priority
+    }))
     columns.push({
         field: 'price',
         headerName: 'قیمت (ریال)',
@@ -144,33 +144,37 @@ const getRows = (raw_data) => {
     return rows
 }
 
-export default forwardRef(function PriceTableGrid({raw_data, scroll}, ref) {
+export default forwardRef(function PriceTableGrid({raw_data, scroll, loading=false}, ref) {
     const rowHeight = 46
     const scrollHeightMult = 10
-    const {data} = useDemoData({
-        dataSet: 'Commodity',
-        rowLength: 60,
-        maxColumns: 10,
-    });
     const pageSizes = [7, 14]
-    let columns = data.columns
-    let rows = data.rows
-    // console.log(columns)
-    // console.log(rows)
-    // console.log(raw_data)
-
-    columns = useMemo(() => {
-        return getColumns(raw_data)
-    }, [raw_data])
-    rows = useMemo(() => {
-        return getRows(raw_data)
-    }, [raw_data]);
-    // console.log(columns)
+    // const {data} = useDemoData({
+    //     dataSet: 'Commodity',
+    //     rowLength: 60,
+    //     maxColumns: 10,
+    // });
+    // let columns = data.columns
+    // let rows = data.rows
+    let columns = null
+    let rows = null
 
     const [page, setPage] = useState(0);
     const quickFilterInput = useSelector(store => store.filter.quickFilterInput)
     const apiRef = useGridApiRef();
     const [pageSize, setPageSize] = useState(pageSizes[0]);
+    const all_products = useSelector(store => store.app ? store.app.all_products : [])
+    const product = useMemo(() => {
+        const someRawData = raw_data[0]
+        return all_products.find(product => product.main_name === someRawData.product_name &&
+            product.sub_name1 === someRawData.product_sub_name &&
+            product.full_name === someRawData.display_name)
+    }, [raw_data]);
+    columns = useMemo(() => {
+        return getColumns(raw_data, product)
+    }, [raw_data])
+    rows = useMemo(() => {
+        return getRows(raw_data)
+    }, [raw_data]);
 
     // add renderers
     columns = useMemo(() => (
@@ -267,9 +271,6 @@ export default forwardRef(function PriceTableGrid({raw_data, scroll}, ref) {
         [apiRef],
     );
 
-    // console.log(columns)
-    // console.log(rows)
-
     return (
         <Stack sx={{
             ...(scroll && {
@@ -305,7 +306,8 @@ export default forwardRef(function PriceTableGrid({raw_data, scroll}, ref) {
                 }}
                 rows={rows}
                 columns={columns}
-                loading={data.rows.length === 0}
+                // loading={data.rows.length === 0}
+                loading={loading}
 
                 disableSelectionOnClick
                 disableColumnResize
