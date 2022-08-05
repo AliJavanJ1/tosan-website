@@ -8,10 +8,17 @@ import CheckBoxFilter from "../components/CheckBoxFilter";
 import MiniSalesPeople from "../components/MiniSalesPeople";
 import SubproductsSwiper from "../components/SubproductsSwiper";
 import {useProductFromURL} from "../utils";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 function ProductsPage() {
-    const productsMainCategory = "جدول قیمت میلگرد آجدار"
+    const product = useProductFromURL()
+    const [productsMainCategory, setProductsMainCategory] = useState('');
+    useEffect(() => {
+        if(product) {
+            setProductsMainCategory("جدول قیمت " + product.full_name)
+            document.title = 'قیمت ' + (product.full_name)
+        }
+    }, [product]);
     return (
         <Stack zIndex={0}>
             <Stack // Header

@@ -120,7 +120,7 @@ const getColumns = (raw_data, product) => {
             },
         }
     })
-    columns = _.sortBy(columns, (column=> {
+    columns = _.sortBy(columns, (column => {
         return product.attr_vals[column.field][0].priority
     }))
     columns.push({
@@ -144,7 +144,7 @@ const getRows = (raw_data) => {
     return rows
 }
 
-export default forwardRef(function PriceTableGrid({raw_data, scroll, loading=false}, ref) {
+export default forwardRef(function PriceTableGrid({raw_data, scroll, loading = false}, ref) {
     const rowHeight = 46
     const scrollHeightMult = 10
     const pageSizes = [7, 14]
@@ -193,7 +193,13 @@ export default forwardRef(function PriceTableGrid({raw_data, scroll, loading=fal
                     renderCell: (props) => {
                         return (
                             <Typography variant={'regularX'} color={'grey.shade4'}>
-                                {combinedToFarsi(String(props.value))}
+                                {
+                                    props.colDef.type === 'string'
+                                        ?
+                                        combinedToFarsi(String(props.value))
+                                        :
+                                        toFarsiNumber(String(props.value), true)
+                                }
                             </Typography>
                         )
                     }
