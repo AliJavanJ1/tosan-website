@@ -11,9 +11,6 @@ function AboutUs() {
 
     useEffect(() => {
         const iframe = document.getElementById("about-us-iframe")
-        console.log(iframe)
-        iframe.postMessage('Request DOM manipulation', wpPageURL);
-
         iframe.addEventListener('message', (event) => {
             if (event.origin !== wpDomain) {
                 console.log("wrong_origin", event.origin)
@@ -32,14 +29,16 @@ function AboutUs() {
                     id="about-us-iframe"
                     name="report"
                     src={wpPageURL}
-                    // onLoad={iframe => {
+                    onLoad={iframe => {
+                        console.log(iframe.target)
+                        iframe.target.contentWindow.postMessage('get html request', wpPageURL);
                     //     console.log("0 kir: ", iframe.target)
                     //     // setTimeout(() => console.log("3000 cos: ", iframe.target), 3000)
                     //     console.log(iframe.target.contentDocument)
                     //     console.log(iframe.target.contentDocument.documentElement)
                     //     console.log(iframe.target.contentDocument.documentElement.innerHTML)
                     //     setTimeout(() => setContent(iframe.target.contentDocument.documentElement.innerHTML), 1)
-                    // }}
+                    }}
                     style={{
                         border: 0,
                         height: 0,
