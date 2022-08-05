@@ -7,7 +7,7 @@ import {useSelector} from "react-redux";
 function AboutUs() {
     const [content, setContent] = useState()
     const wpDomain = useSelector(store => store.static.wpDomain)
-    const wpPageURL = wpDomain + + "/contact-us"
+    const wpPageURL = wpDomain + "/contact-us"
 
     useEffect(() => {
         const iframe = document.getElementById("about-us-iframe")
