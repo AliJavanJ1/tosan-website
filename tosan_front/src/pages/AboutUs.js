@@ -16,8 +16,9 @@ function AboutUs() {
                 console.log("wrong_origin", event.origin)
                 return
             }
-            console.log("data", event.data)
-            setContent(event.data)
+            const fixedData = event.data.replaceAll("transition-duration: 0ms", "transition-duration: 1000ms").replaceAll("width: 0px", "width: 100%")
+            console.log("data", fixedData)
+            setContent(fixedData)
         })
         console.log("after addEventListener")
     }, [])
