@@ -30,8 +30,10 @@ function AboutUs() {
             console.log("before postMessage", iframe)
             iframe.contentWindow.postMessage('start onresize', wpPageURL)
             console.log("after postMessage")
-            setContentHeight(preContentHeights[0])
-            setContentHeight(preContentHeights[1])
+            if (contentHeight === preContentHeights[0])
+                setContentHeight(preContentHeights[1])
+            else
+                setContentHeight(preContentHeights[0])
         }
     }, [contentHeight]);
 
