@@ -20,6 +20,7 @@
     "fuse.js": "^6.6.2",
     "fuzzysort": "^2.0.1",
     "html-react-parser": "^3.0.1",
+    "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "material-ui-popup-state": "^4.0.1",
     "react": "^18.2.0",
