@@ -26,8 +26,9 @@ function AboutUs() {
 
     useEffect(() => {
         if (contentHeight === preContentHeight) {
-            console.log("before postMessage", iframe.target)
-            document.getElementById("content-iframe").contentWindow.postMessage('start onresize', wpPageURL)
+            const iframe = document.getElementById("content-iframe")
+            console.log("before postMessage", iframe)
+            iframe.contentWindow.postMessage('start onresize', wpPageURL)
             console.log("after postMessage")
         }
     }, [contentHeight]);
