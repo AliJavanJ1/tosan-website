@@ -7,6 +7,7 @@ function AboutUs() {
     const [contentHeight, setContentHeight] = useState()
     const wpDomain = useSelector(store => store.static.wpDomain)
     const wpPageURL = wpDomain + "/contact-us"
+    const preContentHeight = "50vh"
 
     useEffect(() => {
         console.log("before addEventListener")
@@ -23,6 +24,14 @@ function AboutUs() {
         console.log("after addEventListener")
     }, [])
 
+    useEffect(() => {
+        if (contentHeight === preContentHeight) {
+            console.log("before postMessage", iframe.target)
+            document.getElementById("content-iframe").contentWindow.postMessage('start onresize', wpPageURL)
+            console.log("after postMessage")
+        }
+    }, [contentHeight]);
+
 
     return (
         <Stack
@@ -33,12 +42,11 @@ function AboutUs() {
             width="100%"
         >
             <iframe
+                id="content-iframe"
                 name="report"
                 src={wpPageURL}
-                onLoad={iframe => {
-                    console.log("before postMessage", iframe.target)
-                    iframe.target.contentWindow.postMessage('start onresize', wpPageURL);
-                    console.log("after postMessage")
+                onLoad={() => {
+                    setContentHeight(preContentHeight)
                 }}
                 style={{
                     border: 0,
