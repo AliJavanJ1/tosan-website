@@ -25,7 +25,21 @@ function AboutUs() {
 
 
     return (
-        <Stack direction="column" alignItems="center" justifyContent="center" height="fit-content" width="100%">
+        <Stack
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            height="fit-content"
+            width="100%"
+            sx={{
+                "& html": {
+                    all: "initial",
+                },
+                "& html::before, html::after, html *::before, html *::after": {
+                    all: "unset",
+                },
+            }}
+        >
             {content ? parse(content) : <>
                 <iframe
                     name="report"
