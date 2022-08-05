@@ -11,6 +11,7 @@ function AboutUs() {
 
     useEffect(() => {
         const iframe = document.getElementById("about-us-iframe")
+        console.log(iframe)
         iframe.postMessage('Request DOM manipulation', wpPageURL);
 
         iframe.addEventListener('message', (event) => {
