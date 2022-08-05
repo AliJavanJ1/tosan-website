@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import {CircularProgress, Stack} from "@mui/material";
 import {useSelector} from "react-redux";
-// import $ from 'jquery';
 
 function AboutUs() {
     const [contentHeight, setContentHeight] = useState()
@@ -26,10 +25,6 @@ function AboutUs() {
 
     useEffect(() => {
         if (preContentHeights.includes(contentHeight)) {
-            // let iframeJQ = $('iframe')
-            // console.log(iframeJQ)
-            // iframeJQ.trigger('mouseover')
-            // iframeJQ.trigger('mouseleave')
             const iframe = document.getElementById("content-iframe")
             // console.log("before postMessage", iframe)
             iframe.contentWindow.postMessage('start onresize', wpPageURL)
@@ -49,6 +44,7 @@ function AboutUs() {
             justifyContent="center"
             height="fit-content"
             width="100%"
+            position="relative"
         >
             <iframe
                 id="content-iframe"
@@ -57,18 +53,25 @@ function AboutUs() {
                 onLoad={() => {
                     setContentHeight(preContentHeights[0])
                 }}
+                scrolling="no"
                 style={{
                     border: 0,
                     height: contentHeight || 0,
                     width: contentHeight ? "100%" : 0,
-                    overflow: contentHeight ? "scroll" : "hidden",
+                    overflow: "hidden",
+                    position: "absolute",
+                    right: 0,
+                    top: 0,
+                    zIndex: contentHeight ? 1 : -1,
+                    opacity: (!contentHeight || preContentHeights.includes(contentHeight)) ? 0 : 1
                 }}
             />
-            {!contentHeight && <CircularProgress
+            {(!contentHeight || preContentHeights.includes(contentHeight)) && <CircularProgress
                 size="10vw"
                 sx={{
                     color: "primary.shade3",
                     marginY: "5vw",
+                    zIndex: !contentHeight ? 1 : -1
                 }}
             />}
         </Stack>
