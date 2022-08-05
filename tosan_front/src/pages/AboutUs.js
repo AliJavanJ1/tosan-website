@@ -12,7 +12,7 @@ function AboutUs() {
     useEffect(() => {
         const iframe = document.getElementById("about-us-iframe")
         console.log("before addEventListener")
-        iframe.addEventListener('message', (event) => {
+        window.addEventListener('message', (event) => {
             if (event.origin !== wpDomain) {
                 console.log("wrong_origin", event.origin)
                 return
