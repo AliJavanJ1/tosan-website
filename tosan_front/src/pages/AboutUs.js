@@ -10,7 +10,6 @@ function AboutUs() {
     const wpPageURL = wpDomain + "/contact-us"
 
     useEffect(() => {
-        const iframe = document.getElementById("about-us-iframe")
         console.log("before addEventListener")
         window.addEventListener('message', (event) => {
             if (event.origin !== wpDomain) {
@@ -18,7 +17,7 @@ function AboutUs() {
                 return
             }
             console.log("data", event.data)
-            // setContent(event.data)
+            setContent(event.data)
         })
         console.log("after addEventListener")
     }, [])
@@ -28,19 +27,12 @@ function AboutUs() {
         <Stack direction="column" alignItems="center" justifyContent="center" height="fit-content" width="100%">
             {content ? parse(content) : <>
                 <iframe
-                    id="about-us-iframe"
                     name="report"
                     src={wpPageURL}
                     onLoad={iframe => {
                         console.log("before postMessage", iframe.target)
                         iframe.target.contentWindow.postMessage('get html request', wpPageURL);
                         console.log("after postMessage")
-                    //     console.log("0 kir: ", iframe.target)
-                    //     // setTimeout(() => console.log("3000 cos: ", iframe.target), 3000)
-                    //     console.log(iframe.target.contentDocument)
-                    //     console.log(iframe.target.contentDocument.documentElement)
-                    //     console.log(iframe.target.contentDocument.documentElement.innerHTML)
-                    //     setTimeout(() => setContent(iframe.target.contentDocument.documentElement.innerHTML), 1)
                     }}
                     style={{
                         border: 0,
@@ -48,10 +40,10 @@ function AboutUs() {
                         width: 0,
                     }}/>
                 <CircularProgress
-                    size="6vw"
+                    size="10vw"
                     sx={{
                         color: "primary.shade3",
-                        marginY: "1vw",
+                        marginY: "5vw",
                     }}
                 />
             </>}
