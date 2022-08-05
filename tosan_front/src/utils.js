@@ -72,7 +72,7 @@ export function useProductFromId(id){
 
 export function combinedToFarsi(str){
     let farsiStr = _.chain(str).map(char => {
-        if (!isNaN(char)) {
+        if (!isNaN(char) && char !== ' ') {
             return toFarsiNumber(char)
         } else {
             return char

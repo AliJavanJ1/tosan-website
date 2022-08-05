@@ -193,7 +193,9 @@ export default forwardRef(function PriceTableGrid({raw_data, scroll, loading=fal
                     renderCell: (props) => {
                         return (
                             <Typography variant={'regularX'} color={'grey.shade4'}>
-                                {combinedToFarsi(String(props.value))}
+                                {
+                                    combinedToFarsi(String(props.value))
+                                }
                             </Typography>
                         )
                     }
