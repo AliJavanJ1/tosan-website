@@ -8,9 +8,9 @@ import QuickSearch from "../components/QuickSerch";
 import {useEffect} from "react";
 
 const MainPage = () => {
-        // useEffect(() => {
-        //         document.title = "گروه شرکت‌های توسن"
-        // }, []);
+        useEffect(() => {
+                document.title = "گروه شرکت‌های توسن"
+        }, []);
         return (
             <>
                 <MainSlider/>
