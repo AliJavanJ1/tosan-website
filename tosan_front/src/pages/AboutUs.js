@@ -11,14 +11,16 @@ function AboutUs() {
 
     useEffect(() => {
         const iframe = document.getElementById("about-us-iframe")
+        console.log("before addEventListener")
         iframe.addEventListener('message', (event) => {
             if (event.origin !== wpDomain) {
                 console.log("wrong_origin", event.origin)
                 return
             }
             console.log("data", event.data)
-            setContent(event.data)
+            // setContent(event.data)
         })
+        console.log("after addEventListener")
     }, [])
 
 
@@ -30,8 +32,9 @@ function AboutUs() {
                     name="report"
                     src={wpPageURL}
                     onLoad={iframe => {
-                        console.log(iframe.target)
+                        console.log("before postMessage", iframe.target)
                         iframe.target.contentWindow.postMessage('get html request', wpPageURL);
+                        console.log("after postMessage")
                     //     console.log("0 kir: ", iframe.target)
                     //     // setTimeout(() => console.log("3000 cos: ", iframe.target), 3000)
                     //     console.log(iframe.target.contentDocument)
@@ -45,10 +48,10 @@ function AboutUs() {
                         width: 0,
                     }}/>
                 <CircularProgress
-                    size="30vw"
+                    size="6vw"
                     sx={{
                         color: "primary.shade3",
-                        marginY: "15vw",
+                        marginY: "1vw",
                     }}
                 />
             </>}
