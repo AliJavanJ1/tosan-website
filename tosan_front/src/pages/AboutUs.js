@@ -30,6 +30,7 @@ function AboutUs() {
             console.log("before postMessage", iframe)
             iframe.contentWindow.postMessage('start onresize', wpPageURL)
             console.log("after postMessage")
+            setContentHeight(preContentHeight)
         }
     }, [contentHeight]);
 
@@ -53,6 +54,7 @@ function AboutUs() {
                     border: 0,
                     height: contentHeight || 0,
                     width: contentHeight ? "100%" : 0,
+                    overflow: contentHeight ? "scroll" : "hidden",
                 }}
             />
             {!contentHeight && <CircularProgress
