@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {CircularProgress, Stack} from "@mui/material";
 import {useSelector} from "react-redux";
-
+import $ from 'jquery';
 
 function AboutUs() {
     const [contentHeight, setContentHeight] = useState()
