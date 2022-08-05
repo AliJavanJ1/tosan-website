@@ -7,10 +7,11 @@ import OrderRegistrationDescriptions from "../components/OrderRegistrationDescri
 import CheckBoxFilter from "../components/CheckBoxFilter";
 import MiniSalesPeople from "../components/MiniSalesPeople";
 import SubproductsSwiper from "../components/SubproductsSwiper";
+import {useProductFromURL} from "../utils";
+import {useEffect} from "react";
 
 function ProductsPage() {
     const productsMainCategory = "جدول قیمت میلگرد آجدار"
-
     return (
         <Stack zIndex={0}>
             <Stack // Header

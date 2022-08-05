@@ -30,10 +30,12 @@ function ReadMore({content, maxlines, mainfontfamily, color, readmorefontfamily,
                         alignItems="center"
                         onClick={() => setOpen(true)}
                     >
-                        <Typography color={readmorecolor} variant={readmorefontfamily} >
+                        <Typography color={readmorecolor} variant={readmorefontfamily} sx={{
+                            cursor:'pointer'
+                        }}>
                             بیشتر بخوانید
                         </Typography>
-                        <KeyboardArrowLeft color={readmorecolor} sx={{ fontSize: readmoresize }}/>
+                        <KeyboardArrowLeft color={readmorecolor} sx={{ fontSize: readmoresize, cursor:'pointer' }}/>
                     </Grid>
                 )
             }
@@ -46,10 +48,12 @@ function ReadMore({content, maxlines, mainfontfamily, color, readmorefontfamily,
                         alignItems="center"
                         onClick={() => setOpen(false)}
                     >
-                        <Typography color={readmorecolor} variant={readmorefontfamily} >
+                        <Typography color={readmorecolor} variant={readmorefontfamily} sx={{
+                            cursor:'pointer'
+                        }}>
                             بستن
                         </Typography>
-                        <ExpandLess color={readmorecolor} sx={{ fontSize: readmoresize }}/>
+                        <ExpandLess color={readmorecolor} sx={{ fontSize: readmoresize, cursor:'pointer' }}/>
                     </Grid>
                 )
             }
