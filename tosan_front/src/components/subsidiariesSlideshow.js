@@ -141,7 +141,8 @@ function SubsidiariesSlideshow() {
                                             }}>
                                                 <img src={serverURL + subsidiary.main_page_image} alt={subsidiary.name} style={{
                                                     height: '372px',
-                                                    width: 'auto',
+                                                    width: '632px',
+                                                    objectFit:'cover'
                                                 }}/>
                                             </Box>
                                         </Box>
