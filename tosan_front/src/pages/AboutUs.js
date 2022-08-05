@@ -26,14 +26,18 @@ function AboutUs() {
 
     useEffect(() => {
         if (preContentHeights.includes(contentHeight)) {
+            let iframeJQ = $('iframe')
+            console.log(iframeJQ)
+            iframeJQ.trigger('mouseover')
+            iframeJQ.trigger('mouseleave')
             const iframe = document.getElementById("content-iframe")
             console.log("before postMessage", iframe)
             iframe.contentWindow.postMessage('start onresize', wpPageURL)
             console.log("after postMessage")
-            if (contentHeight === preContentHeights[0])
-                setContentHeight(preContentHeights[1])
-            else
-                setContentHeight(preContentHeights[0])
+            // if (contentHeight === preContentHeights[0])
+            //     setContentHeight(preContentHeights[1])
+            // else
+            //     setContentHeight(preContentHeights[0])
         }
     }, [contentHeight]);
 
