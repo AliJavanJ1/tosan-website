@@ -25,7 +25,8 @@ import {height} from "@mui/system";
 
 
 const HeaderSearchbox = () => {
-    const transitionDuration = 100
+    const transitionDuration = 50
+    const safeTransitionDuration = 50
     // const all_products = useSelector(store => store.app ? store.app.all_products : [])
     const all_products = useSelector(store => store.app && store.app.all_products)
     const [searchString, setSearchString] = useState('')
@@ -70,7 +71,7 @@ const HeaderSearchbox = () => {
         setTransitionState(-1)
         setTimeout(() => {
             popupState.setOpen(false)
-            setTransitionState(0)
+            // setTransitionState(0)
         }, transitionDuration)
     }
     useEffect(() => { //init anchor
@@ -170,32 +171,37 @@ const HeaderSearchbox = () => {
     const backdropAnim = useSpring({
         from: {
             backgroundColor: 'transparent',
+            opacity: '.3',
         },
         to: {
             backgroundColor: 'black',
+            opacity: '.3',
         },
         config: {
-            duration: transitionDuration,
+            duration: safeTransitionDuration,
         },
         reset: true,
     })
     const backdropAnimStation = useSpring({
         from: {
             backgroundColor: 'black',
+            opacity: '.3',
         },
         config: {
-            duration: transitionDuration,
+            duration: safeTransitionDuration,
         },
     })
     const backdropAnimRev = useSpring({
         to: {
             backgroundColor: 'transparent',
+            opacity: '.3',
         },
         from: {
             backgroundColor: 'black',
+            opacity: '.3',
         },
         config: {
-            duration: transitionDuration,
+            duration: safeTransitionDuration,
         },
         reset: true,
     })
@@ -250,7 +256,6 @@ const HeaderSearchbox = () => {
                             if (transitionState === 1) {
                                 return backdropAnim
                             } else if (transitionState === -1) {
-                                console.log('rev')
                                 return backdropAnimRev
                             } else {
                                 return backdropAnimStation
@@ -258,7 +263,7 @@ const HeaderSearchbox = () => {
                         })(),
                         sx: {
                             // bgcolor: 'black',
-                            opacity: '.3 !important',
+                            // opacity: '.3 !important',
                         }
                     }
                 }}
@@ -284,9 +289,7 @@ const HeaderSearchbox = () => {
                             })()
                         } sx={{
                             borderRadius: `25px`,
-                            // bgcolor: 'white.shade3',
                             height: '48px',
-                            // width: '556px',
                             display: `flex`,
                             alignItems: 'center',
                         }}>
