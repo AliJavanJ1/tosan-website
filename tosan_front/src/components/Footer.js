@@ -35,28 +35,33 @@ const Footer = () => {
     const pages = [
         {
             id: 0,
-            url: "/",
+            url: "/contact-us",
             name: "تماس با توسن"
         },
         {
             id: 1,
-            url: "/",
+            url: "/about-us",
             name: "درباره توسن"
         },
         {
             id: 2,
-            url: "/",
+            url: "/job-offers",
             name: "فرصت‌های شغلی"
         },
         {
             id: 3,
-            url: "/",
+            url: "/blog",
             name: "بلاگ"
         },
         {
             id: 4,
-            url: "/",
+            url: "/gallery",
             name: "گالری"
+        },
+        {
+            id: 5,
+            url: "/catalog",
+            name: "کاتالوگ"
         },
     ]
 

@@ -4,9 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import {Divider, Grid, InputBase, Link, Stack, styled, SvgIcon} from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import {Divider, Grid, Link, Stack, styled, SvgIcon} from "@mui/material";
 import {ReactComponent as logo} from "../assets/logos/tosan-logo.svg"
 import {experimental_sx as esx,} from '@mui/system';
 import Phone from "./Phone";
@@ -46,17 +44,22 @@ export default function Header() {
                 <Stack direction={'row'} spacing={4} sx={{
                     height: '100%'
                 }}>
-                    <StyledButton href={'#'}>
+                    <StyledButton href={'/blog'}>
                         <Typography variant={'demiBold'}>
                             بلاگ
                         </Typography>
                     </StyledButton>
-                    <StyledButton href={'#'}>
+                    <StyledButton href={'/gallery'}>
                         <Typography variant={'demiBold'}>
                             گالری
                         </Typography>
                     </StyledButton>
-                    <StyledButton href={'#'}>
+                    <StyledButton href={'/catalog'}>
+                        <Typography variant={'demiBold'}>
+                            کاتالوگ
+                        </Typography>
+                    </StyledButton>
+                    <StyledButton href={'/job-offers'}>
                         <Typography variant={'demiBold'}>
                             فرصت‌های شغلی
                         </Typography>
@@ -98,17 +101,17 @@ export default function Header() {
                         height: `25px`,
                         alignSelf: 'center'
                     }}/>
-                    <StyledButton href={'#'}>
-                        <Typography variant={'demiBold'}>
-                            زیرمجموعه‌ها
-                        </Typography>
-                    </StyledButton>
-                    <StyledButton href={'#'}>
+                    {/*<StyledButton href={'#'}>*/}
+                    {/*    <Typography variant={'demiBold'}>*/}
+                    {/*        زیرمجموعه‌ها*/}
+                    {/*    </Typography>*/}
+                    {/*</StyledButton>*/}
+                    <StyledButton href={'/contact-us'}>
                         <Typography variant={'demiBold'}>
                             تماس با ما
                         </Typography>
                     </StyledButton>
-                    <StyledButton href={'#'}>
+                    <StyledButton href={'/about-us'}>
                         <Typography variant={'demiBold'}>
                             درباره ما
                         </Typography>

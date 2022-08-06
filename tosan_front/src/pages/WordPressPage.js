@@ -2,32 +2,32 @@ import {useEffect, useState} from "react";
 import {CircularProgress, Stack} from "@mui/material";
 import {useSelector} from "react-redux";
 
-function AboutUs() {
+function WordPressPage({wpPath}) {
     const [contentHeight, setContentHeight] = useState()
     const wpDomain = useSelector(store => store.static.wpDomain)
-    const wpPageURL = wpDomain + "/contact-us"
+    const wpPageURL = wpDomain + wpPath
     const preContentHeights = ["50vh", "calc(50vh - 1px + 1px)"]
 
     useEffect(() => {
-        console.log("before addEventListener")
+        // console.log("before addEventListener")
         window.addEventListener('message', (event) => {
             if (event.origin !== wpDomain) {
-                console.log("wrong_origin", event.origin)
+                // console.log("wrong_origin", event.origin)
                 return
             }
             // const fixedData = event.data.replaceAll("transition-duration: 0ms", "transition-duration: 1000ms").replaceAll("width: 0px", "width: 100%")
             const fixedData = event.data
-            console.log("data: ", fixedData, event.origin)
+            // console.log("data: ", fixedData, event.origin)
             setContentHeight(fixedData)
         })
-        console.log("after addEventListener")
+        // console.log("after addEventListener")
     }, [])
 
     useEffect(() => {
         if (preContentHeights.includes(contentHeight)) {
             const iframe = document.getElementById("content-iframe")
             // console.log("before postMessage", iframe)
-            iframe.contentWindow.postMessage('start onresize', wpPageURL)
+            iframe.contentWindow.postMessage('start onresize', wpDomain)
             // console.log("after postMessage")
             if (contentHeight === preContentHeights[0])
                 setContentHeight(preContentHeights[1])
@@ -54,12 +54,13 @@ function AboutUs() {
                     setContentHeight(preContentHeights[0])
                 }}
                 scrolling="no"
+                sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-same-origin allow-scripts"
                 style={{
                     border: 0,
                     height: contentHeight || 0,
                     width: contentHeight ? "100%" : 0,
                     overflow: "hidden",
-                    position: "absolute",
+                    position: (!contentHeight || preContentHeights.includes(contentHeight)) ? "absolute" : "static",
                     right: 0,
                     top: 0,
                     zIndex: contentHeight ? 1 : -1,
@@ -78,4 +79,4 @@ function AboutUs() {
     );
 }
 
-export default AboutUs;
+export default WordPressPage;

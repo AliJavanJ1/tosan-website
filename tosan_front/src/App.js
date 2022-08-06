@@ -16,7 +16,7 @@ import Header from "./components/header";
 import {LicenseInfo} from '@mui/x-license-pro';
 import ProductsPage from "./pages/ProductsPage";
 import {fetchPriceData} from "./redux/priceSlice";
-import AboutUs from "./pages/AboutUs";
+import WordPressPage from "./pages/WordPressPage";
 import ScrollToTop from "./components/ScrollToTop";
 
 LicenseInfo.setLicenseKey('x0jTPl0USVkVZV0SsMjM1kDNyADM5cjM2ETPZJVSQhVRsIDN0YTM6IVREJ1T0b9586ef25c9853decfa7709eee27a1e');
@@ -157,7 +157,12 @@ function App() {
                     <Routes>
                         <Route path={'/'} element={<MainPage/>}/>
                         <Route path='/products/:fullname/:sub1/:main' element={<ProductsPage />} />
-                        <Route path={'/about-us'} element={<AboutUs />}/>
+                        <Route path={'/about-us'} element={<WordPressPage wpPath="/about-us" />}/>
+                        <Route path={'/contact-us'} element={<WordPressPage wpPath="/contact-us" />}/>
+                        <Route path={'/catalog'} element={<WordPressPage wpPath="/catalog" />}/>
+                        <Route path={'/gallery'} element={<WordPressPage wpPath="/gallery" />}/>
+                        <Route path={'/blog'} element={<WordPressPage wpPath="/blog" />}/>
+                        <Route path={'/job-offers'} element={<WordPressPage wpPath="/jobs" />}/>
                     </Routes>
                     <Footer />
                 </BrowserRouter>
