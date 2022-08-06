@@ -120,7 +120,7 @@ const HeaderSearchbox = () => {
                 setSearchResults([])
             } else {
                 let results = fuse.search(searchString.replaceAll(' ', ''))
-                setSearchResults(results)
+                setSearchResults(results.slice(0, 6))
             }
         }
     }, [searchString, fuse])
