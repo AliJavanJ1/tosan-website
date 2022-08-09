@@ -66,7 +66,7 @@ function DropdownPaneLayout(props) {
     const boxRef = useRef(null)
     return (
         <Box sx={{
-            width: '500px',
+            width: '300px',
             height: '100%',
         }} ref={boxRef}>
             <Stack sx={{
