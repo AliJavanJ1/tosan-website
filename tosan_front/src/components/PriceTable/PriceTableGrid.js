@@ -29,7 +29,9 @@ const PriceCell = (props) => {
     const currentPrice = props.value
     const lastPrice = props.row['lastPrice']
     let changeState = 0
-    if (currentPrice > lastPrice) {
+    if (currentPrice === 0){
+        changeState = 0
+    } else if (currentPrice > lastPrice) {
         changeState = 1
     } else if (currentPrice < lastPrice) {
         changeState = -1
@@ -50,7 +52,13 @@ const PriceCell = (props) => {
                     }),
                 }}
             >
-                {toFarsiNumberE(props.value, true)}
+                {
+                    currentPrice === 0
+                        ?
+                        'تماس بگیرید'
+                        :
+                    toFarsiNumberE(currentPrice, true)
+                }
             </Typography>
             {
                 changeState === 1 &&
