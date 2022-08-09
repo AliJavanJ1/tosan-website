@@ -6,7 +6,7 @@ import "swiper/css";
 import _ from "lodash";
 import {ChevronLeft, ChevronRight, WhatsApp} from "@mui/icons-material";
 import PhoneEnabledOutlinedIcon from "@mui/icons-material/PhoneEnabledOutlined";
-import {toFarsiNumber} from "../utils";
+import {toFarsiNumber, useProductFromURL} from "../utils";
 
 const SalesPerson = ({domain, person, category, number}) => {
     return (
@@ -111,13 +111,19 @@ const SalesPerson = ({domain, person, category, number}) => {
 
 function MiniSalesPeople() {
     // const category = _.chain(window.location.pathname).split('/').filter(part=>part !== '').nth(1).value()
-    const category = 'میلگرد'
+    // const category = 'میلگرد'
+    const product = useProductFromURL()
+    const category = product ? product.main_name : null
     const domain = useSelector(store => store.static.domain)
     const number = useSelector(store => (store.app && store.app.general_data.phone_number.value))
     let people = useSelector(store => store.app ? store.app.employees : [])
     people = useMemo(() => {
-        return (_.chain(people).filter(person => person.fields_name.includes(category)).value())
-    }, [people.length])
+        if(category){
+            return (_.chain(people).filter(person => person.fields_name.includes(category)).value())
+        }else{
+            return []
+        }
+    }, [people.length, category])
 
     const swiperRef = useRef()
     const [isSwiperStart, setIsSwiperStart] = useState(true);
