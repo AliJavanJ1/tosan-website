@@ -2,7 +2,7 @@ import React, {useMemo} from 'react';
 import {Stack} from "@mui/material";
 import PriceTable from "./PriceTable";
 import {useSelector} from "react-redux";
-import {combinedToFarsi, toFarsiNumber, useProductFromURL} from "../../utils";
+import {toFarsiNumberMix, toFarsiNumber, useProductFromURL} from "../../utils";
 import _ from "lodash"
 import SpecialOffer from "../SpecialOffer";
 
@@ -69,7 +69,7 @@ const TableWrapper = () => {
     const displayFilteredGroupedPricesSortedKeys = useMemo(() => {
         const keys = filteredGroupedPricesSortedKeys
         const displayKeys = _.reduce(keys, (acc,key) => {
-            let displayKey = combinedToFarsi(key)
+            let displayKey = toFarsiNumberMix(key)
             acc[key] = displayKey
             return acc
         }, {})

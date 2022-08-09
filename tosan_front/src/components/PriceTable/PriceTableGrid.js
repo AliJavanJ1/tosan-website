@@ -8,7 +8,7 @@ import {
 import {Box, Stack, TablePagination, Typography} from "@mui/material";
 import {forwardRef, useEffect, useImperativeHandle, useMemo, useState} from "react";
 import {faIR as gridLocale, GridColumnMenuContainer, GridFilterMenuItem} from '@mui/x-data-grid-pro';
-import {combinedToFarsi, toFarsiNumber, useProductFromURL} from "../../utils";
+import {toFarsiNumberMix, toFarsiNumberE, useProductFromURL} from "../../utils";
 import {useSelector} from "react-redux";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -50,7 +50,7 @@ const PriceCell = (props) => {
                     }),
                 }}
             >
-                {toFarsiNumber(props.value)}
+                {toFarsiNumberE(props.value, true)}
             </Typography>
             {
                 changeState === 1 &&
@@ -113,7 +113,7 @@ const getColumns = (raw_data, product) => {
             type: type,
             valueGetter: ({value}) => {
                 if (type === 'number') {
-                    return parseInt(value)
+                    return parseFloat(value)
                 } else {
                     return value
                 }
@@ -127,7 +127,7 @@ const getColumns = (raw_data, product) => {
         field: 'price',
         headerName: 'قیمت (ریال)',
         type: 'number',
-        valueGetter: ({value}) => parseInt(value)
+        valueGetter: ({value}) => parseFloat(value)
     })
     return columns
 }
@@ -171,7 +171,7 @@ export default forwardRef(function PriceTableGrid({raw_data, scroll, loading = f
     }, [raw_data]);
     columns = useMemo(() => {
         return getColumns(raw_data, product)
-    }, [raw_data])
+    }, [raw_data, product])
     rows = useMemo(() => {
         return getRows(raw_data)
     }, [raw_data]);
@@ -196,9 +196,9 @@ export default forwardRef(function PriceTableGrid({raw_data, scroll, loading = f
                                 {
                                     props.colDef.type === 'string'
                                         ?
-                                        combinedToFarsi(String(props.value))
+                                        toFarsiNumberMix(String(props.value))
                                         :
-                                        toFarsiNumber(String(props.value), true)
+                                        toFarsiNumberE(String(props.value), true)
                                 }
                             </Typography>
                         )
@@ -337,7 +337,7 @@ export default forwardRef(function PriceTableGrid({raw_data, scroll, loading = f
                     MuiTablePagination: {
                         ...gridLocale.components.MuiDataGrid.defaultProps.localeText.MuiTablePagination,
                         labelDisplayedRows: ({from, to, count}) =>
-                            `${toFarsiNumber(from)} - ${toFarsiNumber(to)} از ${toFarsiNumber(count)}`,
+                            `${toFarsiNumberE(from)} - ${toFarsiNumberE(to)} از ${toFarsiNumberE(count)}`,
                     }
                 }}
                 getRowClassName={(params) =>
@@ -355,6 +355,13 @@ export default forwardRef(function PriceTableGrid({raw_data, scroll, loading = f
                     //     onPageSizeChange: onPageSizeChangeCustom,
                     //     onPageChange: onPageChangeCustom,
                     // }
+                }}
+                initialState={{
+                    ...(columns && {
+                        sorting: {
+                            sortModel: [{ field: columns[0].field, sort: 'asc' }],
+                        },
+                    })
                 }}
             />
         </Stack>
