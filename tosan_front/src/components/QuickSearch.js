@@ -12,15 +12,19 @@ function QuickSearch() {
     const [productCategory, setProductCategory] = useState()
     const [productDetails, setProductDetails] = useState()
     const [splitName, setSplitName] = useState()
-    const [tableTitle, setTableTitle] = useState();
+    const [tableTitle, setTableTitle] = useState()
     const [initialize, setInitialize] = useState(true);
 
     const [rawFilteredPriceData, setRawFilteredPriceData] = useState()
+    const primaryCategory = "میلگرد"
 
     useEffect(() => {
         if (initialize)
             if (allProducts && !productCategory)
-                setProductCategory(Object.keys(allProducts)[0])
+                if (Object.keys(allProducts).includes(primaryCategory))
+                    setProductCategory(primaryCategory)
+                else
+                    setProductCategory(Object.keys(allProducts)[0])
             else if (productCategory && !productDetails)
                 setProductDetails({
                     name: allProducts[productCategory][0]["full_name"],
@@ -42,7 +46,7 @@ function QuickSearch() {
                 && Object.keys(product["attrs_vals"]).includes(productDetails["splitAttr"])
                 && product["attrs_vals"][productDetails["splitAttr"]] === splitName))
         }
-    }, [splitName])
+    }, [splitName, allRawPriceData])
 
     return (
         <Stack

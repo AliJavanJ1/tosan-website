@@ -4,7 +4,7 @@ import CircleImageSlide from "../components/CircleImageSlide";
 import SubsidiariesSlideshow from "../components/subsidiariesSlideshow";
 import ProductsSlideshow from "../components/productsSlideshow";
 import StrengthPoints from "../components/StrengthPoints";
-import QuickSearch from "../components/QuickSerch";
+import QuickSearch from "../components/QuickSearch";
 import {useEffect} from "react";
 
 const MainPage = () => {
