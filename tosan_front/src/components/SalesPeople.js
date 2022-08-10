@@ -40,7 +40,7 @@ const SalesPerson = (props) => {
                         {salesPerson.job_category + " " + _.join(salesPerson.fields_name, ' و ')}
                     </Typography>
                 </Stack>
-                <Avatar src={serverURL + salesPerson.image + '?h=300'} sx={{
+                <Avatar src={serverURL + salesPerson.image} sx={{
                     height: salesPerson.image ? '120px' : '100px',
                     width: salesPerson.image ? '120px' : '100px',
                 }}/>

@@ -13,7 +13,7 @@ const SalesPerson = ({domain, person, category, number}) => {
         <Stack alignItems={"center"} sx={{
             width: '100%',
         }}>
-            <Avatar src={domain + person.image + '?h=300'} sx={{
+            <Avatar src={domain + person.image} sx={{
                 height: person.image ? '80px' : '65px',
                 width: person.image ? '80px' : '65px',
                 marginBottom: 1.5,
