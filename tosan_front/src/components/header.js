@@ -44,11 +44,11 @@ export default function Header() {
                 <Stack direction={'row'} spacing={4} sx={{
                     height: '100%'
                 }}>
-                    <StyledButton href={'/blog'}>
-                        <Typography variant={'demiBold'}>
-                            بلاگ
-                        </Typography>
-                    </StyledButton>
+                    {/*<StyledButton href={'/blog'}>*/}
+                    {/*    <Typography variant={'demiBold'}>*/}
+                    {/*        بلاگ*/}
+                    {/*    </Typography>*/}
+                    {/*</StyledButton>*/}
                     <StyledButton href={'/gallery'}>
                         <Typography variant={'demiBold'}>
                             گالری
