@@ -15,9 +15,6 @@ const TableWrapper = () => {
     // const selectedSplits = []
     const allProducts = useSelector(store => store.app ? store.app.all_products : [])
     const prices = useSelector(store => store.price ? store.price : [])
-    const defaultSpecialOffer = {
-        title: "میلگرد ۱۶ آجدار ظفر بناب", previousPrice: 16_270, currentPrice: 15_300, image: "",
-    }
     const specialOffers = useMemo(() => {
         if (!productObj) {
             return []
@@ -46,7 +43,7 @@ const TableWrapper = () => {
             .filter(price => (price.product_id === productObj.product_id && (!selectedSplits.length || selectedSplits.includes(price.attrs_vals[productObj.split_by_attr]))))
             .groupBy((price) => price.attrs_vals[productObj.split_by_attr])
             .value())
-    }, [productObj, selectedSplits, selectedSplits.length])
+    }, [productObj, selectedSplits, selectedSplits.length, prices, prices.length])
 
     const filteredGroupedPricesSortedKeys = useMemo(() => {
         let keys = _.keys(filteredGroupedPrices)
@@ -74,7 +71,7 @@ const TableWrapper = () => {
             return acc
         }, {})
         return displayKeys
-    }, [filteredGroupedPricesSortedKeys.length]);
+    }, [filteredGroupedPricesSortedKeys, filteredGroupedPricesSortedKeys.length]);
 
     // console.log(displayFilteredGroupedPricesSortedKeys)
     // console.log(filteredGroupedPricesSortedKeys)
