@@ -39,7 +39,7 @@ export default function Header() {
             zIndex: 2,
         }}>
             <StyledToolbar sx={{
-                height: (theme) => theme.spacing(11),
+                height: (theme) => theme.spacing(8.5),
             }}>
                 <Stack direction={'row'} spacing={4} sx={{
                     height: '100%'
@@ -69,7 +69,7 @@ export default function Header() {
             </StyledToolbar>
             <Divider variant={'middle'} flexItem={true}/>
             <StyledToolbar sx={{
-                height: (theme) => theme.spacing(13.75),
+                height: (theme) => theme.spacing(10),
             }}>
                 <Link href={'/'} underline={'none'}>
                     <Grid container item xs={'auto'} alignItems={'center'}>
