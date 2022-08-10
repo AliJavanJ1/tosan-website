@@ -21,7 +21,9 @@ const Subname1Component = (props) => {
                         popupStatePane.close()
                         popupStateMenu.close()
                     }}>
-                        <Typography variant={'regularS'} color={'grey.shade4'}>
+                        <Typography variant={'regularS'} color={'grey.shade4'} sx={{
+                            fontSize: '14px', //dirty on req
+                        }}>
                             {fullNames[0]}
                         </Typography>
                     </Link>
@@ -29,6 +31,7 @@ const Subname1Component = (props) => {
                     :
                     <Typography variant={'regularS'} color={'grey.shade4'} sx={{
                         cursor: 'default',
+                        fontSize: '14px', //dirty on req
                     }}>
                         {subname1}
                     </Typography>
@@ -44,6 +47,7 @@ const Subname1Component = (props) => {
                     }}>
                         <Typography variant={'regularS'} color={'grey.shade3'} sx={{
                             marginTop: 2,
+                            fontSize: '14px', //dirty on req
                         }}>
                             {fullName}
                         </Typography>
@@ -66,7 +70,7 @@ function DropdownPaneLayout(props) {
     const boxRef = useRef(null)
     return (
         <Box sx={{
-            width: '300px',
+            width: '500px',
             height: '100%',
         }} ref={boxRef}>
             <Stack sx={{
@@ -81,6 +85,7 @@ function DropdownPaneLayout(props) {
                         marginRight: 1.5,
                         color: 'rgba(0, 0, 0, 0.7)',
                         cursor: 'default',
+                        fontSize: '14px', //dirty on req
                     }}>
                         {'قیمت انواع '}
                         {productName}
