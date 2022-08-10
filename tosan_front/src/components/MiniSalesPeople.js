@@ -28,8 +28,9 @@ const SalesPerson = ({domain, person, category, number}) => {
                 lineHeight: '26px',
             }}>
                 {
-                    'کارشناس فروش ' +
-                    category
+                    `${person.job_category} ${category}`
+                    // 'کارشناس فروش ' +
+                    // category
                 }
             </Typography>
             <Stack direction={'row'} sx={{
