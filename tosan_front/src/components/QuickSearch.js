@@ -40,7 +40,7 @@ function QuickSearch() {
 
     useEffect(() => {
         if (allRawPriceData && splitName) {
-            setTableTitle(`${productDetails["name"]} ${productDetails["splitAttr"]} ${splitName}`)
+            setTableTitle(`${productDetails["name"]} ${splitName}`)
             setRawFilteredPriceData(allRawPriceData.filter(product =>
                 product["display_name"] === productDetails["name"]
                 && Object.keys(product["attrs_vals"]).includes(productDetails["splitAttr"])

@@ -91,8 +91,7 @@ const TableWrapper = () => {
         {_.chain(filteredGroupedPricesSortedKeys).chunk(2).map((chunkKeys, index) => {
             const arr = chunkKeys.map(sliceKey => {
                 return (<PriceTable key={sliceKey+productObj.full_name} raw_data={filteredGroupedPrices[sliceKey]}
-                                    title={`${productObj.full_name} 
-                                    ${productObj.split_by_attr} 
+                                    title={`${productObj.full_name}
                                     ${displayFilteredGroupedPricesSortedKeys[sliceKey]}`}/>)
             })
             if (index < specialOffers.length) {
