@@ -201,16 +201,22 @@ const SalesPeople = () => {
                         selectedCategory &&
                         <Tabs value={selectedCategory} onChange={onTabChange} sx={{
                             // marginY: 4,
+                            width: '100%',
                             '& 	.MuiTabs-indicator': {
                                 bgcolor: 'secondary.shade3',
                                 // width: '90px !important',
+                            },
+                            '& .MuiTabs-flexContainer': {
+                                justifyContent: 'center',
+                                paddingX: 1,
                             }
                         }}>
                             {
                                 _.map(categories, (category) => {
                                     return (
                                         <Tab label={category} value={category} key={category} sx={{
-                                            width: (theme) => theme.spacing(19),
+                                            // width: (theme) => theme.spacing(19),
+                                            width: `min(${19*8}px, ${100/categories.length}%)`,
                                             color: (selectedCategory === category ?
                                                 (theme) => theme.palette.primary.shade4 + ' !important' :
                                                 (theme) => theme.palette.primary.shade3 + ' !important'),
