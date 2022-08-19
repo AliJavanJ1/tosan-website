@@ -303,6 +303,7 @@ export default forwardRef(function PriceTableGrid({raw_data, scroll, loading = f
                     },
                     '& .MuiDataGrid-cell': {
                         borderBottom: 0,
+                        minHeight: `${rowHeight+1}px !important`,
                     },
                     '& .MuiDataGrid-columnHeaderTitleContainer': {
                         flex: 'initial',
@@ -324,12 +325,13 @@ export default forwardRef(function PriceTableGrid({raw_data, scroll, loading = f
                 loading={loading}
 
                 disableSelectionOnClick
-                disableColumnResize
+                // disableColumnResize
                 disableColumnPinning
                 disableColumnSelector
                 disableColumnReorder
 
                 rowHeight={rowHeight}
+                getRowHeight={() => 'auto'}
                 headerHeight={rowHeight}
                 autoHeight={!scroll}
 
