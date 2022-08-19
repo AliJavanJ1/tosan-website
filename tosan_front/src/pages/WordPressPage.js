@@ -1,12 +1,11 @@
 import {useEffect, useState} from "react";
-import {CircularProgress, Stack} from "@mui/material";
 import {useSelector} from "react-redux";
 
-function WordPressPage({wpPath}) {
+function WordPressPage({wpPath, preHeight}) {
     const [contentHeight, setContentHeight] = useState()
     const wpDomain = useSelector(store => store.static.wpDomain)
     const wpPageURL = wpDomain + wpPath
-    const preContentHeights = ["50vh", "calc(50vh - 1px + 1px)"]
+    const preContentHeights = [preHeight || "100vh", `calc(${preHeight || "100vh"} - 1px + 1px)`]
 
     useEffect(() => {
         // console.log("before addEventListener")
@@ -23,18 +22,18 @@ function WordPressPage({wpPath}) {
         // console.log("after addEventListener")
     }, [])
 
-    useEffect(() => {
-        if (preContentHeights.includes(contentHeight)) {
-            const iframe = document.getElementById("content-iframe")
-            // console.log("before postMessage", iframe)
-            iframe.contentWindow.postMessage('start onresize', wpDomain)
-            // console.log("after postMessage")
-            if (contentHeight === preContentHeights[0])
-                setContentHeight(preContentHeights[1])
-            else
-                setContentHeight(preContentHeights[0])
-        }
-    }, [contentHeight]);
+    // useEffect(() => {
+    //     if (preContentHeights.includes(contentHeight)) {
+    //         const iframe = document.getElementById("content-iframe")
+    //         // console.log("before postMessage", iframe)
+    //         iframe.contentWindow.postMessage('start onresize', wpDomain)
+    //         // console.log("after postMessage")
+    //         if (contentHeight === preContentHeights[0])
+    //             setContentHeight(preContentHeights[1])
+    //         else
+    //             setContentHeight(preContentHeights[0])
+    //     }
+    // }, [contentHeight]);
 
 
     return (
@@ -42,7 +41,7 @@ function WordPressPage({wpPath}) {
             direction="column"
             alignItems="center"
             justifyContent="center"
-            height="fit-content"
+            height={contentHeight ? "fit-content" : preContentHeights[0]}
             width="100%"
             position="relative"
         >
@@ -52,6 +51,10 @@ function WordPressPage({wpPath}) {
                 src={wpPageURL}
                 onLoad={() => {
                     setContentHeight(preContentHeights[0])
+                    const iframe = document.getElementById("content-iframe")
+                    console.log("before postMessage", iframe)
+                    iframe.contentWindow.postMessage('start onresize', wpDomain)
+                    console.log("after postMessage")
                 }}
                 scrolling="no"
                 sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -60,19 +63,19 @@ function WordPressPage({wpPath}) {
                     height: contentHeight || 0,
                     width: contentHeight ? "100%" : 0,
                     overflow: "hidden",
-                    position: (!contentHeight || preContentHeights.includes(contentHeight)) ? "absolute" : "static",
-                    right: 0,
-                    top: 0,
-                    zIndex: contentHeight ? 1 : -1,
-                    opacity: (!contentHeight || preContentHeights.includes(contentHeight)) ? 0 : 1
+                    // position: (!contentHeight || preContentHeights.includes(contentHeight)) ? "absolute" : "static",
+                    // right: 0,
+                    // top: 0,
+                    // zIndex: contentHeight ? 1 : -1,
+                    // opacity: (!contentHeight || preContentHeights.includes(contentHeight)) ? 0 : 1
                 }}
             />
-            {(!contentHeight || preContentHeights.includes(contentHeight)) && <CircularProgress
+            {!contentHeight && <CircularProgress
                 size="10vw"
                 sx={{
                     color: "primary.shade3",
                     marginY: "5vw",
-                    zIndex: !contentHeight ? 1 : -1
+                    // zIndex: !contentHeight ? 1 : -1
                 }}
             />}
         </Stack>
