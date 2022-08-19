@@ -6,6 +6,7 @@ import ProductsSlideshow from "../components/productsSlideshow";
 import StrengthPoints from "../components/StrengthPoints";
 import QuickSearch from "../components/QuickSearch";
 import {useEffect} from "react";
+import WordPressPage from "./WordPressPage";
 
 const MainPage = () => {
         useEffect(() => {
@@ -19,6 +20,7 @@ const MainPage = () => {
                 <CircleImageSlide/>
                 <SalesPeople/>
                 <SubsidiariesSlideshow/>
+                <WordPressPage wpPath="https://wp.tosanfoolad.com/%d8%a7%d8%b3%d9%84%d8%a7%db%8c%d8%af%d8%b1-%d9%85%d9%82%d8%a7%d9%84%d8%a7%d8%aa/" preHeight="490px"/>
                 <StrengthPoints/>
             </>
         )
