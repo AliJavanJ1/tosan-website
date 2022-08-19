@@ -5,13 +5,17 @@ import {useSelector} from "react-redux";
 
 function OrderRegistrationDescriptions() {
 
-    const orderRegistrationDescriptions = useSelector(store => (store.app && store.app["products_page_data"]["order_registration_descriptions"]["value"].map(data => {
-        const splitData =  data.split("\r\n")
-        return {
-            title: splitData[0],
-            content: splitData.slice(1).join("")
-        }
-    })))
+    let orderRegistrationDescriptions = useSelector(store => (store.app && store.app["products_page_data"]["order_registration_descriptions"]["value"]))
+    if(typeof orderRegistrationDescriptions === 'string')
+        orderRegistrationDescriptions = [orderRegistrationDescriptions]
+    if (orderRegistrationDescriptions)
+        orderRegistrationDescriptions = orderRegistrationDescriptions.map(data => {
+            const splitData =  data.split("\r\n")
+            return {
+                title: splitData[0],
+                content: splitData.slice(1).join("")
+            }
+        })
 
     return (
         <Stack
