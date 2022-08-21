@@ -46,6 +46,11 @@ function WordPressPage({wpPath, preHeight, sx}) {
                 console.log("Wrong postMessage data")
         })
         console.log("after addEventListener")
+
+        window.addEventListener(
+            "beforeunload",
+            () => setContentHeight(null),
+        )
     }, [])
 
 
