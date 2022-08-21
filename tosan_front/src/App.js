@@ -161,8 +161,9 @@ function App() {
                         <Route path={'/contact-us'} element={<WordPressPage wpPath="/contact-us" />}/>
                         <Route path={'/catalog'} element={<WordPressPage wpPath="/catalog" />}/>
                         <Route path={'/gallery'} element={<WordPressPage wpPath="/gallery" />}/>
-                        {/*<Route path={'/blog'} element={<WordPressPage wpPath="/blog" />}/>*/}
+                        <Route path={'/blog'} element={<WordPressPage wpPath="/blog" />}/>
                         <Route path={'/job-offers'} element={<WordPressPage wpPath="/jobs" />}/>
+                        <Route path={'/:name'} element={<WordPressPage wpPath={"/"} />}/>
                     </Routes>
                     <Footer />
                 </BrowserRouter>

@@ -48,11 +48,11 @@ const Footer = () => {
             url: "/job-offers",
             name: "فرصت‌های شغلی"
         },
-        // {
-        //     id: 3,
-        //     url: "/blog",
-        //     name: "بلاگ"
-        // },
+        {
+            id: 3,
+            url: "/blog",
+            name: "بلاگ"
+        },
         {
             id: 4,
             url: "/gallery",

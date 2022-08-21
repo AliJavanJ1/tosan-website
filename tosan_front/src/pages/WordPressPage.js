@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {CircularProgress, Stack} from "@mui/material";
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import _ from "lodash";
 
 
@@ -9,7 +9,12 @@ function WordPressPage({wpPath, preHeight, sx}) {
     const [contentHeight, setContentHeight] = useState()
     const domain = useSelector(store => store.static.domain)
     const wpDomain = useSelector(store => store.static.wpDomain)
-    const wpPageURL = wpDomain + wpPath
+    let wpPageURL = wpDomain + wpPath
+    if (wpPath === "/") {
+        const {name: urlName} = useParams()
+        wpPageURL += urlName
+    }
+
     const preContentHeights = preHeight || "100vh"
     const navigate = useNavigate()
     let location = useLocation();
