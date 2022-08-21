@@ -12,16 +12,18 @@ function WordPressPage({wpPath, preHeight, sx}) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        // console.log("before addEventListener")
+        console.log("before addEventListener")
         window.addEventListener('message', (event) => {
             if (event.origin !== wpDomain) {
                 // console.log("wrong_origin", event.origin)
                 return
             }
+            console.log("just got an event", event)
             const data = event.data
             const unloadPrefix = "beforeunload"
             if (data instanceof String && data.startsWith(unloadPrefix)) {
                 const url = data.slice(unloadPrefix.length)
+                console.log("its beforeunload", url)
                 if (url.startsWith(wpDomain)) {
                     const path = url.slice(wpDomain.length)
                     console.log("navigate to internal link", path)
@@ -35,13 +37,13 @@ function WordPressPage({wpPath, preHeight, sx}) {
                 }
             }
             else if (!(data instanceof String)) {
-                // console.log("data: ", data, event.origin)
+                console.log("not string data: ", data, event.origin)
                 setContentHeight(data)
             }
             else
                 console.log("Wrong postMessage data")
         })
-        // console.log("after addEventListener")
+        console.log("after addEventListener")
     }, [])
 
 
