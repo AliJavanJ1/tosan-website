@@ -47,10 +47,16 @@ function WordPressPage({wpPath, preHeight, sx}) {
         })
         console.log("after addEventListener")
 
+        console.log("before addEventListener beforeunload main")
         window.addEventListener(
             "beforeunload",
-            () => setContentHeight(null),
+            () => {
+                console.log("before main unload")
+                setContentHeight(null)
+                console.log("after main unload", null)
+            },
         )
+        console.log("after addEventListener beforeunload main")
     }, [])
 
 
