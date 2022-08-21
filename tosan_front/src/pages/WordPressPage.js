@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {CircularProgress, Stack} from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import _ from "lodash";
 
 
 function WordPressPage({wpPath, preHeight, sx}) {
@@ -22,7 +23,7 @@ function WordPressPage({wpPath, preHeight, sx}) {
             const data = event.data
             console.log("data type", typeof data)
             const unloadPrefix = "beforeunload"
-            if (data instanceof String && data.startsWith(unloadPrefix)) {
+            if (_.isString(data) && data.startsWith(unloadPrefix)) {
                 const url = data.slice(unloadPrefix.length)
                 console.log("its beforeunload", url)
                 if (url.startsWith(wpDomain)) {
@@ -37,7 +38,7 @@ function WordPressPage({wpPath, preHeight, sx}) {
                     window.location.href = url
                 }
             }
-            else if (!(data instanceof String)) {
+            else if (!_.isString(data)) {
                 console.log("not string data: ", data, event.origin)
                 setContentHeight(data)
             }
