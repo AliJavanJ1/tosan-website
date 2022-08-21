@@ -10,8 +10,9 @@ function WordPressPage({wpPath, preHeight, sx}) {
     const domain = useSelector(store => store.static.domain)
     const wpDomain = useSelector(store => store.static.wpDomain)
     let wpPageURL = wpDomain + wpPath
+    const params = useParams()
     if (wpPath === "/") {
-        const {name: urlName} = useParams()
+        const {name: urlName} = params
         wpPageURL += urlName
     }
 
