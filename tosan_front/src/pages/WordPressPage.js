@@ -18,9 +18,9 @@ function WordPressPage({wpPath, preHeight, sx}) {
                 // console.log("wrong_origin", event.origin)
                 return
             }
-            const data = String(event.data)
+            const data = event.data
             const unloadPrefix = "beforeunload"
-            if (data.startsWith(unloadPrefix)) {
+            if (data instanceof String && data.startsWith(unloadPrefix)) {
                 const url = data.slice(unloadPrefix.length)
                 if (url.startsWith(wpDomain)) {
                     const path = url.slice(wpDomain.length)
@@ -34,10 +34,12 @@ function WordPressPage({wpPath, preHeight, sx}) {
                     window.location.href = url
                 }
             }
-            else {
+            else if (!(data instanceof String)) {
                 // console.log("data: ", data, event.origin)
                 setContentHeight(data)
             }
+            else
+                console.log("Wrong postMessage data")
         })
         // console.log("after addEventListener")
     }, [])
