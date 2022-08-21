@@ -20,6 +20,7 @@ function WordPressPage({wpPath, preHeight, sx}) {
             }
             console.log("just got an event", event)
             const data = event.data
+            console.log("data type", typeof data)
             const unloadPrefix = "beforeunload"
             if (data instanceof String && data.startsWith(unloadPrefix)) {
                 const url = data.slice(unloadPrefix.length)
