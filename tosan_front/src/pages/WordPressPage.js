@@ -55,6 +55,7 @@ function WordPressPage({wpPath, preHeight, sx}) {
                 setContentHeight(null)
                 console.log("after main unload", null)
             },
+            {capture: true, once: true},
         )
         console.log("after addEventListener beforeunload main")
     }, [])
