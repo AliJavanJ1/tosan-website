@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {CircularProgress, Stack} from "@mui/material";
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import _ from "lodash";
 
 
@@ -11,6 +11,8 @@ function WordPressPage({wpPath, preHeight, sx}) {
     const wpPageURL = wpDomain + wpPath
     const preContentHeights = preHeight || "100vh"
     const navigate = useNavigate()
+    let location = useLocation();
+
 
     useEffect(() => {
         console.log("before addEventListener")
@@ -46,19 +48,13 @@ function WordPressPage({wpPath, preHeight, sx}) {
                 console.log("Wrong postMessage data")
         })
         console.log("after addEventListener")
-
-        console.log("before addEventListener beforeunload main")
-        window.addEventListener(
-            "beforeunload",
-            () => {
-                console.log("before main unload")
-                setContentHeight(null)
-                console.log("after main unload", null)
-            },
-            {capture: true, once: true},
-        )
-        console.log("after addEventListener beforeunload main")
     }, [])
+
+    useEffect(() => {
+        console.log("before main unload")
+        setContentHeight(null)
+        console.log("after main unload", null)
+    }, [location])
 
 
     return (
