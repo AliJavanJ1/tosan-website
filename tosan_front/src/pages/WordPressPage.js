@@ -18,7 +18,7 @@ function WordPressPage({wpPath, preHeight, sx}) {
                 // console.log("wrong_origin", event.origin)
                 return
             }
-            const data = event.data
+            const data = String(event.data)
             const unloadPrefix = "beforeunload"
             if (data.startsWith(unloadPrefix)) {
                 const url = data.slice(unloadPrefix.length)
