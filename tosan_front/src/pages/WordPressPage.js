@@ -18,55 +18,55 @@ function WordPressPage({wpPath, preHeight, sx}) {
 
     const preContentHeights = preHeight || "100vh"
     const navigate = useNavigate()
-    let location = useLocation();
+    let location = useLocation()
 
 
     useEffect(() => {
-        console.log("before addEventListener")
+        // console.log("before addEventListener")
         window.addEventListener('message', (event) => {
             if (event.origin !== wpDomain) {
                 // console.log("wrong_origin", event.origin)
                 return
             }
-            console.log("just got an event", event)
+            // console.log("just got an event", event)
             const data = event.data
-            console.log("data type", typeof data)
+            // console.log("data type", typeof data)
             const unloadPrefix = "beforeunload"
             if (_.isString(data) && data.startsWith(unloadPrefix)) {
                 const url = data.slice(unloadPrefix.length)
-                console.log("its beforeunload", url)
+                // console.log("its beforeunload", url)
                 if (url.startsWith(wpDomain)) {
                     const path = url.slice(wpDomain.length)
-                    console.log("navigate to internal link", path)
+                    // console.log("navigate to internal link", path)
                     setContentHeight(null)
                     navigate(path)
                 }
                 else if (url.startsWith(domain)) {
                     const path = url.slice(domain.length)
-                    console.log("navigate to wrong WP internal link", path)
+                    // console.log("navigate to wrong WP internal link", path)
                     setContentHeight(null)
                     navigate(path)
                 }
                 else {
-                    console.log("navigate to external link", url)
+                    // console.log("navigate to external link", url)
                     setContentHeight(null)
                     window.location.href = url
                 }
             }
             else if (!_.isString(data)) {
-                console.log("not string data: ", data, event.origin)
+                // console.log("not string data: ", data, event.origin)
                 setContentHeight(data)
             }
             else
                 console.log("Wrong postMessage data")
         })
-        console.log("after addEventListener")
+        // console.log("after addEventListener")
     }, [])
 
     useEffect(() => {
-        console.log("before main unload")
+        // console.log("before main unload")
         setContentHeight(null)
-        console.log("after main unload", null)
+        // console.log("after main unload", null)
     }, [location])
 
 
@@ -87,9 +87,9 @@ function WordPressPage({wpPath, preHeight, sx}) {
                 onLoad={() => {
                     setContentHeight(preContentHeights)
                     const iframe = document.getElementById("content-iframe")
-                    console.log("before postMessage", iframe)
+                    // console.log("before postMessage", iframe)
                     iframe.contentWindow.postMessage('start onresize', wpDomain)
-                    console.log("after postMessage")
+                    // console.log("after postMessage")
                 }}
                 scrolling="no"
                 sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox	allow-presentation allow-same-origin allow-scripts allow-top-navigation"
