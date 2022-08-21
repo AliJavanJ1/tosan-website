@@ -7,6 +7,7 @@ import _ from "lodash";
 
 function WordPressPage({wpPath, preHeight, sx}) {
     const [contentHeight, setContentHeight] = useState()
+    const domain = useSelector(store => store.static.domain)
     const wpDomain = useSelector(store => store.static.wpDomain)
     const wpPageURL = wpDomain + wpPath
     const preContentHeights = preHeight || "100vh"
@@ -31,6 +32,12 @@ function WordPressPage({wpPath, preHeight, sx}) {
                 if (url.startsWith(wpDomain)) {
                     const path = url.slice(wpDomain.length)
                     console.log("navigate to internal link", path)
+                    setContentHeight(null)
+                    navigate(path)
+                }
+                else if (url.startsWith(domain)) {
+                    const path = url.slice(domain.length)
+                    console.log("navigate to wrong WP internal link", path)
                     setContentHeight(null)
                     navigate(path)
                 }
