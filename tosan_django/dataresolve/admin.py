@@ -370,8 +370,8 @@ class PriceTableAdminForm(ImportExportModelAdmin):
     list_display = (
         'product_name_str', 'brief', 'price', 'date_price_modified', 'last_day_price', 'hasOffer', 'offerPrice')
     list_display_links = ('product_name_str',)
-    list_per_page = 10
-    search_fields = ('product_name_str',)
+    list_per_page = 100
+    search_fields = ('product_name_str__name',)
     sortable_by = ('product_name_str', 'price')
     list_filter = ('hasOffer', ProductCategoryMainNamePriceTableFilter)
     show_close_button = True
