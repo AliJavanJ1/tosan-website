@@ -86,7 +86,7 @@ class ProductImageDataAdminForm(ImportExportModelAdmin):
     list_display = ('product_main_name', 'image_tag', 'icon')
     list_display_links = ('product_main_name',)
     list_per_page = 10
-    search_fields = ('product_main_name',)
+    search_fields = ('product_main_name__category_name',)
     sortable_by = ('product_main_name',)
     show_close_button = True
 
@@ -183,7 +183,8 @@ class ProductNamesAdminForm(ImportExportModelAdmin):
     list_display = (
         'full_name1', 'product_main_name', 'product_sub_name1', 'full_name', 'sort_by_attr', 'image_tag')
     list_per_page = 100
-    search_fields = ('product_main_name', 'product_sub_name1', 'full_name', 'attrs')
+    search_fields = (
+        'product_main_name__category_name', 'product_sub_name1__category_name', 'full_name__category_name')
     sortable_by = ('product_main_name',)
     list_editable = ('product_main_name', 'product_sub_name1', 'full_name')
     ordering = ('product_main_name',)
@@ -371,10 +372,42 @@ class PriceTableAdminForm(ImportExportModelAdmin):
         'product_name_str', 'brief', 'price', 'date_price_modified', 'last_day_price', 'hasOffer', 'offerPrice')
     list_display_links = ('product_name_str',)
     list_per_page = 100
-    search_fields = ('product_name_str__name',)
+    search_fields = (
+        'product_name_str__name',
+        # 'name_att_val1__prod_value', 'name_att_val10__prod_value', 'name_att_val2__prod_value',
+        # 'name_att_val3__prod_value'
+        # , 'name_att_val4__prod_value', 'name_att_val5__prod_value', 'name_att_val6__prod_value',
+        # 'name_att_val7__prod_value', 'name_att_val8__prod_value'
+        # , 'name_att_val9__prod_value'
+    )
     sortable_by = ('product_name_str', 'price')
     list_filter = ('hasOffer', ProductCategoryMainNamePriceTableFilter)
     show_close_button = True
+
+    def get_search_results(self, request, queryset, search_term):
+        queryset, may_have_duplicates = super().get_search_results(
+            request, queryset, search_term,
+        )
+        query_iterator = queryset.iterator()
+        new_list = []
+        for price in query_iterator:
+            keep = False
+            for i in range(1, 11):
+                att_val = getattr(price, f"name_att_val{i}")
+                if att_val:
+                    if att_val.prod_value.count(search_term) > 0:
+                        keep = True
+                        break
+            # print(price.product_name_str.product_name.full_name.category_name)
+            if price.product_name_str.product_name.full_name.category_name.count(search_term) > 0:
+                keep = True
+            if keep:
+                new_list.append(price.id)
+
+        new_queryset = ProductsPriceTable.objects.filter(id__in=new_list)
+
+        # print("asd,", may_have_duplicates, queryset, search_term, new_queryset)
+        return new_queryset, may_have_duplicates
 
     autocomplete_fields = ('product_name_str',
                            'name_att1',
