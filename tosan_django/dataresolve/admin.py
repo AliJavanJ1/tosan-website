@@ -448,7 +448,7 @@ class PriceTableAdminForm(ImportExportModelAdmin):
             obj.last_day_price = obj.price
         if not obj.last_price_date:
             obj.last_price_date = obj.date_price_modified
-        if obj.date_price_modified.second > obj.date_last_price_modified.second + 1:
+        if obj.date_price_modified.day > obj.date_last_price_modified.day + 1:
             obj.last_price_date = obj.date_price_modified
             obj.last_day_price = obj.last_price
             # print("gooz")
