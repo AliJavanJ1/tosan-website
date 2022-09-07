@@ -363,6 +363,19 @@ class PriceTableForm(forms.ModelForm):
         exclude = ('date_price_modified', 'last_day_price', 'last_price_date', 'date_last_price_modified', 'last_price')
 
 
+@admin.action(description="آپدیت تاریخ آخرین تغییر")
+def price_table_date_update(modeladmin, request, queryset):
+    query_set_iter = queryset.iterator()
+    for price in query_set_iter:
+        price.date_price_modified = timezone.now()
+        if price.date_price_modified.day > price.date_last_price_modified.day + 1:
+            price.last_price_date = price.date_price_modified
+            price.last_day_price = price.last_price
+        price.date_last_price_modified = price.date_price_modified
+        price.last_price = price.price
+        price.save()
+
+
 class PriceTableAdminForm(ImportExportModelAdmin):
     form = PriceTableForm
     empty_value_display = '-خالی-'
@@ -383,6 +396,7 @@ class PriceTableAdminForm(ImportExportModelAdmin):
     sortable_by = ('product_name_str', 'price')
     list_filter = ('hasOffer', ProductCategoryMainNamePriceTableFilter)
     show_close_button = True
+    actions = [price_table_date_update]
 
     def get_search_results(self, request, queryset, search_term):
         queryset, may_have_duplicates = super().get_search_results(
@@ -434,7 +448,7 @@ class PriceTableAdminForm(ImportExportModelAdmin):
             obj.last_day_price = obj.price
         if not obj.last_price_date:
             obj.last_price_date = obj.date_price_modified
-        if obj.date_price_modified.minute > obj.date_last_price_modified.minute + 1:
+        if obj.date_price_modified.day > obj.date_last_price_modified.day + 1:
             obj.last_price_date = obj.date_price_modified
             obj.last_day_price = obj.last_price
             # print("gooz")
