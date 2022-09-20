@@ -54,14 +54,19 @@ export default function Header() {
                             گالری
                         </Typography>
                     </StyledButton>
-                    <StyledButton href={'/catalog'}>
+                    <StyledButton href={'/downloads'}>
                         <Typography variant={'demiBold'}>
-                            کاتالوگ
+                            دانلود ها
                         </Typography>
                     </StyledButton>
                     <StyledButton href={'/job-offers'}>
                         <Typography variant={'demiBold'}>
                             فرصت‌های شغلی
+                        </Typography>
+                    </StyledButton>
+                    <StyledButton href={'/events'}>
+                        <Typography variant={'demiBold'}>
+                            رویداد ها
                         </Typography>
                     </StyledButton>
                 </Stack>

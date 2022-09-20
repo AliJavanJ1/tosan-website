@@ -60,8 +60,13 @@ const Footer = () => {
         },
         {
             id: 5,
-            url: "/catalog",
-            name: "کاتالوگ"
+            url: "/downloads",
+            name: "دانلود ها"
+        },
+        {
+            id: 6,
+            url: "/events",
+            name: "رویداد ها"
         },
     ]
 
