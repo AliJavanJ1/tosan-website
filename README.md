@@ -10,6 +10,14 @@ This setup is intended for local development where:
 
 ---
 
+## Purpose & capabilities (short)
+
+This project is a “vitrine” (showcase) website built for a steel holding company to present its **products** and **offers** in a **comprehensive, user-friendly** format.
+
+It also includes a **feature-rich admin panel** with **multi-layer, role-based access control**, enabling different teams/roles to update and manage content efficiently based on the company’s operational needs.
+
+---
+
 ## Repository structure (visual tree)
 
 ```text
